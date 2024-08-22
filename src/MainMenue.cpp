@@ -44,7 +44,7 @@ void delay(int milliseconds)
     }
 }
 
-void typePrint(std::string content, int delayTime = 15, std::string color = "")
+void typePrint(std::string content, int delayTime = 15, std::string color = "\033[36m")
 {
     std::string token;
     std::stringstream ss(content);
@@ -179,16 +179,16 @@ void Accessiblity(int &delayTime, std::string &color) {
             cin >> colorChoice;
             switch (colorChoice) {
                 case 1:
-                    color = "\033[32m";  // Green
+                    color = "\033[32m";  
                     break;
                 case 2:
-                    color = "\033[34m";  // Blue
+                    color = "\033[34m";  
                     break;
                 case 3:
-                    color = "\033[31m";  // Red
+                    color = "\033[31m";  
                     break;
                 case 4:
-                    color = "\033[33m";  // Yellow
+                    color = "\033[33m";  
                     break;
                 case 5:
                     color = "\033[36m"; 
@@ -203,4 +203,22 @@ void Accessiblity(int &delayTime, std::string &color) {
         default:
             cout << "Invalid choice. Returning to Accessibility Options." << endl;
     }
+}
+
+int main() {
+    int j;
+    bool running = true;
+
+ 
+    int delayTime = 15;
+    std::string color = "\033[36m";
+
+ 
+#ifdef _WIN32
+    SetConsoleSize(800, 600);  
+#else
+    SetTerminalSize(50, 100); 
+#endif
+
+    displayIntro(delayTime, color);  
 }
