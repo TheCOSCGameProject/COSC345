@@ -27,7 +27,7 @@ void SetConsoleSize(int width, int height)
 #include <unistd.h>
 #include <termios.h>
 
-void TerminalSizej(int height, int width)
+void SetTerminalSize(int height, int width)
 {
     std::cout << "\e[8;" << height << ";" << width << "t";
 }
@@ -66,3 +66,29 @@ void typePrint(std::string content, int delayTime = 15, std::string color = "\03
     std::cout << "\033[0m"; 
 }
 
+std::string getFileContent(std::string fileName)
+{
+    std::ifstream file(fileName);
+    std::string str;
+    std::string file_contents;
+    while (std::getline(file, str))
+    {
+        file_contents += str;
+        file_contents.push_back('\n');
+    }
+    return file_contents;
+}
+
+std::vector<std::string> split(const std::string &str, char delimiter)
+{
+    std::vector<std::string> tokens;
+    std::string token;
+    std::istringstream tokenStream(str);
+
+    while (std::getline(tokenStream, token, delimiter))
+    {
+        tokens.push_back(token);
+    }
+
+    return tokens;
+}
