@@ -11,7 +11,7 @@ using namespace std;
 #ifdef _WIN32
 #include <windows.h>
 
-void SetConsoleSize(int width, int height)
+void ConsoleSizeControl(int width, int height)
 {
     HWND console = GetConsoleWindow();
     RECT r;
@@ -215,10 +215,40 @@ int main() {
 
  
 #ifdef _WIN32
-    SetConsoleSize(800, 600);  
+    ConsoleSizeControl(800, 600);  
 #else
     SetTerminalSize(50, 100); 
 #endif
 
     displayIntro(delayTime, color);  
+
+    while (running) {
+        Displayj();
+        cin >> j;
+
+        switch (j) {
+            case 1:
+                StartGame();
+                break;
+            case 2:
+                LoadSavedGame();
+                break;
+            case 3:
+                DisplayInstructionsText();
+                break;
+            case 4:
+                Accessiblity(delayTime, color);
+                break;
+            case 5:
+                cout << "Exiting Game. We hope you enjoyed the Game Play." << endl;
+                running = false;
+                break;
+            default:
+                cout << "Error: An invalid choice has been entered please try again." << endl;
+        }
+
+        cout << endl;
+    }
+
+    return 0;
 }
