@@ -92,3 +92,40 @@ std::vector<std::string> split(const std::string &str, char delimiter)
 
     return tokens;
 }
+
+void displayIntro(int delayTime, std::string color) {
+    string intro = R"(
+The Butlerian Jihad, also known as the Great Revolt, was a monumental crusade against computers, 
+thinking machines, and conscious robots. It began in 201 BG and concluded in 108 BG, marking a pivotal period in history.@
+
+During this time, few dared to oppose the Jihad. However, a select number of families with significant 
+investments in thinking machines resisted their total destruction. The most prominent of these was House Valeris, 
+responsible for the construction of over 45% of the thinking machines in the universe.@
+
+As the Jihad concluded, those who opposed it were relentlessly hunted down and executed. 
+Resistance was fierce but ultimately futile. Yet, rumours persist that members of House Valeris survived, 
+and with them, the thinking machines...@
+
+___________.__             ___________.__    .__        __   .__                    _____                .__    .__                      
+\__    ___/|  |__   ____   \__    ___/|  |__ |__| ____ |  | _|__| ____    ____     /     \ _____    ____ |  |__ |__| ____   ____   ______
+  |    |   |  |  \_/ __ \    |    |   |  |  \|  |/    \|  |/ /  |/    \  / ___\   /  \ /  \\__  \ _/ ___\|  |  \|  |/    \_/ __ \ /  ___/
+  |    |   |   Y  \  ___/    |    |   |   Y  \  |   |  \    <|  |   |  \/ /_/  > /    Y    \/ __ \\  \___|   Y  \  |   |  \  ___/ \___ \ 
+  |____|   |___|  /\___  >   |____|   |___|  /__|___|  /__|_ \__|___|  /\___  /  \____|__  (____  /\___  >___|  /__|___|  /\___  >____  >
+                \/     \/                  \/        \/     \/       \//_____/           \/     \/     \/     \/        \/     \/     \/@
+
+)";
+    typePrint(intro, delayTime, color);  
+}
+
+void Displayj() {
+    cout << "==========================================================" << endl;
+    cout << setw(15) << " " << "VALERIS GAME MENU" << endl;  
+    cout << "==========================================================" << endl;
+    cout << "1. Start New Game" << endl;
+    cout << "2. Load Saved Game" << endl;
+    cout << "3. Instructions" << endl;
+    cout << "4. Accessibility" << endl;
+    cout << "5. Exit" << endl;
+    cout << "==========================================================" << endl;
+    cout << "Enter your choice (1-5): ";
+}
