@@ -44,7 +44,7 @@ void delay(int milliseconds)
     }
 }
 
-void typePrint(std::string content, int delayTime = 15, std::string color = "\033[36m")
+void typePrint(std::string content, int delayTime = 15, std::string color = "")
 {
     std::string token;
     std::stringstream ss(content);
@@ -128,4 +128,79 @@ void Displayj() {
     cout << "5. Exit" << endl;
     cout << "==========================================================" << endl;
     cout << "Enter your choice (1-5): ";
+}
+
+void StartGame() {
+    cout << "Starting a new game..." << endl;
+    
+}
+
+void LoadSavedGame() {
+    cout << "Loading game..." << endl;
+    
+}
+
+void DisplayInstructionsText() {
+    string instructions = R"(
+Instructions:
+1. Use the arrow keys to move your character.
+2. Avoid obstacles and enemies.
+3. Collect items to improve your chances of survival.
+4. Defeat bosses to progress to the next level.
+)";
+    typePrint(instructions);  
+}
+
+
+void Accessiblity(int &delayTime, std::string &color) {
+    cout << "Accessibility Options:" << endl;
+    cout << "1. Text Speed (current: " << delayTime << " ms)" << endl;
+    cout << "2. Text Color (current: " << color << ")" << endl;
+    cout << "3. Return to Main Menu" << endl;
+    cout << "Enter your choice: ";
+
+    int j;
+    cin >> j;
+
+    switch (j) {
+        case 1:
+            cout << "Enter new text speed in milliseconds: ";
+            cin >> delayTime;
+            break;
+        case 2:
+            cout << "Select text color:" << endl;
+            cout << "1. Green" << endl;
+            cout << "2. Blue" << endl;
+            cout << "3. Red" << endl;
+            cout << "4. Yellow" << endl;
+            cout << "5. Default Cyan" << endl;
+            cout << "Enter your choice: ";
+            int colorChoice;
+            cin >> colorChoice;
+            switch (colorChoice) {
+                case 1:
+                    color = "\033[32m";  // Green
+                    break;
+                case 2:
+                    color = "\033[34m";  // Blue
+                    break;
+                case 3:
+                    color = "\033[31m";  // Red
+                    break;
+                case 4:
+                    color = "\033[33m";  // Yellow
+                    break;
+                case 5:
+                    color = "\033[36m"; 
+                    break;
+                default:
+                    cout << "Invalid choice. Keeping current color." << endl;
+                    break;
+            }
+            break;
+        case 3:
+            return;
+        default:
+            cout << "Invalid choice. Returning to Accessibility Options." << endl;
+    }
 }
