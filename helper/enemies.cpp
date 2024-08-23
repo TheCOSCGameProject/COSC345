@@ -137,6 +137,9 @@ int main() // Hoaw to use
     std::cout << "Attack: " << spawner.getAttack(enemy) << std::endl;
     std::cout << "Defence: " << spawner.getDefence(enemy) << std::endl;
     std::cout << "Personality: " << spawner.getPersonality(enemy) << std::endl;
+    spawner.damageDelt(enemy, 50);
+    std::cout << "Health: " << spawner.getHealth(enemy) << std::endl;
+    std::cout << "Is dead: " << spawner.isDead(enemy) << std::endl;
 
     return 0;
 }
