@@ -1,46 +1,142 @@
 #include <iostream>
-#include <unordered_map>
+#include <string>
 #include <vector>
 #include <cstdlib>
 #include <ctime>
 
-// weapon class
-class Enemies
+struct Enemy
+{
+    std::string name;
+    int health;
+    int attack;
+    std::string type; // idk
+    int defence; // Damage taken modifier
+    std::string personality; // Dialogue/Combat 'aggressiveness'
+};
+
+class EnemySpawner
 {
 public:
-    // constructor
-    Enemies()
+    EnemySpawner()
     {
         // seed
         srand(static_cast<unsigned int>(time(0)));
+    }
 
-        // weapons
-        (1, "Plasma Rifle", "A high-energy weapon that fires concentrated plasma bolts.", 45, "Rare", true, false);
-        (2, "Laser Pistol", "A compact, high-precision laser pistol ideal for close combat.", 25, "Common", true, false);
-        (3, "Icicle", "A grenade that releases a freezing gas upon hit, freezing enemies.", 35, "Uncommon", false, true);
-        (4, "Sonic Blaster", "Emits sound waves capable of shattering solid objects.", 40, "Rare", true, true);
-        (5, "Electro Blade", "A sword infused with electrical energy, delivering a shock with each strike.", 30, "Uncommon", false, true);
-        (6, "Ion Cannon", "A heavy-duty weapon that fires a massive ion beam, effective against armored targets.", 60, "Epic", true, true);
-        (7, "Pulse Rifle", "Fires rapid bursts of energy pulses, excellent for crowd control.", 38, "Common", true, true);
-        (8, "Nano Sword", "A blade composed of nanobots, able to cut through virtually anything.", 50, "Epic", false, false);
-        (9, "Graviton Hammer", "A weapon that manipulates gravity to deliver devastating blows.", 55, "Legendary", false, true);
-        (10, "Neutron Bomb", "A bomb that releases neutron radiation, lethal to organic life.", 100, "Legendary", true, false);
-        (11, "Crysknife", "A sacred knife made from the tooth of a sandworm. Deadly in close combat.", 50, "Rare", false, false);
-        (12, "Maula Pistol", "A small, easily concealable projectile weapon used by assassins.", 25, "Common", false, false);
-        (13, "Lasgun", "A powerful beam weapon capable of cutting through almost any material.", 60, "Uncommon", false, false);
-        (14, "Spice Grenade", "An explosive that disperses spice particles, causing hallucinations and disorientation.", 50, "Epic", true, true);
-        (15, "Gom Jabbar", "A needle-like weapon that delivers a lethal poison. Used in specific assassination rituals.", 100, "Legendary", false, false);
-        (16, "Hunter-Seeker", "A remote-controlled assassination device that seeks out its target with precision.", 45, "Epic", true, false);
-        (17, "Stunner", "A non-lethal weapon used to incapacitate enemies, commonly used by law enforcement.", 20, "Common", false, true);
-        (18, "Spice-Enhanced Blade", "A blade tempered with the essence of spice, increasing its sharpness and durability.", 55, "Epic", false, true);
-        (19, "Shai-Hulud's Tooth", "A weapon made from a sandworm tooth, infused with the power of the desert.", 70, "Legendary", false, false);
-        (20, "Weirding Module", "A sound-based weapon that amplifies the voice of its user to deliver devastating sonic attacks.", 70, "Legendary", true, true);
-        (21, "Sand Compactor", "A tool-turned-weapon that uses compressed sand to create projectiles.", 30, "Uncommon", true, false);
-        (22, "Fremen Hook", "A specialized tool used by the Fremen to ride sandworms, can also be used as a weapon.", 40, "Rare", false, true);
-        (23, "Injector Dart", "A small dart that can deliver a variety of substances, from tranquilizers to lethal toxins.", 35, "Uncommon", true, true);
-        (24, "Spice Harvester's Wrench", "A large, heavy tool used in spice harvesting, repurposed as a weapon.", 45, "Common", true, false);
-        (25, "Glowglobe Bomb", "A light-emitting device that can be overloaded to explode, blinding enemies temporarily.", 20, "Uncommon", true, true);
-        (26, "Stilgar's Blade", "A unique knife belonging to the legendary Fremen leader Stilgar, revered for its history.", 55, "Epic", false, false);
-        (27, "Sardaukar Blade", "A razor-sharp sword used by the elite Sardaukar troops, feared across the galaxy.", 65, "Rare", false, false);
-    };
+    Enemy spawnEnemy()
+    {
+        Enemy enemy;
+        enemy.name = generateName();
+        enemy.health = generateHealth();
+        enemy.attack = generateAttack();
+        enemy.type = generateType();
+        enemy.personality = generatePersonality();
+        enemy.defence = generateDefence();
+        return enemy;
+    }
+
+    int getHealth(const Enemy &enemy)
+    {
+        return enemy.health;
+    }
+
+    int getAttack(const Enemy &enemy)
+    {
+        return enemy.attack;
+    }
+
+    std::string getName(const Enemy &enemy)
+    {
+        return enemy.name;
+    }
+
+    std::string getType(const Enemy &enemy)
+    {
+        return enemy.type;
+    }
+
+    std::string getPersonality(const Enemy &enemy) // For dialogue
+    {
+        return enemy.personality;
+    }
+
+    int getDefence(const Enemy &enemy)
+    {
+        return enemy.defence;
+    }
+
+    bool isDead(const Enemy &enemy)
+    {
+        return enemy.health <= 0;
+    }
+
+    void damageDelt(Enemy &enemy, int hurt)
+    {
+        if (enemy.type == "Sardaukar"){
+            hurt = hurt*0.8;
+        }
+        enemy.health -= hurt * (1 - enemy.defence / 100);
+    }
+
+    void setAttack(Enemy &enemy, int attack)
+    {
+        enemy.attack = attack;
+    }
+
+    void setHealth(Enemy &enemy, int health) // Don't use to update health from attacks
+    {
+        enemy.health = health;
+    }
+
+private:
+    std::string generateName()
+    {
+        std::vector<std::string> names = {"Kaelen", "Liora", "Orin", "Zylara", "KL-98", "RW-07", "Charles", "Jacket", "Raid"};
+        return names[rand() % names.size()];
+    }
+
+    int generateHealth()
+    {
+        return rand() % 51 + 50; // Health between 50 and 100
+    }
+
+    int generateAttack()
+    {
+        return rand() % 21 + 10; // Attack between 10 and 30
+    }
+
+    std::string generateType()
+    {
+        std::vector<std::string> types = {"Sardaukar", "Fremen", "AI", "Rodians"};
+        return types[rand() % types.size()];
+    }
+
+    std::string generatePersonality()
+    {
+        std::vector<std::string> types = {"Upstanding", "Martial", "Cunning", "Sadistic", "Cautious"};
+        return types[rand() % types.size()];
+    }
+
+    int generateDefence()
+    {
+        return rand() % 76 + 5; // Defence between 5 and 80
+    }
 };
+
+int main() // Hoaw to use
+{
+    EnemySpawner spawner;
+
+    // Spawn an enemy
+    Enemy enemy = spawner.spawnEnemy();
+
+    // Display the enemy's details
+    std::cout << "Enemy Name: " << spawner.getName(enemy) << std::endl;
+    std::cout << "Type: " << spawner.getType(enemy) << std::endl;
+    std::cout << "Health: " << spawner.getHealth(enemy) << std::endl;
+    std::cout << "Attack: " << spawner.getAttack(enemy) << std::endl;
+    std::cout << "Defence: " << spawner.getDefence(enemy) << std::endl;
+    std::cout << "Personality: " << spawner.getPersonality(enemy) << std::endl;
+
+    return 0;
+}
