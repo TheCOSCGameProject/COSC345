@@ -1,2 +1,4 @@
 In the src directory then run:
 g++ valeris.cpp -w -o valeris && ./valeris
+
+Testing(to add tomorrow morning needa sleep but repo secret was wrong :////)
