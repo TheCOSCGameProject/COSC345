@@ -16,28 +16,38 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Install Chocolatey
+      run: |
+        Set-ExecutionPolicy Bypass -Scope Process -Force; 
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; 
+        iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
+    - name: Install GCC
+      run: choco install mingw -y
+
+    - name: Install Python and gcovr
+      run: |
+        choco install python -y
+        pip install gcovr
+
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
 
-    - name: Setup OpenCppCoverage and add to PATH
-      run: |
-        choco install OpenCppCoverage -y
-        echo "C:\Program Files\OpenCppCoverage" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-
     - name: Restore NuGet packages
-      run: nuget restore ${{env.SOLUTION_FILE_PATH}}
+      run: nuget restore ${{ env.SOLUTION_FILE_PATH }}
 
-    - name: Build
-      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
-
-    - name: Run tests and generate coverage
+    - name: Build with Coverage
       run: |
-        if (Test-Path ".\run_tests.exe") {
-          OpenCppCoverage.exe --export_type=cobertura:coverage.xml --sources ${{github.workspace}} -- .\run_tests.exe
-        } else {
-          echo "Test executable not found"
-          exit 1
-        }
+        g++ -std=c++11 --coverage -o run_tests.exe tests/minigames_test.cpp
+        msbuild /m /p:Configuration=${{ env.BUILD_CONFIGURATION }} ${{ env.SOLUTION_FILE_PATH }}
+
+    - name: Run Tests
+      run: .\run_tests.exe
+
+    - name: Generate Coverage Report with gcovr
+      run: |
+        gcovr -r . --xml-pretty -o coverage.xml
+        gcovr -r . --html --html-details -o coverage.html
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
@@ -51,23 +61,10 @@ jobs:
       with:
         project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
         coverage-reports: coverage.xml
+        final: true
 
-    - name: Run Codacy Analysis CLI
-      uses: codacy/codacy-analysis-cli-action@master
-      with:
-        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-        verbose: true
-        output: results.sarif
-        format: sarif
-        directory: ${{ github.workspace }}
-
-    - name: Upload SARIF results file
-      uses: github/codeql-action/upload-sarif@main
-      with:
-        sarif_file: results.sarif
-
-    - name: Upload coverage report
+    - name: Upload HTML Coverage Report as Artifact
       uses: actions/upload-artifact@v3
       with:
         name: coverage-report
-        path: coverage.xml
+        path: coverage.html
