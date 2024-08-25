@@ -21,6 +21,19 @@ public:
         std::cout.flush();
     }
 
+    char getSquare(int row, int col) const
+    {
+        return squares[row][col];
+    }
+
+    void playerMove(int row, int col)
+    {
+        if (row >= 0 && row < 3 && col >= 0 && col < 3 && squares[row][col] == ' ')
+        {
+            squares[row][col] = 'X';
+        }
+    }
+
     void computerTurn()
     {
         std::srand(static_cast<unsigned int>(std::time(nullptr)));
@@ -245,5 +258,20 @@ public:
         {
             std::cout << words.at(i) + "\n";
         }
+    }
+
+    int getWordLength() const
+    {
+        return 5; // For testing...
+    }
+
+    int getGuessCount() const
+    {
+        return guesses.size();
+    }
+
+    std::string getLastGuess() const
+    {
+        return guesses.empty() ? "" : guesses.back();
     }
 };
