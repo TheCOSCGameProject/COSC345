@@ -1,0 +1,14 @@
+---
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+        - cpp
+  metrics:
+    enabled: true
+  coverage:
+    enabled: true
+exclude_paths:
+  - 'tests/**/*'
+  - '**/*.md'
