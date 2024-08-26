@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include "../helper/minigames.cpp"
 
 // Assuming these functions are declared in the toolkit.h
 // std::vector<std::string> split(const std::string &str, char delimiter);
@@ -21,7 +22,7 @@ struct Enemy
 struct NPC
 {
     std::string name;
-    int gamblingGame;
+    std::unique_ptr<Game> gamblingGame;
     int skillLevel;
 };
 
@@ -35,6 +36,8 @@ public:
     void addItem(const std::string &item);
     void addEnemy(const Enemy &enemy);
     void displayContent() const;
+    int getRoomType();
+    NPC &getNPC();
 
 private:
     std::vector<std::string> items;

@@ -1,5 +1,5 @@
 #include "../lib/combat.h"
-#include "../helper/minigames.cpp"
+// #include "../helper/minigames.cpp"
 #include "../lib/player.h"
 #include "../lib/toolkit.h"
 #include "../lib/room.h"
@@ -22,13 +22,19 @@ int main()
 
   // Player player;
 
-  // Room room;
-  // room.roomContent.displayContent();
+  Room room;
+  room.roomContent.displayContent();
 
-  // Room room2;
-  // room2.roomContent.displayContent();
+  Room room2;
+  room2.roomContent.displayContent();
 
-  BlackJack blackjack;
+  if (room2.roomContent.getRoomType() == 1)
+  {
+    NPC &npc = room2.roomContent.getNPC();
+    npc.gamblingGame->start();
+  }
+
+  // BlackJack blackjack;
 
   return 0;
 }
