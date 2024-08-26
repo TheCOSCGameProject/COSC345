@@ -5,7 +5,8 @@
 #include <queue>
 #include <set>
 #include <map>
-#include "../lib/room.h" // room
+#include "../lib/room.h"
+#include "../lib/enemies.h"
 
 class Dungeon
 {
@@ -16,26 +17,26 @@ private:
     Room *generateRoom()
     {
         Room *newRoom = new Room();
-
+        
         // Generate content for the room
-        int roomType = std::uniform_int_distribution<>(0, 2)(rng); // Example for different room types
+        int roomType = std::uniform_int_distribution<>(0, 2)(rng);
 
-        switch (roomType)
+        switch(roomType)
         {
-        case 0:
-            newRoom->roomContent.emptyRoom();
-            break;
-        case 1:
-            newRoom->roomContent.gamblingRoom();
-            break;
-        case 2:
-            // Populate with some enemies/items
-            newRoom->roomContent.addEnemy({"Goblin", 30, 5});
-            newRoom->roomContent.addItem("Sword");
-            break;
-            // Add more cases as needed for different room types
+            case 0:
+                newRoom->roomContent.emptyRoom();
+                break;
+            case 1:
+                newRoom->roomContent.gamblingRoom();
+                break;
+            case 2:
+                // Use EnemySpawner to add enemies to the room
+                EnemySpawner spawner;
+                newRoom->roomContent.addEnemy(spawner.spawnEnemy());
+                newRoom->roomContent.addItem("Sword");
+                break;
         }
-
+        
         rooms.push_back(newRoom);
         return newRoom;
     }
