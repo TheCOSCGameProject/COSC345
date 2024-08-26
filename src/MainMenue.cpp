@@ -1,96 +1,274 @@
 #include <iostream>
-#include "../lib/dependencies.h"
-#include <sstream>
 #include <vector>
+#include <random>
+#include <ctime>
+#include <queue>
+#include <map>
+#include <sstream>
 #include <thread>
 #include <chrono>
-#include <iomanip>  
+#include <iomanip>
 
 using namespace std;
 
 #ifdef _WIN32
 #include <windows.h>
+#endif
 
-void ConsoleSizeControl(int width, int height)
-{
+// Room class definition
+class Room {
+public:
+    Room* north;
+    Room* south;
+    Room* west;
+    Room* east;
+    std::string content;
+
+    Room() : north(nullptr), south(nullptr), west(nullptr), east(nullptr), content("Empty room") {}
+
+    void displayAvailableDirections() const {
+        std::cout << "You can move: ";
+        if (north) std::cout << ", North ";
+        if (south) std::cout << ", South ";
+        if (west) std::cout << ", West ";
+        if (east) std::cout << ", East ";
+        std::cout << std::endl;
+    }
+};
+
+// Dungeon class definition
+class Dungeon {
+private:
+    std::vector<Room*> rooms;
+    std::mt19937 rng;
+
+    Room* generateRoom() {
+        Room* newRoom = new Room();
+        rooms.push_back(newRoom);
+        return newRoom;
+    }
+
+    void linkRooms(Room* room1, Room* room2, int direction) {
+        switch (direction) {
+            case 0: // North
+                room1->north = room2;
+                room2->south = room1;
+                break;
+            case 1: // South
+                room1->south = room2;
+                room2->north = room1;
+                break;
+            case 2: // West
+                room1->west = room2;
+                room2->east = room1;
+                break;
+            case 3: // East
+                room1->east = room2;
+                room2->west = room1;
+                break;
+        }
+    }
+
+    void checkAndLink(Room* newRoom, int x, int y, std::map<std::pair<int, int>, Room*>& roomMap) {
+        // Check north
+        if (roomMap.find({x, y + 1}) != roomMap.end()) {
+            linkRooms(newRoom, roomMap[{x, y + 1}], 0);
+        }
+        // Check south
+        if (roomMap.find({x, y - 1}) != roomMap.end()) {
+            linkRooms(newRoom, roomMap[{x, y - 1}], 1);
+        }
+        // Check west
+        if (roomMap.find({x - 1, y}) != roomMap.end()) {
+            linkRooms(newRoom, roomMap[{x - 1, y}], 2);
+        }
+        // Check east
+        if (roomMap.find({x + 1, y}) != roomMap.end()) {
+            linkRooms(newRoom, roomMap[{x + 1, y}], 3);
+        }
+    }
+
+public:
+    Dungeon() : rng(std::time(0)) {}
+
+    ~Dungeon() {
+        for (Room* room : rooms) {
+            delete room;
+        }
+    }
+
+    Room* generateFloor(int numRooms) {
+        if (numRooms <= 0) {
+            return nullptr;
+        }
+
+        Room* startRoom = generateRoom();
+        std::map<std::pair<int, int>, Room*> roomMap;
+        roomMap[{0, 0}] = startRoom;
+
+        for (int i = 1; i < numRooms; ++i) {
+            Room* existingRoom;
+            int direction, x = 0, y = 0;
+
+            do {
+                auto it = roomMap.begin();
+                std::advance(it, std::uniform_int_distribution<>(0, roomMap.size() - 1)(rng));
+                existingRoom = it->second;
+                x = it->first.first;
+                y = it->first.second;
+
+                direction = std::uniform_int_distribution<>(0, 3)(rng);
+            } while (
+                (direction == 0 && existingRoom->north != nullptr) ||
+                (direction == 1 && existingRoom->south != nullptr) ||
+                (direction == 2 && existingRoom->west != nullptr) ||
+                (direction == 3 && existingRoom->east != nullptr));
+
+            int newX = x, newY = y;
+
+            switch (direction) {
+                case 0: newY += 1; break; // North
+                case 1: newY -= 1; break; // South
+                case 2: newX -= 1; break; // West
+                case 3: newX += 1; break; // East
+            }
+
+            Room* newRoom = generateRoom();
+            roomMap[{newX, newY}] = newRoom;
+            linkRooms(existingRoom, newRoom, direction);
+
+            // Check and link to adjacent rooms
+            checkAndLink(newRoom, newX, newY, roomMap);
+        }
+
+        return rooms[std::uniform_int_distribution<>(0, rooms.size() - 1)(rng)];
+    }
+
+    void relinkDungeon(Room* startRoom) {
+        if (startRoom == nullptr)
+            return;
+
+        std::queue<std::pair<Room*, std::pair<int, int>>> q;
+        std::map<std::pair<int, int>, Room*> visited;
+
+        q.push({startRoom, {0, 0}});
+        visited[{0, 0}] = startRoom;
+
+        while (!q.empty()) {
+            auto [currentRoom, coords] = q.front();
+            q.pop();
+
+            int x = coords.first;
+            int y = coords.second;
+
+            // Check and relink all possible directions
+            if (currentRoom->north && visited.find({x, y + 1}) == visited.end()) {
+                currentRoom->north->south = currentRoom;
+                q.push({currentRoom->north, {x, y + 1}});
+                visited[{x, y + 1}] = currentRoom->north;
+            }
+
+            if (currentRoom->south && visited.find({x, y - 1}) == visited.end()) {
+                currentRoom->south->north = currentRoom;
+                q.push({currentRoom->south, {x, y - 1}});
+                visited[{x, y - 1}] = currentRoom->south;
+            }
+
+            if (currentRoom->east && visited.find({x + 1, y}) == visited.end()) {
+                currentRoom->east->west = currentRoom;
+                q.push({currentRoom->east, {x + 1, y}});
+                visited[{x + 1, y}] = currentRoom->east;
+            }
+
+            if (currentRoom->west && visited.find({x - 1, y}) == visited.end()) {
+                currentRoom->west->east = currentRoom;
+                q.push({currentRoom->west, {x - 1, y}});
+                visited[{x - 1, y}] = currentRoom->west;
+            }
+        }
+    }
+
+
+    void traverseAndPrint(Room *startRoom)
+    { // Traverse the floor (used for testing or can create floor maps)
+        if (startRoom == nullptr)
+            return;
+
+        std::queue<std::pair<Room *, std::pair<int, int>>> q;
+        std::map<std::pair<int, int>, Room *> visited;
+
+        q.push({startRoom, {0, 0}});
+        visited[{0, 0}] = startRoom;
+
+        while (!q.empty()){
+            auto [currentRoom, coords] = q.front();
+            q.pop();
+
+            int x = coords.first;
+            int y = coords.second;
+            std::cout << "Room at (" << x << ", " << y << "): " << currentRoom->content << std::endl;
+
+            if (currentRoom->north && visited.find({x, y + 1}) == visited.end())
+            {
+                q.push({currentRoom->north, {x, y + 1}});
+                visited[{x, y + 1}] = currentRoom->north;
+            }
+            if (currentRoom->south && visited.find({x, y - 1}) == visited.end())
+            {
+                q.push({currentRoom->south, {x, y - 1}});
+                visited[{x, y - 1}] = currentRoom->south;
+            }
+            if (currentRoom->east && visited.find({x + 1, y}) == visited.end())
+            {
+                q.push({currentRoom->east, {x + 1, y}});
+                visited[{x + 1, y}] = currentRoom->east;
+            }
+            if (currentRoom->west && visited.find({x - 1, y}) == visited.end())
+            {
+                q.push({currentRoom->west, {x - 1, y}});
+                visited[{x - 1, y}] = currentRoom->west;
+            }
+        }
+    }
+};
+
+#ifdef _WIN32
+void ConsoleSizeControl(int width, int height) {
     HWND console = GetConsoleWindow();
     RECT r;
     GetWindowRect(console, &r);
-
     MoveWindow(console, r.left, r.top, width, height, TRUE);
-
     SetWindowLong(console, GWL_STYLE, GetWindowLong(console, GWL_STYLE) & ~WS_SIZEBOX);
 }
-
 #else
-#include <sys/ioctl.h>
-#include <unistd.h>
-#include <termios.h>
-
-void SetTerminalSize(int height, int width)
-{
+void SetTerminalSize(int height, int width) {
     std::cout << "\e[8;" << height << ";" << width << "t";
 }
-
 #endif
 
-
-void delay(int milliseconds)
-{
+void delay(int milliseconds) {
     auto start = std::chrono::high_resolution_clock::now();
-    while (std::chrono::high_resolution_clock::now() - start < std::chrono::milliseconds(milliseconds))
-    {
-        
+    while (std::chrono::high_resolution_clock::now() - start < std::chrono::milliseconds(milliseconds)) {
+        // Busy-waiting loop to create a delay
     }
 }
 
-void typePrint(std::string content, int delayTime = 15, std::string color = "\033[36m")
-{
+void typePrint(std::string content, int delayTime = 15, std::string color = "\033[36m") {
     std::string token;
     std::stringstream ss(content);
     std::vector<std::string> tokens;
 
-    while (getline(ss, token, '@'))
-    {
+    while (getline(ss, token, '@')) {
         tokens.push_back(token);
     }
 
-    for (std::string &text : tokens)
-    {
-        for (char c : text)
-        {
+    for (std::string& text : tokens) {
+        for (char c : text) {
             std::cout << color << c << std::flush;
             delay(delayTime);
         }
     }
     std::cout << "\033[0m"; 
-}
-
-std::string getFileContent(std::string fileName)
-{
-    std::ifstream file(fileName);
-    std::string str;
-    std::string file_contents;
-    while (std::getline(file, str))
-    {
-        file_contents += str;
-        file_contents.push_back('\n');
-    }
-    return file_contents;
-}
-
-std::vector<std::string> split(const std::string &str, char delimiter)
-{
-    std::vector<std::string> tokens;
-    std::string token;
-    std::istringstream tokenStream(str);
-
-    while (std::getline(tokenStream, token, delimiter))
-    {
-        tokens.push_back(token);
-    }
-
-    return tokens;
 }
 
 void displayIntro(int delayTime, std::string color) {
@@ -114,6 +292,7 @@ ___________.__             ___________.__    .__        __   .__                
                 \/     \/                  \/        \/     \/       \//_____/           \/     \/     \/     \/        \/     \/     \/@
 
 )";
+  
     typePrint(intro, delayTime, color);  
 }
 
@@ -131,13 +310,70 @@ void Displayj() {
 }
 
 void StartGame() {
-    cout << "Starting a new game..." << endl;
-    
+    std::cout << "Starting a new game..." << std::endl;
+
+    Dungeon dungeon;
+    int numRooms = 10;
+    // dungeon.generateFloor(numRooms);
+    Room* currentRoom = dungeon.generateFloor(numRooms);
+
+    dungeon.traverseAndPrint(currentRoom); // layout checking
+    dungeon.relinkDungeon(currentRoom);
+
+    std::cout << "Dungeon generated with " << numRooms << " rooms." << std::endl;
+
+    bool exploring = true;
+    while (exploring) {
+        std::cout << "Currently, you are in a " << currentRoom->content << "." << std::endl;
+        currentRoom->displayAvailableDirections();
+
+        std::cout << "Please enter a direction as N (North), S (South), E (East) and W (West) or Q (Quit): ";
+        char direction;
+        std::cin >> direction;
+
+        switch (toupper(direction)) {
+            case 'N':
+                if (currentRoom->north) {
+                    currentRoom = currentRoom->north;
+                } else {
+                    std::cout << "You can't move North." << std::endl;
+                }
+                break;
+            case 'S':
+                if (currentRoom->south) {
+                    currentRoom = currentRoom->south;
+                } else {
+                    std::cout << "You can't move South." << std::endl;
+                }
+                break;
+            case 'E':
+                if (currentRoom->east) {
+                    currentRoom = currentRoom->east;
+                } else {
+                    std::cout << "You can't move East." << std::endl;
+                }
+                break;
+            case 'W':
+                if (currentRoom->west) {
+                    currentRoom = currentRoom->west;
+                } else {
+                    std::cout << "You can't move West." << std::endl;
+                }
+                break;
+            case 'Q':
+                exploring = false;
+                std::cout << "Exiting dungeon exploration." << std::endl;
+                break;
+            default:
+                std::cout << "Invalid direction. Please enter N, S, E, W, or Q." << std::endl;
+                break;
+        }
+    }
 }
 
 void LoadSavedGame() {
     cout << "Loading game..." << endl;
-    
+   
 }
 
 void DisplayInstructionsText() {
@@ -151,8 +387,7 @@ Instructions:
     typePrint(instructions);  
 }
 
-
-void Accessiblity(int &delayTime, std::string &color) {
+void Accessiblity(int& delayTime, std::string& color) {
     cout << "Accessibility Options:" << endl;
     cout << "1. Text Speed (current: " << delayTime << " ms)" << endl;
     cout << "2. Text Color (current: " << color << ")" << endl;
@@ -209,11 +444,9 @@ int main() {
     int j;
     bool running = true;
 
- 
     int delayTime = 15;
     std::string color = "\033[36m";
 
- 
 #ifdef _WIN32
     ConsoleSizeControl(800, 600);  
 #else
@@ -245,6 +478,7 @@ int main() {
                 break;
             default:
                 cout << "Error: An invalid choice has been entered please try again." << endl;
+                break;
         }
 
         cout << endl;
