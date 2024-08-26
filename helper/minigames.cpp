@@ -273,3 +273,209 @@ public:
         return guesses.empty() ? "" : guesses.back();
     }
 };
+
+class BlackJack
+{
+private:
+    std::vector<int> cards;
+    int dealer[2];
+    std::vector<int> playersCards;
+    int bid;
+
+public:
+    BlackJack()
+    {
+        newGame();
+        playGame();
+    }
+
+    void playGame()
+    {
+        int maxRounds = generateRandomNumber(3, 15);
+        if (maxRounds % 2 == 0)
+        {
+            maxRounds++;
+        }
+        int rounds = 0;
+        int totalWins = 0;
+        while (rounds < maxRounds)
+        {
+            displayState(false);
+            std::cout << "Hit or Stand?\n";
+            std::string hit = getUserInputToken();
+            bool wasHit = false;
+            if (toLowerCase(hit) == "hit")
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    std::cout << "\033[A\033[K" << std::flush;
+                    // delay(1000);
+                }
+                wasHit = true;
+                playersCards.push_back(cards.back());
+                cards.pop_back();
+            }
+            int eval = evaluate(wasHit);
+
+            if (eval == -1)
+            {
+                if (!wasHit)
+                {
+                    for (int i = 0; i < 9; i++)
+                    {
+                        std::cout << "\033[A\033[K" << std::flush;
+                        // delay(1000);
+                    }
+                }
+                rounds++;
+                displayState(true);
+                std::cout << "Round " << rounds << ": Round lost.\n";
+                std::cout << "Rounds left: " << (maxRounds - rounds) << std::endl;
+                std::cout << "Total rounds won: " << totalWins << std::endl;
+                waitForEnter();
+                for (int i = 0; i < 11; i++)
+                {
+                    std::cout << "\033[A\033[K" << std::flush;
+                    // delay(1000);
+                }
+                initDecks();
+            }
+            else if (eval == 1)
+            {
+                if (!wasHit)
+                {
+                    for (int i = 0; i < 9; i++)
+                    {
+                        std::cout << "\033[A\033[K" << std::flush;
+                        // delay(1000);
+                    }
+                }
+                rounds++;
+                totalWins++;
+                displayState(true);
+                std::cout << "Round " << rounds << ": Round won.\n";
+                std::cout << "Rounds left: " << (maxRounds - rounds) << std::endl;
+                std::cout << "Total rounds won: " << totalWins << std::endl;
+                waitForEnter();
+                for (int i = 0; i < 11; i++)
+                {
+                    std::cout << "\033[A\033[K" << std::flush;
+                    // delay(1000);
+                }
+                initDecks();
+            }
+        }
+
+        if (totalWins >= maxRounds / 2)
+        {
+            std::cout << "Game Over You Win!" << std::endl;
+        }
+        else
+        {
+            std::cout << "Game Over You Loose!" << std::endl;
+        }
+    }
+
+    void waitForEnter()
+    {
+        std::cout << "Press Enter to continue..." << std::endl;
+        system("stty -echo -icanon");
+
+        std::cin.ignore(); // Waits for the user to press Ente
+        std::cin.get();
+
+        system("stty echo icanon");
+    }
+
+    int evaluate(bool hit)
+    {
+        int dealerTotal = dealer[0] + dealer[1];
+        int playerTotal;
+        for (int i = 0; i < playersCards.size(); i++)
+        {
+            playerTotal += playersCards[i];
+        }
+
+        if ((!hit && playerTotal < dealerTotal) || playerTotal > 21)
+        {
+            return -1;
+        }
+        else if (hit && playerTotal != 21)
+        {
+            return 0;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+
+    void initDecks()
+    {
+
+        dealer[0] = cards.back();
+        cards.pop_back();
+        dealer[1] = cards.back();
+        cards.pop_back();
+
+        playersCards.clear();
+        playersCards.push_back(cards.back());
+        cards.pop_back();
+        playersCards.push_back(cards.back());
+        cards.pop_back();
+    }
+
+    void newGame()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 1; j < 11; j++)
+            {
+                cards.push_back(j);
+            }
+            for (int j = 0; j < 4; j++)
+            {
+                cards.push_back(10);
+            }
+        }
+        unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+        auto rng = std::default_random_engine(seed);
+        std::shuffle(std::begin(cards), std::end(cards), rng);
+
+        initDecks();
+    }
+
+    void displayState(bool printAll)
+    {
+        const int terminalWidth = 40; // Example width, adjust based on your terminal size
+
+        // Repeat character to match terminal width
+        std::string line = repeatString("=", terminalWidth);
+        std::string dealersSecond = "X";
+        if (printAll)
+        {
+            dealersSecond = std::to_string(dealer[1]);
+        }
+
+        // Print dealer's cards
+        std::cout << std::setw((terminalWidth - 16) / 2) << "" << "Dealer's Cards\n";
+        std::cout << line << "\n";
+        std::cout << std::setw((terminalWidth - 4) / 2) << dealer[0] << " " + dealersSecond + "\n\n";
+
+        // Print player's cards
+        std::string playerCardsLine;
+        for (const auto &card : playersCards)
+        {
+            playerCardsLine += std::to_string(card) + " ";
+        }
+        // Trim trailing space
+        if (!playerCardsLine.empty())
+        {
+            playerCardsLine.pop_back();
+        }
+
+        std::cout << std::setw((terminalWidth - 16) / 2) << "" << "Player's Cards\n";
+        std::cout << line << "\n";
+        std::cout << std::setw((terminalWidth - playerCardsLine.length()) / 2 - 1) << "" << playerCardsLine << "\n";
+    }
+};

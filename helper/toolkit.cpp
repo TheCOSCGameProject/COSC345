@@ -167,3 +167,27 @@ int stringToInt(const std::string &str)
         return 0; // or throw an exception, or handle as needed
     }
 }
+
+std::string repeatString(const std::string &str, int count)
+{
+    if (count <= 0)
+        return ""; // Return an empty string for non-positive count
+
+    std::string result;
+    result.reserve(str.size() * count); // Optimize memory allocation
+
+    for (int i = 0; i < count; ++i)
+    {
+        result += str;
+    }
+    return result;
+}
+
+std::string toLowerCase(const std::string &str)
+{
+    std::string lowerStr = str;
+    std::transform(lowerStr.begin(), lowerStr.end(), lowerStr.begin(),
+                   [](unsigned char c)
+                   { return std::tolower(c); });
+    return lowerStr;
+}

@@ -1,6 +1,6 @@
-// toolkit.h
-#ifndef TOOLKIT_H
-#define TOOLKIT_H
+// utilities.h
+#ifndef UTILITIES_H
+#define UTILITIES_H
 
 #include <iostream>
 #include <fstream>
@@ -52,12 +52,4 @@ std::string getUserInputLine();
 // Function to get a single word or token of user input
 std::string getUserInputToken();
 
-int generateRandomNumber(int low, int high);
-
-int stringToInt(const std::string &str);
-
-std::string repeatString(const std::string &str, int count);
-
-std::string toLowerCase(const std::string &str);
-
-#endif // TOOLKIT_H
+#endif // UTILITIES_H

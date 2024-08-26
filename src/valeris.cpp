@@ -22,11 +22,13 @@ int main()
 
   // Player player;
 
-  Room room;
-  room.roomContent.displayContent();
+  // Room room;
+  // room.roomContent.displayContent();
 
-  Room room2;
-  room2.roomContent.displayContent();
+  // Room room2;
+  // room2.roomContent.displayContent();
+
+  BlackJack blackjack;
 
   return 0;
 }

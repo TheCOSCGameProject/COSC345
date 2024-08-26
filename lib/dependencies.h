@@ -5,6 +5,7 @@
 #include <thread>
 #include <fstream>
 #include <random>
+#include <cstdlib>
 
 #ifdef _WIN32
 #include <windows.h>
