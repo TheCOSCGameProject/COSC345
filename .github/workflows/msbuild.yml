@@ -35,4 +35,4 @@ jobs:
       run: nuget restore ${{env.SOLUTION_FILE_PATH}}
 
     - name: Build
-      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:Platform=x64 /p:CXXLanguageStandard=C++17 /v:diag ${{env.SOLUTION_FILE_PATH}}
+      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:Platform=x64 /p:CXXLanguageStandard=C++17 /v:n ${{env.SOLUTION_FILE_PATH}}
