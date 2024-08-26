@@ -376,21 +376,27 @@ public:
         }
     }
 
-    void waitForEnter()
-    {
+    void waitForEnter() {
         std::cout << "Press Enter to continue..." << std::endl;
-        system("stty -echo -icanon");
 
-        std::cin.ignore(); // Waits for the user to press Ente
+        #ifdef _WIN32
+        // Windows-specific implementation
+        while (_getch() != '\r');  // Wait until the Enter key (carriage return) is pressed
+        #else
+        // macOS/Linux-specific implementation
+        system("stty -echo -icanon"); // Disable echo and canonical mode
+
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Wait for Enter
         std::cin.get();
 
-        system("stty echo icanon");
+        system("stty echo icanon"); // Re-enable echo and canonical mode
+        #endif
     }
 
     int evaluate(bool hit)
     {
         int dealerTotal = dealer[0] + dealer[1];
-        int playerTotal;
+        int playerTotal = 0;
         for (int i = 0; i < playersCards.size(); i++)
         {
             playerTotal += playersCards[i];

@@ -10,6 +10,7 @@
 
 #ifdef _WIN32
 #include <windows.h>
+#include <conio.h>
 #else
 #include <unistd.h>
 #include <termios.h>
