@@ -1,6 +1,14 @@
 #include "../helper/minigames.cpp"
+#include "../helper/combat.cpp"
+#include "../helper/dungeon.cpp"
+#include "../helper/player.cpp"
+#include "../helper/room.cpp"
+#include "../helper/toolkit.cpp"
+#include "../helper/weapon.cpp"
+
 #include "custom_test_framework.h"
 #include "cassert"
+#include <sstream>
 
 void testTicTacToeInitialization()
 {
@@ -68,19 +76,177 @@ void testTicTacToeCheckForWin()
     ASSERT(game.checkForWin());
 }
 
+/* These two are currently set up for input, can easily change the player.h and cpp to have a default case but for now is fine as is.
+void testPlayerInitialization()
+{
+    Player player;
+    ASSERT(player.getName() != "");
+    ASSERT(player.getClassType() != "");
+    ASSERT_EQUAL(100, player.getMaxHealth());
+    ASSERT_EQUAL(100, player.getCurrHealth());
+}
+
+void testPlayerInventory()
+{
+    Player player;
+    player.addToInventory("Sword");
+    ASSERT_EQUAL(1, player.getInventory().size());
+    ASSERT_EQUAL("Sword", player.getInventory()[0]);
+
+    player.removeFromInventory("Sword");
+    ASSERT_EQUAL(0, player.getInventory().size());
+}
+*/
+// New Room tests
+void testRoomInitialization()
+{
+    Room room;
+    ASSERT(room.north == nullptr);
+    ASSERT(room.south == nullptr);
+    ASSERT(room.east == nullptr);
+    ASSERT(room.west == nullptr);
+}
+
+// New Weapon tests
+void testWeaponInitialization()
+{
+    Weapon weaponSystem;
+    int weaponId = weaponSystem.giveRandWeapon();
+    ASSERT(weaponId >= 1 && weaponId <= 27);
+    ASSERT(weaponSystem.getName(weaponId) != "");
+    ASSERT(weaponSystem.getDamage(weaponId) > 0);
+}
+
+// New Toolkit tests
+void testGenerateRandomNumber()
+{
+    int low = 1, high = 10;
+    int result = generateRandomNumber(low, high);
+    ASSERT(result >= low && result <= high);
+}
+
+void testStringToInt()
+{
+    ASSERT_EQUAL(123, stringToInt("123"));
+    ASSERT_EQUAL(0, stringToInt("abc")); // Invalid input should return 0
+}
+
+// New Combat tests
+void testCombatV1()
+{
+    // Redirect cout to capture output
+    std::stringstream buffer;
+    std::streambuf *oldCout = std::cout.rdbuf(buffer.rdbuf());
+
+    int playerHealth = 100;
+    int enemyHealth = 50;
+    int difficulty = 1000; // 1 second
+
+    // Mock user input
+    std::istringstream input("w\n");
+    std::streambuf *oldCin = std::cin.rdbuf(input.rdbuf());
+
+    combatV1(playerHealth, enemyHealth, difficulty);
+
+    // Restore cout and cin
+    std::cout.rdbuf(oldCout);
+    std::cin.rdbuf(oldCin);
+
+    std::string output = buffer.str();
+    ASSERT(output.find("Player Health: 100") != std::string::npos);
+    ASSERT(output.find("Enemy Health: 45") != std::string::npos);
+}
+
+// New Dungeon tests
+void testDungeonGeneration()
+{
+    Dungeon dungeon;
+    Room *startRoom = dungeon.generateFloor(5);
+    ASSERT(startRoom != nullptr);
+
+    // Count rooms
+    std::set<Room *> visitedRooms;
+    std::queue<Room *> roomQueue;
+    roomQueue.push(startRoom);
+
+    while (!roomQueue.empty())
+    {
+        Room *currentRoom = roomQueue.front();
+        roomQueue.pop();
+
+        if (visitedRooms.find(currentRoom) == visitedRooms.end())
+        {
+            visitedRooms.insert(currentRoom);
+
+            if (currentRoom->north)
+                roomQueue.push(currentRoom->north);
+            if (currentRoom->south)
+                roomQueue.push(currentRoom->south);
+            if (currentRoom->east)
+                roomQueue.push(currentRoom->east);
+            if (currentRoom->west)
+                roomQueue.push(currentRoom->west);
+        }
+    }
+
+    ASSERT_EQUAL(5, visitedRooms.size());
+}
+
+/* There is a conflict in definition, two for enemy I think, one in enemies.cpp, other in room.h( Hypothesis not actually sure which is why I haven't changed/ tried fixing.)
+// New EnemySpawner tests
+void testEnemySpawner()
+{
+    EnemySpawner spawner;
+    Enemy enemy = spawner.spawnEnemy();
+
+    ASSERT(spawner.getName(enemy) != "");
+    ASSERT(spawner.getHealth(enemy) >= 50 && spawner.getHealth(enemy) <= 100);
+    ASSERT(spawner.getAttack(enemy) >= 10 && spawner.getAttack(enemy) <= 30);
+    ASSERT(spawner.getType(enemy) != "");
+    ASSERT(spawner.getPersonality(enemy) != "");
+    ASSERT(spawner.getDefence(enemy) >= 5 && spawner.getDefence(enemy) <= 80);
+
+    int initialHealth = spawner.getHealth(enemy);
+    spawner.damageDelt(enemy, 20);
+    ASSERT(spawner.getHealth(enemy) < initialHealth);
+}
+*/
 int main()
 {
     TestFramework framework("minigames_test_results.xml");
 
+    // Existing TicTacToe tests
     framework.addTest("TicTacToe Initialization", testTicTacToeInitialization);
     framework.addTest("TicTacToe Player Move", testTicTacToePlayerMove);
     framework.addTest("TicTacToe Computer Turn", testTicTacToeComputerTurn);
     framework.addTest("TicTacToe Check For Win", testTicTacToeCheckForWin);
+    /*
+    // New Player tests
+    framework.addTest("Player Initialization", testPlayerInitialization);
+    framework.addTest("Player Inventory", testPlayerInventory);
+    */
+    // New Room tests
+    framework.addTest("Room Initialization", testRoomInitialization);
 
+    // New Weapon tests
+    framework.addTest("Weapon Initialization", testWeaponInitialization);
+
+    // New Toolkit tests
+    framework.addTest("Generate Random Number", testGenerateRandomNumber);
+    framework.addTest("String to Int Conversion", testStringToInt);
+
+    // New Combat tests
+    framework.addTest("Combat V1", testCombatV1);
+
+    // New Dungeon tests
+    framework.addTest("Dungeon Generation", testDungeonGeneration);
     framework.run();
 
     return 0;
 }
 
 // g++ -std=c++11 -o run_tests.exe tests/minigames_test.cpp
+
 //./run_tests.exe
+
+// g++ -std=c++17 -o run_tests.exe tests/minigames_test.cpp
