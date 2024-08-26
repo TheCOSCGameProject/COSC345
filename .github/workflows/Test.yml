@@ -3,7 +3,7 @@ name: MSBuild CI with CodeCov and Codacy
 on: [push, pull_request]
 
 env:
-  SOLUTION_FILE_PATH: Valeris.sln
+  SOLUTION_FILE_PATH: Valeris
   BUILD_CONFIGURATION: Debug
 
 permissions:
