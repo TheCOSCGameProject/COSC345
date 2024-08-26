@@ -1,5 +1,7 @@
-#include "../helper/combat.cpp"
-#include "../helper/minigames.cpp"
+// #include "../helper/combat.cpp"
+// #include "../helper/minigames.cpp"
+#include "../lib/player.h"
+#include "../lib/toolkit.h"
 
 int main()
 {
@@ -14,8 +16,10 @@ int main()
   // TicTacToe game;
   // game.startGame();
 
-  CodeGuesser ggame;
-  ggame.start();
+  // CodeGuesser ggame;
+  // ggame.start();
+
+  Player player;
 
   return 0;
 }

@@ -1,31 +1,22 @@
-#include "../lib/dependencies.h"
+// toolkit.cpp
+#include "../lib/toolkit.h"
 
 #ifdef _WIN32
-#include <windows.h>
-
 void SetConsoleSize(int width, int height)
 {
     HWND console = GetConsoleWindow();
     RECT r;
     GetWindowRect(console, &r);
-
     MoveWindow(console, r.left, r.top, width, height, TRUE);
-
     SetWindowLong(console, GWL_STYLE, GetWindowLong(console, GWL_STYLE) & ~WS_SIZEBOX);
 }
-
 #else
-#include <sys/ioctl.h>
-#include <unistd.h>
-#include <termios.h>
-
 void SetTerminalSize(int height, int width)
 {
     std::cout << "\e[8;50;100t";
 }
-
 #endif
-// Function to mimic a delay
+
 void delay(int milliseconds)
 {
     auto start = std::chrono::high_resolution_clock::now();
@@ -35,7 +26,6 @@ void delay(int milliseconds)
     }
 }
 
-// Function to disable keyboard input
 void disableInput()
 {
 #ifdef _WIN32
@@ -50,7 +40,6 @@ void disableInput()
 #endif
 }
 
-// Function to enable keyboard input
 void enableInput()
 {
 #ifdef _WIN32
@@ -62,7 +51,6 @@ void enableInput()
     t.c_lflag |= ICANON; // Enable canonical mode
     t.c_lflag |= ECHO;   // Enable echo
     tcsetattr(STDIN_FILENO, TCSANOW, &t);
-
     tcflush(STDIN_FILENO, TCIFLUSH);
 #endif
 }
@@ -128,6 +116,19 @@ void clear(int limit)
     {
         std::cout << "\033[A\033[K";
         std::cout.flush();
-        // sleep(1);
     }
+}
+
+std::string getUserInputLine()
+{
+    std::string input;
+    std::getline(std::cin, input);
+    return input;
+}
+
+std::string getUserInputToken()
+{
+    std::string input;
+    std::cin >> input;
+    return input;
 }

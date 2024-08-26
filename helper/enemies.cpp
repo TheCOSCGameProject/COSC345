@@ -9,8 +9,8 @@ struct Enemy
     std::string name;
     int health;
     int attack;
-    std::string type; // idk
-    int defence; // Damage taken modifier
+    std::string type;        // idk
+    int defence;             // Damage taken modifier
     std::string personality; // Dialogue/Combat 'aggressiveness'
 };
 
@@ -72,8 +72,9 @@ public:
 
     void damageDelt(Enemy &enemy, int hurt)
     {
-        if (enemy.type == "Sardaukar"){
-            hurt = hurt*0.8;
+        if (enemy.type == "Sardaukar")
+        {
+            hurt = hurt * 0.8;
         }
         enemy.health -= hurt * (1 - enemy.defence / 100);
     }
@@ -123,23 +124,23 @@ private:
     }
 };
 
-int main() // Hoaw to use
-{
-    EnemySpawner spawner;
+// int main() // Hoaw to use
+// {
+//     EnemySpawner spawner;
 
-    // Spawn an enemy
-    Enemy enemy = spawner.spawnEnemy();
+//     // Spawn an enemy
+//     Enemy enemy = spawner.spawnEnemy();
 
-    // Display the enemy's details
-    std::cout << "Enemy Name: " << spawner.getName(enemy) << std::endl;
-    std::cout << "Type: " << spawner.getType(enemy) << std::endl;
-    std::cout << "Health: " << spawner.getHealth(enemy) << std::endl;
-    std::cout << "Attack: " << spawner.getAttack(enemy) << std::endl;
-    std::cout << "Defence: " << spawner.getDefence(enemy) << std::endl;
-    std::cout << "Personality: " << spawner.getPersonality(enemy) << std::endl;
-    spawner.damageDelt(enemy, 50);
-    std::cout << "Health: " << spawner.getHealth(enemy) << std::endl;
-    std::cout << "Is dead: " << spawner.isDead(enemy) << std::endl;
+//     // Display the enemy's details
+//     std::cout << "Enemy Name: " << spawner.getName(enemy) << std::endl;
+//     std::cout << "Type: " << spawner.getType(enemy) << std::endl;
+//     std::cout << "Health: " << spawner.getHealth(enemy) << std::endl;
+//     std::cout << "Attack: " << spawner.getAttack(enemy) << std::endl;
+//     std::cout << "Defence: " << spawner.getDefence(enemy) << std::endl;
+//     std::cout << "Personality: " << spawner.getPersonality(enemy) << std::endl;
+//     spawner.damageDelt(enemy, 50);
+//     std::cout << "Health: " << spawner.getHealth(enemy) << std::endl;
+//     std::cout << "Is dead: " << spawner.isDead(enemy) << std::endl;
 
-    return 0;
-}
+//     return 0;
+// }

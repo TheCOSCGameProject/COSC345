@@ -1,12 +1,10 @@
-#include "toolkit.cpp"
+#include "../lib/toolkit.h"
 #include "../lib/dependencies.h"
 /* TicTacToe */
 class TicTacToe
 {
 private:
-    char squares[3][3] =
-        {
-            {' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
+    char squares[3][3] = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
 
 public:
     void printBoard()

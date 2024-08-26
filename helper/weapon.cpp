@@ -125,15 +125,15 @@ private:
 };
 
 // how to use
-int main()
-{
-    Weapon weaponSystem;
+// int main()
+// {
+//     Weapon weaponSystem;
 
-    // get a random weapon
-    int randWeaponId = weaponSystem.giveRandWeapon();
+//     // get a random weapon
+//     int randWeaponId = weaponSystem.giveRandWeapon();
 
-    // get a rare weapon
-    int rareWeaponId = weaponSystem.giveRariWeapon("Epic");
+//     // get a rare weapon
+//     int rareWeaponId = weaponSystem.giveRariWeapon("Epic");
 
-    return 0;
-}
+//     return 0;
+// }

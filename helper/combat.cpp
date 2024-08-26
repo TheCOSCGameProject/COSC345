@@ -1,4 +1,5 @@
 #include "../lib/dependencies.h"
+#include "../lib/combat.h"
 
 void printHealth(int playerHealth, int enemyHealth)
 {
