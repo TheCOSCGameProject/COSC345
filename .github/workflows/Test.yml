@@ -16,6 +16,20 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Install Chocolatey
+      run: |
+        Set-ExecutionPolicy Bypass -Scope Process -Force; 
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; 
+        iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
+    - name: Install GCC
+      run: choco install mingw -y
+
+    - name: Install Python and gcovr
+      run: |
+        choco install python -y
+        pip install gcovr
+
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
 
@@ -25,6 +39,8 @@ jobs:
     - name: Build with Coverage
       run: |
         msbuild /m /p:Configuration=${{ env.BUILD_CONFIGURATION }} /p:Platform=x64 /p:EnableCodeCoverage=true ${{ env.SOLUTION_FILE_PATH }}
+        g++ -std=c++17 --coverage -o .\Valeris\bin\${{ env.BUILD_CONFIGURATION }}\run_tests.exe tests/minigames_test.cpp
+
 
     - name: Run Tests
       run: .\Valeris\bin\${{ env.BUILD_CONFIGURATION }}\run_tests.exe
