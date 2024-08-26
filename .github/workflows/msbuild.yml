@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 env:
-  SOLUTION_FILE_PATH: Valeris.sln
+  SOLUTION_FILE_PATH: Valeris
   BUILD_CONFIGURATION: Release
 
 permissions:
