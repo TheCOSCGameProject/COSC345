@@ -1,0 +1,12 @@
+Harkonnen Soldier:5:150:30
+Ornithopter Drone:3:80:20
+Sardaukar Trooper:3:200:40
+Harkonnen Assassin:2:100:35
+Desert Bandit:6:80:15
+Tleilaxu Face Dancer:4:120:30
+Giant Scorpion:3:90:25
+Sandworm Larva:5:50:10
+Harkonnen Beast:2:250:50
+Murderbot:1:180:45
+Desert Creature:7:70:18
+Bene Gesserit Shadow:3:130:28

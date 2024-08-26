@@ -1,5 +1,6 @@
 // toolkit.cpp
 #include "../lib/toolkit.h"
+#include "../lib/dependencies.h"
 
 #ifdef _WIN32
 void SetConsoleSize(int width, int height)
@@ -131,4 +132,38 @@ std::string getUserInputToken()
     std::string input;
     std::cin >> input;
     return input;
+}
+
+int generateRandomNumber(int low, int high)
+{
+    // Create a random device and use it to seed the random number generator
+    std::random_device rd;
+    std::mt19937 rng(rd());
+
+    // Create a uniform integer distribution between low and high inclusive
+    std::uniform_int_distribution<int> dist(low, high);
+
+    // Generate and return the random number
+    return dist(rng);
+}
+
+int stringToInt(const std::string &str)
+{
+    try
+    {
+        // Attempt to convert the string to an integer
+        return std::stoi(str);
+    }
+    catch (const std::invalid_argument &e)
+    {
+        // Handle the case where the input is not a valid integer
+        std::cerr << "Invalid argument: " + str << e.what() << std::endl;
+        return 0; // or throw an exception, or handle as needed
+    }
+    catch (const std::out_of_range &e)
+    {
+        // Handle the case where the integer is out of range
+        std::cerr << "Out of range: " << e.what() << std::endl;
+        return 0; // or throw an exception, or handle as needed
+    }
 }

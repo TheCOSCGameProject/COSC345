@@ -52,4 +52,8 @@ std::string getUserInputLine();
 // Function to get a single word or token of user input
 std::string getUserInputToken();
 
+int generateRandomNumber(int low, int high);
+
+int stringToInt(const std::string &str);
+
 #endif // TOOLKIT_H

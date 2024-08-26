@@ -1,0 +1,17 @@
+Spice Melange:9
+Water Capsule:7
+Crysknife:1
+Still Suit Component:5
+Ornithopter Part:4
+Sandworm Carapace:2
+Fremen Scroll:3
+Bene Gesserit Training Manual:6
+Sietch Map:5
+Harkonnen Device:3
+Tleilaxu Genetic Material:4
+Sandworm Larvae:2
+Murderbot Module:1
+Water of Life:0.1
+Desert Survival Gear:5
+Atreides Relic:3
+Fremen Artifact:4

@@ -5,67 +5,7 @@
 #include <queue>
 #include <set>
 #include <map>
-
-// Define the RoomContent class
-class RoomContent
-{
-public:
-    struct Content
-    {
-        std::vector<std::string> items;
-        std::vector<std::string> enemies;
-    };
-
-    Content content;
-
-    RoomContent()
-    {
-        // Initialize with some example content
-        content.items = {"Gold Coin", "Potion"};
-        content.enemies = {"Goblin", "Orc"};
-    }
-
-    void addItem(const std::string &item)
-    {
-        content.items.push_back(item);
-    }
-
-    void addEnemy(const std::string &enemy)
-    {
-        content.enemies.push_back(enemy);
-    }
-
-    void displayContent() const
-    {
-        std::cout << "Items: ";
-        for (const auto &item : content.items)
-        {
-            std::cout << item << " ";
-        }
-        std::cout << std::endl;
-
-        std::cout << "Enemies: ";
-        for (const auto &enemy : content.enemies)
-        {
-            std::cout << enemy << " ";
-        }
-        std::cout << std::endl;
-    }
-};
-
-class Room
-{
-public:
-    // Each direction
-    Room *north;
-    Room *south;
-    Room *west;
-    Room *east;
-    RoomContent roomContent; // Room content
-
-    Room() : north(nullptr), south(nullptr), west(nullptr), east(nullptr) {}
-};
-
+#include "../lib/room.h"
 class Dungeon
 {
 private:

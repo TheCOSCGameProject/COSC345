@@ -1,7 +1,8 @@
-// #include "../helper/combat.cpp"
-// #include "../helper/minigames.cpp"
+#include "../lib/combat.h"
+#include "../helper/minigames.cpp"
 #include "../lib/player.h"
 #include "../lib/toolkit.h"
+#include "../lib/room.h"
 
 int main()
 {
@@ -19,7 +20,13 @@ int main()
   // CodeGuesser ggame;
   // ggame.start();
 
-  Player player;
+  // Player player;
+
+  Room room;
+  room.roomContent.displayContent();
+
+  Room room2;
+  room2.roomContent.displayContent();
 
   return 0;
 }
