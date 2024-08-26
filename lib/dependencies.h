@@ -6,6 +6,7 @@
 #include <fstream>
 #include <random>
 #include <cstdlib>
+#include <iomanip>
 
 #ifdef _WIN32
 #include <windows.h>
