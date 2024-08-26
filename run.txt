@@ -1,4 +1,4 @@
 In the src directory then run:
-g++ ../helper/*.cpp valeris.cpp -o valeris && ./valeris
+g++ -std=c++17 ../helper/*.cpp valeris.cpp -o valeris && ./valeris
 
 Testing(to add tomorrow morning needa sleep but repo secret was wrong :////)
