@@ -10,9 +10,9 @@ class Player
 {
 private:
     std::vector<std::string> inventory;
-    std::string species;
+    std::string classType;
     std::string firstName;
-    std::string resistance;
+    int resistance;
     int maxHealth;
     int currHealth;
     std::vector<std::string> buffs;
@@ -24,12 +24,22 @@ public:
     // Destructor
     ~Player();
 
-    // Additional member functions can be declared here, if any
-    // Example:
-    // void addBuff(const std::string& buff);
-    // void takeDamage(int damage);
-    // void heal(int amount);
-    // std::string getFirstName() const;
+    void getNameFromUser();
+    void getClassFromUser();
+    void addToInventory(std::string item);
+    void removeFromInventory(std::string item);
+    void setMaxHelth(int maxHealth);
+    void setCurrHealth(int health);
+    void addBuff(std::string buff);
+    void removeBuff(std::string buff);
+    void setResistance(int resistance);
+    std::string getName();
+    std::string getClassType();
+    std::vector<std::string> getInventory();
+    int getMaxHealth();
+    int getCurrHealth();
+    int getResistance();
+    std::vector<std::string> getBuffs();
 };
 
 #endif // PLAYER_H
