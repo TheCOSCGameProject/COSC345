@@ -1,7 +1,14 @@
 #include "../lib/toolkit.h"
 #include "../lib/dependencies.h"
 /* TicTacToe */
-class TicTacToe
+
+class Game
+{
+public:
+    virtual void start() = 0; // Pure virtual function to enforce implementation in derived classes
+    virtual ~Game() {}        // Virtual destructor for proper cleanup
+};
+class TicTacToe : public Game
 {
 private:
     char squares[3][3] = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
@@ -84,7 +91,7 @@ public:
         return wasWin;
     }
 
-    void startGame()
+    void start() override
     {
         printBoard();
         int row, col;
@@ -146,7 +153,7 @@ public:
 };
 
 /** CodeGuesser game */
-class CodeGuesser
+class CodeGuesser : public Game
 {
 
 private:
@@ -171,7 +178,7 @@ public:
         : words(split(getFileContent("../reasources/cg_words.txt"), '\n')),
           index(generateRandomIndex(words.size())) {}
 
-    void start()
+    void start() override
     {
         bool success = false;
         int count = 0;
@@ -274,7 +281,7 @@ public:
     }
 };
 
-class BlackJack
+class BlackJack : public Game
 {
 private:
     std::vector<int> cards;
@@ -286,10 +293,9 @@ public:
     BlackJack()
     {
         newGame();
-        playGame();
     }
 
-    void playGame()
+    void start() override
     {
         int maxRounds = generateRandomNumber(3, 15);
         if (maxRounds % 2 == 0)

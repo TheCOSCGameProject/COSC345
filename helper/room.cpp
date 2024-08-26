@@ -23,12 +23,20 @@ RoomContent::RoomContent()
 
 void RoomContent::gamblingRoom()
 {
+    int gamblingGameType = generateRandomNumber(0, 1);
     int gameType = generateRandomNumber(0, 1);
     NPC newNPC;
-    newNPC.gamblingGame = gameType;
+    if (gamblingGameType == 0)
+    {
+        newNPC.gamblingGame = std::make_unique<TicTacToe>();
+    }
+    else
+    {
+        newNPC.gamblingGame = std::make_unique<BlackJack>();
+    }
     newNPC.name = "Charlie";
     newNPC.skillLevel = 0;
-    this->npc = newNPC;
+    this->npc = std::move(newNPC);
 }
 
 void RoomContent::emptyRoom()
@@ -84,6 +92,16 @@ void RoomContent::addItem(const std::string &item)
 void RoomContent::addEnemy(const Enemy &enemy)
 {
     enemies.push_back(enemy);
+}
+
+int RoomContent::getRoomType()
+{
+    return this->roomType;
+}
+
+NPC &RoomContent::getNPC()
+{
+    return npc;
 }
 
 void RoomContent::displayContent() const
