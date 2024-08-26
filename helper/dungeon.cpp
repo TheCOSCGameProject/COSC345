@@ -32,8 +32,8 @@ private:
             case 2:
                 // Use EnemySpawner to add enemies to the room
                 EnemySpawner spawner;
-                newRoom->roomContent.addEnemy(spawner.spawnEnemy());
-                newRoom->roomContent.addItem("Sword");
+                //newRoom->roomContent.addEnemy(spawner.spawnEnemy());
+               // newRoom->roomContent.addItem("Sword");
                 break;
         }
         

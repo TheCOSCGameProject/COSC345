@@ -12,7 +12,7 @@
 // int stringToInt(const std::string &str);
 // std::string getFileContent(const std::string &filePath);
 
-struct Enemy
+struct EnemyStruct
 {
     std::string name;
     int health;
@@ -34,14 +34,14 @@ public:
     void emptyRoom();
     void gamblingRoom();
     void addItem(const std::string &item);
-    void addEnemy(const Enemy &enemy);
+    void addEnemy(const EnemyStruct &enemy);
     void displayContent() const;
     int getRoomType();
     NPC &getNPC();
 
 private:
     std::vector<std::string> items;
-    std::vector<Enemy> enemies;
+    std::vector<EnemyStruct> enemies;
     NPC npc;
     bool passcode;
     int roomType;

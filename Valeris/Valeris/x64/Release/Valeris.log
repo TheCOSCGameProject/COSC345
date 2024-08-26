@@ -15,19 +15,19 @@ C:\345\helper\minigames.cpp(453,23): warning C4244:         with
 C:\345\helper\minigames.cpp(453,23): warning C4244:         [
 C:\345\helper\minigames.cpp(453,23): warning C4244:             _Rep=std::chrono::system_clock::rep
 C:\345\helper\minigames.cpp(453,23): warning C4244:         ]
-C:\345\helper\dungeon.cpp(91,30): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\345\helper\dungeon.cpp(120,84): warning C4267: 'argument': conversion from 'size_t' to '_Ty', possible loss of data
-C:\345\helper\dungeon.cpp(120,84): warning C4267:         with
-C:\345\helper\dungeon.cpp(120,84): warning C4267:         [
-C:\345\helper\dungeon.cpp(120,84): warning C4267:             _Ty=int
-C:\345\helper\dungeon.cpp(120,84): warning C4267:         ]
-C:\345\helper\dungeon.cpp(158,70): warning C4267: 'argument': conversion from 'size_t' to '_Ty', possible loss of data
-C:\345\helper\dungeon.cpp(158,70): warning C4267:         with
-C:\345\helper\dungeon.cpp(158,70): warning C4267:         [
-C:\345\helper\dungeon.cpp(158,70): warning C4267:             _Ty=int
-C:\345\helper\dungeon.cpp(158,70): warning C4267:         ]
+C:\345\helper\dungeon.cpp(92,30): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\345\helper\dungeon.cpp(121,84): warning C4267: 'argument': conversion from 'size_t' to '_Ty', possible loss of data
+C:\345\helper\dungeon.cpp(121,84): warning C4267:         with
+C:\345\helper\dungeon.cpp(121,84): warning C4267:         [
+C:\345\helper\dungeon.cpp(121,84): warning C4267:             _Ty=int
+C:\345\helper\dungeon.cpp(121,84): warning C4267:         ]
+C:\345\helper\dungeon.cpp(159,70): warning C4267: 'argument': conversion from 'size_t' to '_Ty', possible loss of data
+C:\345\helper\dungeon.cpp(159,70): warning C4267:         with
+C:\345\helper\dungeon.cpp(159,70): warning C4267:         [
+C:\345\helper\dungeon.cpp(159,70): warning C4267:             _Ty=int
+C:\345\helper\dungeon.cpp(159,70): warning C4267:         ]
   enemies.cpp
-C:\345\helper\enemies.cpp(77,25): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\345\helper\enemies.cpp(41,21): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
   minigames.cpp
 C:\345\helper\minigames.cpp(172,53): warning C4267: 'argument': conversion from 'size_t' to '_Ty', possible loss of data
 C:\345\helper\minigames.cpp(172,53): warning C4267:         with
