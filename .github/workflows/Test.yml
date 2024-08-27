@@ -50,9 +50,11 @@ jobs:
           helper/enemies.cpp
         msbuild /m /p:Configuration=${{ env.BUILD_CONFIGURATION }} ${{ env.SOLUTION_FILE_PATH }}
         
-    - name: Run Tests
-      run: .\run_tests.exe
-
+    - name: Run tests
+      run: |
+        cd ${{ github.workspace }}
+        ./run_tests.exe
+    
     - name: Generate Coverage Report with gcovr
       run: |
         gcovr -r . --xml-pretty -o coverage.xml
