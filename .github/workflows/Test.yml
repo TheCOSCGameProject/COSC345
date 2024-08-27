@@ -38,22 +38,43 @@ jobs:
 
     - name: Build with Coverage
       run: |
-        g++ -std=c++17 --coverage -o run_tests.exe \
-          tests/minigames_test.cpp \
-          helper/minigames.cpp \
-          helper/combat.cpp \
-          helper/dungeon.cpp \
-          helper/player.cpp \
-          helper/room.cpp \
-          helper/toolkit.cpp \
-          helper/weapon.cpp \
+        g++ -std=c++17 --coverage -o run_tests.exe `
+          tests/minigames_test.cpp `
+          helper/minigames.cpp `
+          helper/combat.cpp `
+          helper/dungeon.cpp `
+          helper/player.cpp `
+          helper/room.cpp `
+          helper/toolkit.cpp `
+          helper/weapon.cpp `
           helper/enemies.cpp
+        if ($LASTEXITCODE -ne 0) {
+          Write-Host "Compilation failed"
+          exit 1
+        }
+        if (Test-Path .\run_tests.exe) {
+          Write-Host "Executable created successfully"
+        } else {
+          Write-Host "Executable was not created"
+          exit 1
+        }
         msbuild /m /p:Configuration=${{ env.BUILD_CONFIGURATION }} ${{ env.SOLUTION_FILE_PATH }}
-        
+
+    - name: List directory contents
+      run: |
+        Get-ChildItem -Force
+    
     - name: Run tests
       run: |
-        cd ${{ github.workspace }}
-        ./run_tests.exe
+        $exePath = Join-Path -Path $env:GITHUB_WORKSPACE -ChildPath "run_tests.exe"
+        if (Test-Path $exePath) {
+            Write-Host "Executable found. Running tests..."
+            & $exePath
+        } else {
+            Write-Host "Executable not found. Current directory contents:"
+            Get-ChildItem -Force
+            exit 1
+        }
     
     - name: Generate Coverage Report with gcovr
       run: |
