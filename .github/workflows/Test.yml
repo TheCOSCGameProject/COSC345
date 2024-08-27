@@ -63,7 +63,23 @@ jobs:
         files: ./coverage.xml
         fail_ci_if_error: true
 
-    - name: Upload coverage to Codacy
+    - name: Upload coverage to Codacy for C++
+      uses: codacy/codacy-coverage-reporter-action@v1
+      with:
+        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        coverage-reports: coverage.xml
+        language: CPP
+        force-coverage-parser: jacoco
+        partial: true
+    - name: Upload coverage to Codacy for C
+      uses: codacy/codacy-coverage-reporter-action@v1
+      with:
+        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        coverage-reports: coverage.xml
+        language: c
+        force-coverage-parser: jacoco
+        partial: true
+    - name: Finalize Codacy coverage upload
       uses: codacy/codacy-coverage-reporter-action@v1
       with:
         project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
