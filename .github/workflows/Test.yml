@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 env:
   SOLUTION_FILE_PATH: Valeris
-  BUILD_CONFIGURATION: Debug
+  BUILD_CONFIGURATION: Release
 
 permissions:
   contents: read
@@ -22,39 +22,31 @@ jobs:
         [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; 
         iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
-    - name: Install GCC
-      run: choco install mingw -y
-
-    - name: Install Python and gcovr
+    - name: Install MinGW and other dependencies
       run: |
+        choco install mingw -y
+        choco install msbuild -y
         choco install python -y
         pip install gcovr
 
-    - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.2
-
-    - name: Restore NuGet packages
-      run: nuget restore ${{ env.SOLUTION_FILE_PATH }}
-
     - name: Build with Coverage
       run: |
-        g++ -std=c++17 --coverage -o run_tests.exe \
-          tests/minigames_test.cpp \
-          helper/minigames.cpp \
-          helper/combat.cpp \
-          helper/dungeon.cpp \
-          helper/player.cpp \
-          helper/room.cpp \
-          helper/toolkit.cpp \
-          helper/weapon.cpp \
-          helper/enemies.cpp
-        msbuild /m /p:Configuration=${{ env.BUILD_CONFIGURATION }} ${{ env.SOLUTION_FILE_PATH }}
-        
+        g++ -std=c++17 --coverage -o run_tests.exe ^
+          tests\minigames_test.cpp ^
+          helper\minigames.cpp ^
+          helper\combat.cpp ^
+          helper\dungeon.cpp ^
+          helper\player.cpp ^
+          helper\room.cpp ^
+          helper\toolkit.cpp ^
+          helper\weapon.cpp ^
+          helper\enemies.cpp
+        msbuild /m /p:Configuration=%BUILD_CONFIGURATION% %SOLUTION_FILE_PATH%
+
     - name: Run tests
       run: |
-        cd ${{ github.workspace }}
-        ./run_tests.exe
-    
+        .\run_tests.exe
+
     - name: Generate Coverage Report with gcovr
       run: |
         gcovr -r . --xml-pretty -o coverage.xml
