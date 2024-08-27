@@ -43,14 +43,13 @@ jobs:
     - name: Restore NuGet packages
       run: nuget restore ${{env.SOLUTION_FILE_PATH}}
 
-    - name: Build with Coverage
+    - name: Build
       run: |
-        g++ -std=c++17 --coverage -o run_tests.exe tests/minigames_test.cpp
         msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:Platform=x64 /p:CXXLanguageStandard=C++17 /v:n ${{env.SOLUTION_FILE_PATH}}
 
-    - name: Run tests
+    - name: Build and Run tests
       run: |
-        .\run_tests.exe
+        g++ -std=c++17 --coverage -o run_tests.exe tests/minigames_test.cpp && .\run_tests.exe
 
     - name: Generate Coverage Report with gcovr
       run: |
