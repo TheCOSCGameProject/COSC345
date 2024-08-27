@@ -1,21 +1,11 @@
 #include "../lib/minigames.h"
 #include "../lib/combat.h"
-<<<<<<< HEAD
 #include "../lib/dungeon.h"
 #include "../lib/player.h"
 #include "../lib/room.h"
 #include "../lib/toolkit.h"
 #include "../lib/weapon.h"
-=======
-#include "../lib/player.h"
-#include "../lib/toolkit.h"
-#include "../lib/room.h"
-#include "../lib/enemies.h"
-#include "../lib/dependencies.h"
->>>>>>> 226432c8e1a4536c009d6514828fa5fed24c1141
 
-#include "../helper/weapon.cpp"
-#include "../helper/dungeon.cpp"
 #include "custom_test_framework.h"
 #include "cassert"
 #include <sstream>
@@ -229,12 +219,7 @@ int main()
     framework.addTest("Combat V1", testCombatV1);
 
     // New Dungeon tests
-<<<<<<< HEAD
     // framework.addTest("Dungeon Generation", testDungeonGeneration);
-=======
-    framework.addTest("Dungeon Generation", testDungeonGeneration);
-
->>>>>>> 226432c8e1a4536c009d6514828fa5fed24c1141
     framework.run();
 
     return 0;

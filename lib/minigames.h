@@ -1,7 +1,6 @@
 #ifndef MINIGAMES_H
 #define MINIGAMES_H
 
-<<<<<<< HEAD
 #include "../lib/toolkit.h"
 #include "../lib/dependencies.h"
 #include <vector>
@@ -13,11 +12,6 @@
 #include <algorithm>
 
 /* Base Game class */
-=======
-#include <vector>
-#include <string>
-
->>>>>>> 226432c8e1a4536c009d6514828fa5fed24c1141
 class Game
 {
 public:
@@ -25,7 +19,6 @@ public:
     virtual ~Game() {}        // Virtual destructor for proper cleanup
 };
 
-<<<<<<< HEAD
 /* TicTacToe Game */
 class TicTacToe : public Game
 {
@@ -33,15 +26,6 @@ private:
     char squares[3][3] = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
 
 public:
-=======
-class TicTacToe : public Game
-{
-private:
-    char squares[3][3];
-
-public:
-    TicTacToe(); // Add this constructor declaration
->>>>>>> 226432c8e1a4536c009d6514828fa5fed24c1141
     void printBoard();
     char getSquare(int row, int col) const;
     void playerMove(int row, int col);
@@ -50,10 +34,7 @@ public:
     void start() override;
 };
 
-<<<<<<< HEAD
 /* CodeGuesser Game */
-=======
->>>>>>> 226432c8e1a4536c009d6514828fa5fed24c1141
 class CodeGuesser : public Game
 {
 private:
@@ -74,10 +55,7 @@ public:
     std::string getLastGuess() const;
 };
 
-<<<<<<< HEAD
 /* BlackJack Game */
-=======
->>>>>>> 226432c8e1a4536c009d6514828fa5fed24c1141
 class BlackJack : public Game
 {
 private:
@@ -86,18 +64,11 @@ private:
     std::vector<int> playersCards;
     int bid;
 
-<<<<<<< HEAD
-=======
-public:
-    BlackJack();
-    void start() override;
->>>>>>> 226432c8e1a4536c009d6514828fa5fed24c1141
     void waitForEnter();
     int evaluate(bool hit);
     void initDecks();
     void newGame();
     void displayState(bool printAll);
-<<<<<<< HEAD
 
 public:
     BlackJack();
@@ -105,8 +76,3 @@ public:
 };
 
 #endif // MINIGAMES_H
-=======
-};
-
-#endif // MINIGAMES_H
->>>>>>> 226432c8e1a4536c009d6514828fa5fed24c1141

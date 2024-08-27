@@ -25,16 +25,16 @@ Enemy EnemySpawner::spawnEnemy()
 }
 
 // Methods to get enemy attributes
-int EnemySpawner::getHealth(const Enemy& enemy) { return enemy.health; }
-int EnemySpawner::getAttack(const Enemy& enemy) { return enemy.attack; }
-std::string EnemySpawner::getName(const Enemy& enemy) { return enemy.name; }
-std::string EnemySpawner::getType(const Enemy& enemy) { return enemy.type; }
-std::string EnemySpawner::getPersonality(const Enemy& enemy) { return enemy.personality; }
-int EnemySpawner::getDefence(const Enemy& enemy) { return enemy.defence; }
-bool EnemySpawner::isDead(const Enemy& enemy) { return enemy.health <= 0; }
+int EnemySpawner::getHealth(const Enemy &enemy) { return enemy.health; }
+int EnemySpawner::getAttack(const Enemy &enemy) { return enemy.attack; }
+std::string EnemySpawner::getName(const Enemy &enemy) { return enemy.name; }
+std::string EnemySpawner::getType(const Enemy &enemy) { return enemy.type; }
+std::string EnemySpawner::getPersonality(const Enemy &enemy) { return enemy.personality; }
+int EnemySpawner::getDefence(const Enemy &enemy) { return enemy.defence; }
+bool EnemySpawner::isDead(const Enemy &enemy) { return enemy.health <= 0; }
 
 // Method to apply damage to an enemy
-void EnemySpawner::damageDelt(Enemy& enemy, int hurt)
+void EnemySpawner::damageDelt(Enemy &enemy, int hurt)
 {
     if (enemy.type == "Sardaukar")
     {
@@ -44,13 +44,13 @@ void EnemySpawner::damageDelt(Enemy& enemy, int hurt)
 }
 
 // Methods to set enemy attributes
-void EnemySpawner::setAttack(Enemy& enemy, int attack) { enemy.attack = attack; }
-void EnemySpawner::setHealth(Enemy& enemy, int health) { enemy.health = health; }
+void EnemySpawner::setAttack(Enemy &enemy, int attack) { enemy.attack = attack; }
+void EnemySpawner::setHealth(Enemy &enemy, int health) { enemy.health = health; }
 
 // Private methods to generate random enemy attributes
 std::string EnemySpawner::generateName()
 {
-    std::vector<std::string> names = { "Kaelen", "Liora", "Orin", "Zylara", "KL-98", "RW-07", "Charles", "Jacket", "Raid" };
+    std::vector<std::string> names = {"Kaelen", "Liora", "Orin", "Zylara", "KL-98", "RW-07", "Charles", "Jacket", "Raid"};
     return names[rand() % names.size()];
 }
 
@@ -66,13 +66,13 @@ int EnemySpawner::generateAttack()
 
 std::string EnemySpawner::generateType()
 {
-    std::vector<std::string> types = { "Sardaukar", "Fremen", "AI", "Rodians" };
+    std::vector<std::string> types = {"Sardaukar", "Fremen", "AI", "Rodians"};
     return types[rand() % types.size()];
 }
 
 std::string EnemySpawner::generatePersonality()
 {
-    std::vector<std::string> types = { "Upstanding", "Martial", "Cunning", "Sadistic", "Cautious" };
+    std::vector<std::string> types = {"Upstanding", "Martial", "Cunning", "Sadistic", "Cautious"};
     return types[rand() % types.size()];
 }
 

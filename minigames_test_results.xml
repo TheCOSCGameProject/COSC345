@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testcase name="TicTacToe Initialization" time="2.5333e-05"/>
-  <testcase name="TicTacToe Player Move" time="2.5e-07"/>
-  <testcase name="TicTacToe Computer Turn" time="6.9417e-05"/>
-  <testcase name="TicTacToe Check For Win" time="1.166e-06"/>
-  <testcase name="Room Initialization" time="0.000160208"/>
-  <testcase name="Weapon Initialization" time="8.4584e-05"/>
-  <testcase name="Generate Random Number" time="6.375e-06"/>
-  <testcase name="String to Int Conversion" time="0.00025025"/>
-  <testcase name="Combat V1" time="0.000170417"/>
+  <testcase name="TicTacToe Initialization" time="1.0375e-05"/>
+  <testcase name="TicTacToe Player Move" time="8.3e-08"/>
+  <testcase name="TicTacToe Computer Turn" time="2.825e-05"/>
+  <testcase name="TicTacToe Check For Win" time="5e-07"/>
+  <testcase name="Room Initialization" time="6.6083e-05"/>
+  <testcase name="Weapon Initialization" time="2.7167e-05"/>
+  <testcase name="Generate Random Number" time="4.042e-06"/>
+  <testcase name="String to Int Conversion" time="6.5291e-05"/>
+  <testcase name="Combat V1" time="5.5916e-05">
+    <failure message="Assertion failed: output.find("Player Health: 100") != std::string::npos"/>
+  </testcase>
 </testsuites>

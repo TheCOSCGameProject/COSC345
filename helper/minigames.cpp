@@ -1,10 +1,6 @@
 #include "../lib/toolkit.h"
 #include "../lib/dependencies.h"
 #include "../lib/minigames.h"
-<<<<<<< HEAD
-=======
-
->>>>>>> 226432c8e1a4536c009d6514828fa5fed24c1141
 /* TicTacToe */
 
 void TicTacToe::printBoard()
@@ -24,7 +20,6 @@ char TicTacToe::getSquare(int row, int col) const
     return squares[row][col];
 }
 
-<<<<<<< HEAD
 void TicTacToe::playerMove(int row, int col)
 {
     if (row >= 0 && row < 3 && col >= 0 && col < 3 && squares[row][col] == ' ')
@@ -43,37 +38,6 @@ void TicTacToe::computerTurn()
 
         if (squares[row][col] == ' ')
         {
-=======
-TicTacToe::TicTacToe()
-{
-    for (int i = 0; i < 3; i++)
-    {
-        for (int j = 0; j < 3; j++)
-        {
-            squares[i][j] = ' ';
-        }
-    }
-}
-
-// Update the playerMove function
-void TicTacToe::playerMove(int row, int col)
-{
-    if (row >= 0 && row < 3 && col >= 0 && col < 3 && squares[row][col] == ' ')
-    {
-        squares[row][col] = 'X';
-    }
-}
-void TicTacToe::computerTurn()
-{
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
-    while (true)
-    {
-        int row = std::rand() % 3;
-        int col = std::rand() % 3;
-
-        if (squares[row][col] == ' ')
-        {
->>>>>>> 226432c8e1a4536c009d6514828fa5fed24c1141
             squares[row][col] = 'O';
             break;
         }
@@ -175,7 +139,6 @@ void TicTacToe::start()
         }
     }
 }
-<<<<<<< HEAD
 
 /** CodeGuesser game */
 
@@ -230,60 +193,6 @@ bool CodeGuesser::addGuess()
     std::string guess, coloredGuess;
     std::cin >> guess;
 
-=======
-
-CodeGuesser::CodeGuesser()
-    : words(split(getFileContent("../reasources/cg_words.txt"), '\n')),
-      index(generateRandomIndex(words.size())) {}
-
-int CodeGuesser::generateRandomIndex(size_t size)
-{
-    if (size == 0)
-    {
-        throw std::invalid_argument("Size of words vector must be greater than 0");
-    }
-    std::random_device rd;                            // Seed
-    std::mt19937 gen(rd());                           // Mersenne Twister engine
-    std::uniform_int_distribution<> dis(0, size - 1); // Distribution range
-    return dis(gen);
-};
-
-void CodeGuesser::start()
-{
-    bool success = false;
-    int count = 0;
-    while (count < 5)
-    {
-        std::cout << "Please enter the five lettered passcode: " + std::to_string(5 - count) + " guesses remaining\n\n";
-        printGuesses();
-
-        if (addGuess())
-        {
-            success = true;
-            break;
-        }
-        clear(4 + count);
-        count++;
-    }
-
-    if (success)
-    {
-        std::cout << "Passcode Accepted!";
-    }
-    else
-    {
-        std::cout << "Too many failed attempts! Please restart";
-    }
-}
-
-bool CodeGuesser::addGuess()
-{
-    // Yellow, Green, Reset
-    std::string colorCodes[] = {"\033[43m", "\033[42m", "\033[0m"};
-    std::string guess, coloredGuess;
-    std::cin >> guess;
-
->>>>>>> 226432c8e1a4536c009d6514828fa5fed24c1141
     bool correct = true;
 
     for (int i = 0; i < 5; i++)
@@ -446,39 +355,18 @@ void BlackJack::start()
 void BlackJack::waitForEnter()
 {
     std::cout << "Press Enter to continue..." << std::endl;
-<<<<<<< HEAD
     system("stty -echo -icanon");
 
     std::cin.ignore(); // Waits for the user to press Ente
     std::cin.get();
 
     system("stty echo icanon");
-=======
-
-#ifdef _WIN32
-    // Windows-specific implementation
-    while (_getch() != '\r')
-        ; // Wait until the Enter key (carriage return) is pressed
-#else
-    // macOS/Linux-specific implementation
-    system("stty -echo -icanon"); // Disable echo and canonical mode
-
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Wait for Enter
-    std::cin.get();
-
-    system("stty echo icanon"); // Re-enable echo and canonical mode
-#endif
->>>>>>> 226432c8e1a4536c009d6514828fa5fed24c1141
 }
 
 int BlackJack::evaluate(bool hit)
 {
     int dealerTotal = dealer[0] + dealer[1];
-<<<<<<< HEAD
     int playerTotal;
-=======
-    int playerTotal = 0;
->>>>>>> 226432c8e1a4536c009d6514828fa5fed24c1141
     for (int i = 0; i < playersCards.size(); i++)
     {
         playerTotal += playersCards[i];
