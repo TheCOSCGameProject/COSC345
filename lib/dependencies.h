@@ -7,6 +7,7 @@
 #include <random>
 #include <cstdlib>
 #include <iomanip>
+#include <algorithm>
 
 #ifdef _WIN32
 #include <windows.h>

@@ -136,7 +136,7 @@ void RoomContent::displayContent() const
     {
         std::cout << "NPC Details:" << std::endl;
         std::cout << "Name: " << npc.name << std::endl;
-        std::cout << "Gambling Game: " << npc.gamblingGame << std::endl;
+        std::cout << "Gambling Game: " << std::endl;
         std::cout << "Skill Level: " << npc.skillLevel << std::endl;
     }
 }
