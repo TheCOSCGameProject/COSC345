@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testcase name="TicTacToe Initialization" time="2.12e-06"/>
-  <testcase name="TicTacToe Player Move" time="1.8e-07"/>
-  <testcase name="TicTacToe Computer Turn" time="3.5689e-05"/>
-  <testcase name="TicTacToe Check For Win" time="4.676e-06"/>
-  <testcase name="Room Initialization" time="1.672e-05"/>
-  <testcase name="Weapon Initialization" time="6.2814e-05"/>
-  <testcase name="Generate Random Number" time="5.102e-06"/>
-  <testcase name="String to Int Conversion" time="0.000121145"/>
-  <testcase name="Combat V1" time="0.000904934"/>
-  <testcase name="Dungeon Generation" time="0.000250065"/>
+  <testcase name="TicTacToe Initialization" time="5.122e-06"/>
+  <testcase name="TicTacToe Player Move" time="3.57e-07"/>
+  <testcase name="TicTacToe Computer Turn" time="0.000206851"/>
+  <testcase name="TicTacToe Check For Win" time="1.311e-06"/>
+  <testcase name="Room Initialization" time="8.5726e-05"/>
+  <testcase name="Weapon Initialization" time="7.654e-05"/>
+  <testcase name="Generate Random Number" time="5.58e-06"/>
+  <testcase name="String to Int Conversion" time="0.000207408"/>
+  <testcase name="Combat V1" time="0.000185908">
+    <failure message="Assertion failed: output.find("Player Health: 100") != std::string::npos"/>
+  </testcase>
+  <testcase name="Dungeon Generation" time="0.000226375"/>
 </testsuites>

@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include "../helper/minigames.cpp"
+#include "../lib/minigames.h"
 
 // Assuming these functions are declared in the toolkit.h
 // std::vector<std::string> split(const std::string &str, char delimiter);

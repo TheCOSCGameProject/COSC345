@@ -1,11 +1,13 @@
-#include "../helper/minigames.cpp"
-#include "../helper/combat.cpp"
-#include "../helper/dungeon.cpp"
-#include "../helper/player.cpp"
-#include "../helper/room.cpp"
-#include "../helper/toolkit.cpp"
-#include "../helper/weapon.cpp"
+#include "../lib/minigames.h"
+#include "../lib/combat.h"
+#include "../lib/player.h"
+#include "../lib/toolkit.h"
+#include "../lib/room.h"
+#include "../lib/enemies.h"
+#include "../lib/dependencies.h"
 
+#include "../helper/weapon.cpp"
+#include "../helper/dungeon.cpp"
 #include "custom_test_framework.h"
 #include "cassert"
 #include <sstream>
@@ -29,7 +31,6 @@ void testTicTacToePlayerMove()
     game.playerMove(0, 0);
     ASSERT_EQUAL('X', game.getSquare(0, 0));
 }
-
 void testTicTacToeComputerTurn()
 {
     TicTacToe game;
@@ -192,25 +193,6 @@ void testDungeonGeneration()
     ASSERT_EQUAL(5, visitedRooms.size());
 }
 
-/* There is a conflict in definition, two for enemy I think, one in enemies.cpp, other in room.h( Hypothesis not actually sure which is why I haven't changed/ tried fixing.)
-// New EnemySpawner tests
-void testEnemySpawner()
-{
-    EnemySpawner spawner;
-    Enemy enemy = spawner.spawnEnemy();
-
-    ASSERT(spawner.getName(enemy) != "");
-    ASSERT(spawner.getHealth(enemy) >= 50 && spawner.getHealth(enemy) <= 100);
-    ASSERT(spawner.getAttack(enemy) >= 10 && spawner.getAttack(enemy) <= 30);
-    ASSERT(spawner.getType(enemy) != "");
-    ASSERT(spawner.getPersonality(enemy) != "");
-    ASSERT(spawner.getDefence(enemy) >= 5 && spawner.getDefence(enemy) <= 80);
-
-    int initialHealth = spawner.getHealth(enemy);
-    spawner.damageDelt(enemy, 20);
-    ASSERT(spawner.getHealth(enemy) < initialHealth);
-}
-*/
 int main()
 {
     TestFramework framework("minigames_test_results.xml");
@@ -224,7 +206,7 @@ int main()
     // New Player tests
     framework.addTest("Player Initialization", testPlayerInitialization);
     framework.addTest("Player Inventory", testPlayerInventory);
-    */
+`   */
     // New Room tests
     framework.addTest("Room Initialization", testRoomInitialization);
 
@@ -240,6 +222,7 @@ int main()
 
     // New Dungeon tests
     framework.addTest("Dungeon Generation", testDungeonGeneration);
+
     framework.run();
 
     return 0;
@@ -250,3 +233,18 @@ int main()
 //./run_tests.exe
 
 // g++ -std=c++17 -o run_tests.exe tests/minigames_test.cpp
+
+// g++ -std=c++17 -o run_tests.exe tests/minigames_test.cpp
+// g++ -std=c++17 -o run_tests.exe tests/minigames_test.cpp helper/minigames.cpp
+/*
+g++ -std=c++17 -o run_tests.exe \
+    tests/minigames_test.cpp \
+    helper/minigames.cpp \
+    helper/combat.cpp \
+    helper/dungeon.cpp \
+    helper/player.cpp \
+    helper/room.cpp \
+    helper/toolkit.cpp \
+    helper/weapon.cpp \
+    helper/enemies.cpp
+*/
