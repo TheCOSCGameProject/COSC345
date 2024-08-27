@@ -366,7 +366,7 @@ void BlackJack::waitForEnter()
 int BlackJack::evaluate(bool hit)
 {
     int dealerTotal = dealer[0] + dealer[1];
-    int playerTotal;
+    int playerTotal = 0;
     for (int i = 0; i < playersCards.size(); i++)
     {
         playerTotal += playersCards[i];

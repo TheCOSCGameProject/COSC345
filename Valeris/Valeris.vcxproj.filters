@@ -67,5 +67,14 @@
     <ClInclude Include="..\lib\player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\lib\weapon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\dungeon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\minigames.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

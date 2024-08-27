@@ -145,10 +145,13 @@
   <ItemGroup>
     <ClInclude Include="..\lib\combat.h" />
     <ClInclude Include="..\lib\dependencies.h" />
+    <ClInclude Include="..\lib\dungeon.h" />
     <ClInclude Include="..\lib\enemies.h" />
+    <ClInclude Include="..\lib\minigames.h" />
     <ClInclude Include="..\lib\player.h" />
     <ClInclude Include="..\lib\room.h" />
     <ClInclude Include="..\lib\toolkit.h" />
+    <ClInclude Include="..\lib\weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
