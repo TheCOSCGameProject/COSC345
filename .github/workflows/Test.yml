@@ -49,7 +49,7 @@ jobs:
 
     - name: Build and Run tests
       run: |
-        g++ -std=c++17 --coverage -o run_tests.exe tests/minigames_test.cpp helper/*.cpp && .\run_tests.exe
+        g++ -std=c++17 --coverage -o run_tests.exe tests/minigames_test.cpp helper/*.cpp; .\run_tests.exe
 
     - name: Generate Coverage Report with gcovr
       run: |
