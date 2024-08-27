@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 env:
   SOLUTION_FILE_PATH: Valeris
-  BUILD_CONFIGURATION: Debug
+  BUILD_CONFIGURATION: Release
 
 permissions:
   contents: read
@@ -18,31 +18,38 @@ jobs:
 
     - name: Install Chocolatey
       run: |
-        Set-ExecutionPolicy Bypass -Scope Process -Force; 
-        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; 
+        Set-ExecutionPolicy Bypass -Scope Process -Force
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
         iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
-    - name: Install GCC
-      run: choco install mingw -y
-
-    - name: Install Python and gcovr
+    - name: Install MinGW and other dependencies
       run: |
+        choco install mingw -y
+        choco install msbuild -y
         choco install python -y
         pip install gcovr
+
+    - name: Cache NuGet packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.config') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
 
     - name: Restore NuGet packages
-      run: nuget restore ${{ env.SOLUTION_FILE_PATH }}
+      run: nuget restore ${{env.SOLUTION_FILE_PATH}}
 
-    - name: Build with Coverage
+    - name: Build
       run: |
-        g++ -std=c++17 --coverage -o run_tests.exe tests/minigames_test.cpp
-        msbuild /m /p:Configuration=${{ env.BUILD_CONFIGURATION }} ${{ env.SOLUTION_FILE_PATH }}
+        msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:Platform=x64 /p:CXXLanguageStandard=C++17 /v:n ${{env.SOLUTION_FILE_PATH}}
 
-    - name: Run Tests
-      run: .\run_tests.exe
+    - name: Build and Run tests
+      run: |
+        g++ -std=c++17 --coverage -o run_tests.exe tests/minigames_test.cpp helper/*.cpp && .\run_tests.exe
 
     - name: Generate Coverage Report with gcovr
       run: |

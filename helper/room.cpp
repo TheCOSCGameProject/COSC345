@@ -44,14 +44,14 @@ void RoomContent::emptyRoom()
     std::vector<std::string> listOfEnemies = split(getFileContent("../reasources/enemies.txt"), '\n');
     std::vector<std::string> listOfItems = split(getFileContent("../reasources/room_items.txt"), '\n');
     std::vector<std::string> listRoomItems;
-    std::vector<Enemy> listOfRoomEnemies;
+    std::vector<EnemyStruct> listOfRoomEnemies;
     for (int i = 0; i < listOfEnemies.size(); i++)
     {
         std::vector<std::string> enemyDetails = split(listOfEnemies.at(i), ':');
         int rand = generateRandomNumber(0, 10);
         if (stringToInt(enemyDetails.at(1)) > rand)
         {
-            Enemy enemy;
+            EnemyStruct enemy;
             enemy.name = enemyDetails[0];
             enemy.health = stringToInt(enemyDetails[2]);
             enemy.attack = stringToInt(enemyDetails[3]);
@@ -89,7 +89,7 @@ void RoomContent::addItem(const std::string &item)
     items.push_back(item);
 }
 
-void RoomContent::addEnemy(const Enemy &enemy)
+void RoomContent::addEnemy(const EnemyStruct &enemy)
 {
     enemies.push_back(enemy);
 }
