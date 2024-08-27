@@ -29,10 +29,24 @@ jobs:
         choco install python -y
         pip install gcovr
 
+    - name: Cache NuGet packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.config') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Restore NuGet packages
+      run: nuget restore ${{env.SOLUTION_FILE_PATH}}
+
     - name: Build with Coverage
       run: |
-        g++ -std=c++17 --coverage -o run_tests.exe tests\minigames_test.cpp helper\minigames.cpp helper\combat.cpp helper\dungeon.cpp helper\player.cpp helper\room.cpp helper\toolkit.cpp helper\weapon.cpp helper\enemies.cpp
-        msbuild /m /p:Configuration=%BUILD_CONFIGURATION% %SOLUTION_FILE_PATH%
+        g++ -std=c++17 --coverage -o run_tests.exe tests/minigames_test.cpp
+        msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:Platform=x64 /p:CXXLanguageStandard=C++17 /v:n ${{env.SOLUTION_FILE_PATH}}
 
     - name: Run tests
       run: |
