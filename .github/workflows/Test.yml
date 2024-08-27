@@ -63,28 +63,23 @@ jobs:
         files: ./coverage.xml
         fail_ci_if_error: true
 
-    - name: Upload coverage to Codacy for C++
-      uses: codacy/codacy-coverage-reporter-action@v1
-      with:
-        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-        coverage-reports: coverage.xml
-        language: CPP
-        force-coverage-parser: jacoco
-        partial: true
-    - name: Upload coverage to Codacy for C
-      uses: codacy/codacy-coverage-reporter-action@v1
-      with:
-        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-        coverage-reports: coverage.xml
-        language: c
-        force-coverage-parser: jacoco
-        partial: true
-    - name: Finalize Codacy coverage upload
-      uses: codacy/codacy-coverage-reporter-action@v1
-      with:
-        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-        coverage-reports: coverage.xml
-        final: true
+    - name: Upload coverage to Codacy
+      shell: bash
+      run: |
+        # Download Codacy coverage reporter
+        curl -Ls https://coverage.codacy.com/get.sh > codacy-coverage-reporter.sh
+        chmod +x codacy-coverage-reporter.sh
+
+        # Upload coverage for C++
+        ./codacy-coverage-reporter.sh report -l CPP -r coverage.xml --partial
+
+        # Upload coverage for C
+        ./codacy-coverage-reporter.sh report -l C -r coverage.xml --partial
+
+        # Finalize the coverage report
+        ./codacy-coverage-reporter.sh final
+      env:
+        CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
 
     - name: Upload HTML Coverage Report as Artifact
       uses: actions/upload-artifact@v3
