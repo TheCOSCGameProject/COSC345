@@ -11,8 +11,6 @@ Welcome to **Valeris**, a modern remake of classic text-based dungeon crawler ga
 - [Development Workflow](#development-workflow)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgements](#acknowledgements)
 
 ## Introduction
 
@@ -31,7 +29,7 @@ Valeris is a text-based dungeon crawler that offers players a unique experience 
 ### Prerequisites
 
 - C++ Compiler (e.g., GCC, Clang)
-- CMake (for building the project)
+- .yml for the Build
 - Doxygen (for generating documentation)
 
 ### Clone the Repository
@@ -40,20 +38,27 @@ git clone https://github.com/TheCOSCGameProject/COSC345.git
 cd valeris
 
 
-### Usage
-Once the game is started, you can navigate through the dungeons, interact with characters, and engage in mini-games using the keyboard. Each choice you make will affect the outcome of your journey.
+## Usage
+Once the game is started, you can navigate through the dungeons, interact with characters, and engage in mini-games using the keyboard. Each choice you make will affect the outcome of your journey. Once the game is run, the player will be represented with a main menue that can be used
 
 
 
 
 
 
-### Development Workflow
-
-We follow an agile development process with tasks managed via Trello and real-time communication through Discord. Continuous integration (CI) is set up to ensure that every component integrates smoothly with the rest of the system.
 
 
-### Documentation
+## Development Workflow
+
+We follow an agile development process with tasks managed via Trello and real-time communication through Discord. Continuous integration (CI) is set up to ensure that every component integrates smoothly with the rest of the system. There are two .yml files located in the git Workflows folder that assist with the project build.
+
+
+## Documentation
 
 The codedocs.xyz has been used to generate Doxygen documentation. The documentation for this project can be found in the below webpage/website:
+https://codedocs.xyz/TheCOSCGameProject/COSC345/
+
+## Contributing
+
+You are welcome to contribute to the project, by simply making Git push requests. We may review the push requests and make changes accordingly.
 
