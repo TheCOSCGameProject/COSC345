@@ -46,10 +46,11 @@ void DisplayInstructionsText()
 {
     std::string instructions = R"(
 Instructions:
-1. Use the arrow keys to move your character.
-2. Avoid obstacles and enemies.
+1. Use the N, S, W, E keys to move your character.
+2. Fight enemies with ___
 3. Collect items to improve your chances of survival.
-4. Defeat bosses to progress to the next level.
+4. Play minigames with ___
+5. Defeat bosses to progress to the next level.
 )";
     std::cout << "\033[37m" << instructions << std::endl;
 
