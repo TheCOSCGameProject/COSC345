@@ -39,6 +39,7 @@ public:
     int getRoomType();
     std::string getRoomDesc();
     NPC &getNPC();
+    std::vector<EnemyStruct> getEnemies();
 
 private:
     std::vector<std::string> items;

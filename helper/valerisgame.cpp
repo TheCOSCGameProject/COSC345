@@ -1,4 +1,5 @@
 #include "../lib/valerisgame.h"
+#include "../lib/combat.h"
 
 ValerisGame::ValerisGame()
 {
@@ -8,23 +9,20 @@ ValerisGame::ValerisGame()
 
 void ValerisGame::start()
 {
-    this->dungeon.traverseAndPrint(currentRoom); // layout checking
-
-    std::cout << "Dungeon generated with " << numRooms << " rooms." << std::endl;
-
     bool exploring = true;
     while (exploring)
     {
-        std::cout << "Currently, you are in a " << currentRoom->roomContent.getRoomDesc() << "." << std::endl;
+        std::cout << "You have entered a " << currentRoom->roomContent.getRoomDesc() << ".\n\n";
         currentRoom->displayAvailableDirections();
 
-        std::cout << "Please enter a direction as N (North), S (South), E (East) and W (West) or Q (Quit): ";
-        char direction;
-        std::cin >> direction;
+        std::cout << "Enter Action: ";
+        std::string direction = getUserInputToken();
 
-        switch (toupper(direction))
+        // Convert direction to uppercase for consistent comparisons
+        std::string upperDirection = toUpperCase(direction);
+
+        if (upperDirection == "N")
         {
-        case 'N':
             if (currentRoom->north)
             {
                 currentRoom = currentRoom->north;
@@ -33,8 +31,9 @@ void ValerisGame::start()
             {
                 std::cout << "You can't move North." << std::endl;
             }
-            break;
-        case 'S':
+        }
+        else if (upperDirection == "S")
+        {
             if (currentRoom->south)
             {
                 currentRoom = currentRoom->south;
@@ -43,8 +42,9 @@ void ValerisGame::start()
             {
                 std::cout << "You can't move South." << std::endl;
             }
-            break;
-        case 'E':
+        }
+        else if (upperDirection == "E")
+        {
             if (currentRoom->east)
             {
                 currentRoom = currentRoom->east;
@@ -53,8 +53,9 @@ void ValerisGame::start()
             {
                 std::cout << "You can't move East." << std::endl;
             }
-            break;
-        case 'W':
+        }
+        else if (upperDirection == "W")
+        {
             if (currentRoom->west)
             {
                 currentRoom = currentRoom->west;
@@ -63,14 +64,35 @@ void ValerisGame::start()
             {
                 std::cout << "You can't move West." << std::endl;
             }
-            break;
-        case 'Q':
+        }
+        else if (upperDirection == "/PLAY" && currentRoom->roomContent.getRoomType() == 1)
+        {
+            while (!currentRoom->roomContent.getNPC().gamblingGame.get()->start())
+            {
+            }
+        }
+        else if (upperDirection == "/FIGHT" && currentRoom->roomContent.getRoomType() == 0)
+        {
+            std::vector<EnemyStruct> enemies = currentRoom->roomContent.getEnemies();
+            for (int i = 0; i < (int)enemies.size(); i++)
+            {
+                EnemyStruct enemy = enemies[i];
+                int enemyHealth = enemy.health;
+                combatV1(player.getCurrHealth(), enemyHealth, 3000, enemy.name);
+            }
+        }
+        else if (upperDirection == "Q")
+        {
             exploring = false;
             std::cout << "Exiting dungeon exploration." << std::endl;
-            break;
-        default:
+        }
+        else if (upperDirection == "/HELP")
+        {
+            std::cout << getFileContent("../reasources/help.txt") << std::endl;
+        }
+        else
+        {
             std::cout << "Invalid direction. Please enter N, S, E, W, or Q." << std::endl;
-            break;
         }
     }
 }

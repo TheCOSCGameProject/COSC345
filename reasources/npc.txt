@@ -1,0 +1,5 @@
+Spice Smuggler
+Arakeen Merchant
+Arakeen Soldier
+Arakeen Technician
+Explorer

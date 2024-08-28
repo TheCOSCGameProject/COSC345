@@ -6,7 +6,7 @@
  * @param playerHealth The current health of the player.
  * @param enemyHealth The current health of the enemy.
  */
-void printHealth(int playerHealth, int enemyHealth)
+void printHealth(int playerHealth, int enemyHealth, std::string name)
 {
     // Clear the previous health display (5 lines up)
     for (int i = 0; i < 5; i++)
@@ -15,8 +15,8 @@ void printHealth(int playerHealth, int enemyHealth)
     }
 
     // Prepare the health bar string
-    std::string healthBars = "* Player Health: " + std::to_string(playerHealth) + "  Enemy Health: " + std::to_string(enemyHealth) + " *";
-    
+    std::string healthBars = "* Player Health: " + std::to_string(playerHealth) + " " + name + " Health: " + std::to_string(enemyHealth) + " *";
+
     // Create a width string of '*' matching the length of healthBars
     std::string width = "";
     for (int i = 0; i < healthBars.length(); i++)
@@ -36,7 +36,7 @@ void printHealth(int playerHealth, int enemyHealth)
  * @param enemyHealth The current health of the enemy.
  * @param difficulty The difficulty level affecting the speed of input reactions.
  */
-void combatV1(int playerHealth, int enemyHealth, int difficulty)
+bool combatV1(int playerHealth, int enemyHealth, int difficulty, std::string name)
 {
     // Define directional moves and their keyboard equivalents
     std::string moves[] = {"a", "w", "d", "s"};
@@ -46,7 +46,8 @@ void combatV1(int playerHealth, int enemyHealth, int difficulty)
     // Combat loop: continue while both player and enemy have health
     while (playerHealth > 0 && enemyHealth > 0)
     {
-        int random_number = std::rand() % 4; // Select a random direction
+        printHealth(playerHealth, enemyHealth, name);
+        int random_number = std::rand() % 4;             // Select a random direction
         std::cout << moves[random_number] << std::flush; // Display the move symbol
 
         auto start = std::chrono::high_resolution_clock::now(); // Start timer for user input
@@ -54,27 +55,24 @@ void combatV1(int playerHealth, int enemyHealth, int difficulty)
 
         while (true)
         {
-            std::getline(std::cin, inputStr); // Get user input
+            std::getline(std::cin, inputStr);                     // Get user input
             auto now = std::chrono::high_resolution_clock::now(); // Capture current time
-            std::chrono::duration<double> elapsed = now - start; // Calculate elapsed time
+            std::chrono::duration<double> elapsed = now - start;  // Calculate elapsed time
 
             // Check if user input matches and is within the allowed time
             if (inputStr == keyBoardEquivalent[random_number] && elapsed.count() < difficulty / 1000.0)
             {
                 enemyHealth -= 5; // Successful hit on the enemy
-                printHealth(playerHealth, enemyHealth);
                 break;
             }
             else if (elapsed.count() >= difficulty / 1000.0)
             {
                 playerHealth -= 10; // Player takes damage due to slow response
-                printHealth(playerHealth, enemyHealth);
                 break;
             }
             else
             {
                 playerHealth -= 5; // Incorrect input results in minor damage
-                printHealth(playerHealth, enemyHealth);
                 break;
             }
         }
@@ -84,10 +82,12 @@ void combatV1(int playerHealth, int enemyHealth, int difficulty)
     if (playerHealth > 0)
     {
         std::cout << "You Win!";
+        return true;
     }
     else
     {
         std::cout << "You Lose!";
+        return false;
     }
 
     std::cout << moves[0] << std::endl; // End message or action
@@ -104,7 +104,7 @@ void combatV2(int playerHealth, int enemyHealth)
     char combatType[] = {'o', 'd', 's'};
     std::string options[] = {"Offensive", "Sneaky", "Defensive"};
     std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed for randomness
-    int random_number = std::rand() % 3; // Randomly choose an enemy attack type
+    int random_number = std::rand() % 3;                       // Randomly choose an enemy attack type
 
     // Combat loop: continue while both player and enemy have health
     while (playerHealth > 0 && enemyHealth > 0)

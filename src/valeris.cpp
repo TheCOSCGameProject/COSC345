@@ -11,7 +11,7 @@ int main()
   int j;
   bool running = true;
 
-  int delayTime = 15;
+  int delayTime = 0;
   std::string color = "\033[36m";
 
 #ifdef _WIN32

@@ -1,0 +1,3 @@
+Combat
+
+Combat can be in two forms dueling (1v1) or against multiple enemies.

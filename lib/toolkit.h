@@ -62,4 +62,6 @@ void enableInput();
 
 void waitForEnter();
 
+std::string toUpperCase(const std::string &input);
+
 #endif // TOOLKIT_H

@@ -15,8 +15,9 @@
 class Game
 {
 public:
-    virtual void start() = 0; // Pure virtual function to enforce implementation in derived classes
+    virtual bool start() = 0; // Pure virtual function to enforce implementation in derived classes
     virtual ~Game() {}        // Virtual destructor for proper cleanup
+    virtual std::string getGameName() = 0;
 };
 
 /* TicTacToe Game */
@@ -31,7 +32,8 @@ public:
     void playerMove(int row, int col);
     void computerTurn();
     bool checkForWin();
-    void start() override;
+    bool start() override;
+    std::string getGameName() override;
 };
 
 /* CodeGuesser Game */
@@ -46,13 +48,14 @@ private:
 
 public:
     CodeGuesser();
-    void start() override;
+    bool start() override;
     bool addGuess();
     void printGuesses();
     void printWords();
     int getWordLength() const;
     int getGuessCount() const;
     std::string getLastGuess() const;
+    std::string getGameName() override;
 };
 
 /* BlackJack Game */
@@ -64,7 +67,6 @@ private:
     std::vector<int> playersCards;
     int bid;
 
-    void waitForEnter();
     int evaluate(bool hit);
     void initDecks();
     void newGame();
@@ -72,7 +74,8 @@ private:
 
 public:
     BlackJack();
-    void start() override;
+    bool start() override;
+    std::string getGameName() override;
 };
 
 #endif // MINIGAMES_H

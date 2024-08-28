@@ -7,6 +7,7 @@ Player::Player()
     getClassFromUser();
     this->maxHealth = 100;
     this->currHealth = 100;
+    clear(2);
 }
 
 // Destructor implementation

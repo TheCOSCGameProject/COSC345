@@ -14,11 +14,21 @@ RoomContent::RoomContent()
     {
     case 0:
         emptyRoom();
-        roomDesc = "Empty Room";
+        roomDesc = "Empty Room ";
+        for (int i = 0; i < (int)enemies.size() - 1; i++)
+        {
+            if (i == 0 && (int)enemies.size() > 0)
+            {
+                roomDesc.append("containing a ");
+            }
+            roomDesc.append(enemies[i].name + ", ");
+        }
+        roomDesc.append(enemies[(int)enemies.size() - 1].name + ", ");
         break;
     case 1:
         gamblingRoom();
-        roomDesc = "Gambling Room";
+        roomDesc = "Gambling Room containing a " + npc.name + " who wants to play " + npc.gamblingGame.get()->getGameName();
+
         break;
     default:
         emptyRoom(); // Fallback, although unnecessary with current range
@@ -45,7 +55,11 @@ void RoomContent::gamblingRoom()
     {
         newNPC.gamblingGame = std::make_unique<BlackJack>();
     }
-    newNPC.name = "Charlie";
+
+    std::vector<std::string> npcNames = split(getFileContent("../reasources/npc.txt"), '\n');
+    int index = generateRandomNumber(0, (int)npcNames.size() - 1);
+
+    newNPC.name = npcNames[index];
     newNPC.skillLevel = 0;
     this->npc = std::move(newNPC);
 }
@@ -115,6 +129,11 @@ NPC &RoomContent::getNPC()
     return npc;
 }
 
+std::vector<EnemyStruct> RoomContent::getEnemies()
+{
+    return enemies;
+}
+
 void RoomContent::displayContent() const
 {
     if (roomType == 0)
@@ -157,14 +176,26 @@ Room::Room() : north(nullptr), south(nullptr), west(nullptr), east(nullptr), roo
 
 void Room::displayAvailableDirections()
 {
-    std::cout << "You can move: ";
+    std::vector<std::string> directions;
+
     if (north)
-        std::cout << "North ";
+        directions.push_back("North");
     if (south)
-        std::cout << "South ";
+        directions.push_back("South");
     if (west)
-        std::cout << "West ";
+        directions.push_back("West");
     if (east)
-        std::cout << "East ";
+        directions.push_back("East");
+
+    std::cout << "You can move: ";
+
+    for (size_t i = 0; i < directions.size(); ++i)
+    {
+        std::cout << directions[i];
+        if (i < directions.size() - 1)
+        {
+            std::cout << ", ";
+        }
+    }
     std::cout << std::endl;
 }

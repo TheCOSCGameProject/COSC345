@@ -3,6 +3,11 @@
 #include "../lib/minigames.h"
 /* TicTacToe */
 
+std::string TicTacToe::getGameName()
+{
+    return "TicTacToe";
+}
+
 void TicTacToe::printBoard()
 {
     std::string arr[2] = {"\n   |   |   ", "\n___|___|___"};
@@ -80,7 +85,7 @@ bool TicTacToe::checkForWin()
     return wasWin;
 }
 
-void TicTacToe::start()
+bool TicTacToe::start()
 {
     printBoard();
     int row, col;
@@ -110,13 +115,13 @@ void TicTacToe::start()
         if (checkForWin())
         {
             std::cout << "You win!" << std::endl;
-            break;
+            return true;
         }
         count++;
         if (count == 9)
         {
             std::cout << "Draw!" << std::endl;
-            break;
+            return false;
         }
 
 #ifdef _WIN32
@@ -129,18 +134,23 @@ void TicTacToe::start()
         if (checkForWin())
         {
             std::cout << "You lose!" << std::endl;
-            break;
+            return false;
         }
         count++;
         if (count == 9)
         {
             std::cout << "Draw!" << std::endl;
-            break;
+            return true;
         }
     }
 }
 
 /** CodeGuesser game */
+
+std::string CodeGuesser::getGameName()
+{
+    return "Code Guesser";
+}
 
 int CodeGuesser::generateRandomIndex(size_t size)
 {
@@ -150,7 +160,7 @@ int CodeGuesser::generateRandomIndex(size_t size)
     }
     std::random_device rd;                            // Seed
     std::mt19937 gen(rd());                           // Mersenne Twister engine
-    std::uniform_int_distribution<> dis(0, (int)size - 1); // Distribution range
+    std::uniform_int_distribution<> dis(0, size - 1); // Distribution range
     return dis(gen);
 }
 
@@ -158,7 +168,7 @@ CodeGuesser::CodeGuesser()
     : words(split(getFileContent("../reasources/cg_words.txt"), '\n')),
       index(generateRandomIndex(words.size())) {}
 
-void CodeGuesser::start()
+bool CodeGuesser::start()
 {
     bool success = false;
     int count = 0;
@@ -179,10 +189,12 @@ void CodeGuesser::start()
     if (success)
     {
         std::cout << "Passcode Accepted!";
+        return true;
     }
     else
     {
         std::cout << "Too many failed attempts! Please restart";
+        return false;
     }
 }
 
@@ -239,7 +251,7 @@ void CodeGuesser::printGuesses()
 
 void CodeGuesser::printWords()
 {
-    for (int i = 0; i < (int)words.size(); i++)
+    for (int i = 0; i < words.size(); i++)
     {
         std::cout << words.at(i) + "\n";
     }
@@ -252,7 +264,7 @@ int CodeGuesser::getWordLength() const
 
 int CodeGuesser::getGuessCount() const
 {
-    return (int)guesses.size();
+    return guesses.size();
 }
 
 std::string CodeGuesser::getLastGuess() const
@@ -265,7 +277,12 @@ BlackJack::BlackJack()
     newGame();
 }
 
-void BlackJack::start()
+std::string BlackJack::getGameName()
+{
+    return "Black Jack";
+}
+
+bool BlackJack::start()
 {
     int maxRounds = generateRandomNumber(3, 15);
     if (maxRounds % 2 == 0)
@@ -345,29 +362,20 @@ void BlackJack::start()
     if (totalWins >= maxRounds / 2)
     {
         std::cout << "Game Over You Win!" << std::endl;
+        return true;
     }
     else
     {
         std::cout << "Game Over You Loose!" << std::endl;
+        return false;
     }
-}
-
-void BlackJack::waitForEnter()
-{
-    std::cout << "Press Enter to continue..." << std::endl;
-    system("stty -echo -icanon");
-
-    std::cin.ignore(); // Waits for the user to press Ente
-    std::cin.get();
-
-    system("stty echo icanon");
 }
 
 int BlackJack::evaluate(bool hit)
 {
     int dealerTotal = dealer[0] + dealer[1];
     int playerTotal = 0;
-    for (int i = 0; i < (int)playersCards.size(); i++)
+    for (int i = 0; i < playersCards.size(); i++)
     {
         playerTotal += playersCards[i];
     }
@@ -414,7 +422,7 @@ void BlackJack::newGame()
             cards.push_back(10);
         }
     }
-    unsigned seed = (int)std::chrono::system_clock::now().time_since_epoch().count();
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     auto rng = std::default_random_engine(seed);
     std::shuffle(std::begin(cards), std::end(cards), rng);
 
