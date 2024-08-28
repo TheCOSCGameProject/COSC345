@@ -3,8 +3,19 @@
 # Only include source directories
 INPUT = src/ lib/ helper/ tests/
 
-# Exclude unnecessary directories
-EXCLUDE = Valeris/ planning/ reasources/ dist/ logs/ .git/
+# Exclude unnecessary directories from the documentation process
+EXCLUDE = \
+    Valeris/ \
+    planning/ \
+    reasources/ \
+    dist/ \
+    logs/ \
+    .git/ 
+
+# Exclude specific subdirectories or patterns within excluded directories
+EXCLUDE_PATTERNS = \
+    */x64/Release/* \
+    */.git/* 
 
 # Enable recursive search
 RECURSIVE = YES
