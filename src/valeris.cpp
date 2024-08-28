@@ -4,46 +4,58 @@
 #include "../lib/toolkit.h"
 #include "../lib/room.h"
 #include "../lib/dungeon.h"
+#include "../lib/menu.h"
 
 int main()
 {
-#if defined(_WIN32) || defined(_WIN64)
-  SetConsoleSize(800, 600);
+  int j;
+  bool running = true;
+
+  int delayTime = 15;
+  std::string color = "\033[36m";
+
+#ifdef _WIN32
+  ConsoleSizeControl(800, 600);
 #else
-  SetTerminalSize(24, 80);
+  SetTerminalSize(50, 100);
 #endif
-  // mini game testing ---------------------------------------------
-  // typePrint(getFileContent("../reasources/intro.txt"));
-  // combatV1(100, 100, 2000);
-  // TicTacToe game;
-  // game.startGame();
+  while (running)
+  {
+    Displayj();
+    j = readInt();
 
-  // CodeGuesser ggame;
-  // ggame.start();
+    switch (j)
+    {
+    case 1:
+      clear(10);
+      displayIntro(delayTime, color);
+      StartGame();
+      break;
+    case 2:
+      clear(10);
+      LoadSavedGame();
+      break;
+    case 3:
+      clear(11);
+      DisplayInstructionsText();
+      break;
+    case 4:
+      clear(10);
+      Accessiblity(delayTime, color);
+      break;
+    case 5:
+      std::cout << "Exiting Game. We hope you enjoyed the Game Play." << std::endl;
+      running = false;
+      break;
+    default:
+      std::cout << "Error: An invalid choice has been entered please try again." << std::endl;
+      delay(2000);
+      clear(12);
+      break;
+    }
 
-  // Player player;
-
-  // Room testing ---------------------------------------------
-  // Room room;
-  // room.roomContent.displayContent();
-
-  // Room room2;
-  // room2.roomContent.displayContent();
-
-  // if (room2.roomContent.getRoomType() == 1)
-  // {
-  //   NPC &npc = room2.roomContent.getNPC();
-  //   npc.gamblingGame->start();
-  // }
-
-  // Dungeon testing ---------------------------------------------
-  Dungeon dungeon;
-  int numRooms = 10;
-  Room *currentRoom = dungeon.generateFloor(numRooms);
-
-  dungeon.traverseAndPrint(currentRoom); // Checking
-
-  // BlackJack blackjack;
+    std::cout << std::endl;
+  }
 
   return 0;
 }

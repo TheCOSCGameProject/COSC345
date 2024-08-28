@@ -37,6 +37,7 @@ public:
     void addEnemy(const EnemyStruct &enemy);
     void displayContent() const;
     int getRoomType();
+    std::string getRoomDesc();
     NPC &getNPC();
 
 private:
@@ -45,6 +46,7 @@ private:
     NPC npc;
     bool passcode;
     int roomType;
+    std::string roomDesc;
 };
 
 class Room
@@ -57,6 +59,7 @@ public:
     Room *west;
     Room *east;
     RoomContent roomContent;
+    void displayAvailableDirections();
 };
 
 #endif // ROOMCONTENT_H

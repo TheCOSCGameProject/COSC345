@@ -2,7 +2,10 @@
 #include <iostream>
 #include "../lib/toolkit.h"
 
-// RoomContent methods
+/**
+ * @brief Constructor for the Room class.
+ * @details Initializes room directions to nullptr and content to "Empty room".
+ */
 RoomContent::RoomContent()
 {
     this->roomType = generateRandomNumber(0, 1);
@@ -11,14 +14,22 @@ RoomContent::RoomContent()
     {
     case 0:
         emptyRoom();
+        roomDesc = "Empty Room";
         break;
     case 1:
         gamblingRoom();
+        roomDesc = "Gambling Room";
         break;
     default:
         emptyRoom(); // Fallback, although unnecessary with current range
+        roomDesc = "Empty Room";
         break;
     }
+}
+
+std::string RoomContent::getRoomDesc()
+{
+    return roomDesc;
 }
 
 void RoomContent::gamblingRoom()
@@ -143,3 +154,17 @@ void RoomContent::displayContent() const
 
 // Room methods
 Room::Room() : north(nullptr), south(nullptr), west(nullptr), east(nullptr), roomContent() {}
+
+void Room::displayAvailableDirections()
+{
+    std::cout << "You can move: ";
+    if (north)
+        std::cout << "North ";
+    if (south)
+        std::cout << "South ";
+    if (west)
+        std::cout << "West ";
+    if (east)
+        std::cout << "East ";
+    std::cout << std::endl;
+}

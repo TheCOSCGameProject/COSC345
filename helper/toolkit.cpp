@@ -56,32 +56,15 @@ void enableInput()
 #endif
 }
 
-void typePrint(std::string content)
+void typePrint(std::string content, int delayTime = 15, std::string color = "\033[36m")
 {
-    std::string token;
-    std::stringstream ss(content);
-    std::vector<std::string> tokens;
 
-    while (getline(ss, token, '@'))
+    for (char c : content)
     {
-        tokens.push_back(token);
+        std::cout << color << c << std::flush;
+        delay(delayTime);
     }
-
-    disableInput();
-    for (std::string &text : tokens)
-    {
-        for (char c : text)
-        {
-            std::cout << "\033[36m" << c << std::flush;
-            delay(25);
-        }
-        enableInput();
-        while (getchar() != '\n')
-        {
-        }
-        disableInput();
-    }
-    enableInput();
+    std::cout << "\033[37m";
 }
 
 std::string getFileContent(std::string fileName)
@@ -190,4 +173,55 @@ std::string toLowerCase(const std::string &str)
                    [](unsigned char c)
                    { return std::tolower(c); });
     return lowerStr;
+}
+
+int readInt()
+{
+    int value;
+    while (true)
+    {
+        try
+        {
+            std::cout << "Enter your choice: " << std::flush;
+            std::cout << "Enter your choice: " << std::flush;
+
+            std::cin >> value;
+
+            // Check if the input operation failed (non-integer input)
+            if (std::cin.fail())
+            {
+                disableInput();
+                throw std::runtime_error("Invalid input; please enter a valid integer.");
+            }
+
+            // Clear any remaining input from the buffer
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+            // If everything is fine, return the value
+            return value;
+        }
+        catch (const std::runtime_error &e)
+        {
+            std::cerr << "Error: " << e.what() << std::endl;
+            delay(2000);
+            // Clear the error flags
+            std::cin.clear();
+
+            // Discard invalid input
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            clear(2);
+            enableInput();
+        }
+    }
+}
+
+void waitForEnter()
+{
+    std::cout << "Press Enter to continue..." << std::endl;
+    system("stty -echo -icanon");
+
+    std::cin.ignore(); // Waits for the user to press Ente
+    std::cin.get();
+
+    system("stty echo icanon");
 }

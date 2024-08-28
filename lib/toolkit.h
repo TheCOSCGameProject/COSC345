@@ -28,14 +28,8 @@ void SetTerminalSize(int height, int width);
 // Function to mimic a delay
 void delay(int milliseconds);
 
-// Function to disable keyboard input
-void disableInput();
-
-// Function to enable keyboard input
-void enableInput();
-
 // Function to print text with a typing effect
-void typePrint(std::string content);
+void typePrint(std::string content, int delayTime, std::string color);
 
 // Function to read the content of a file and return it as a string
 std::string getFileContent(std::string fileName);
@@ -59,5 +53,13 @@ int stringToInt(const std::string &str);
 std::string repeatString(const std::string &str, int count);
 
 std::string toLowerCase(const std::string &str);
+
+int readInt();
+
+void disableInput();
+
+void enableInput();
+
+void waitForEnter();
 
 #endif // TOOLKIT_H
