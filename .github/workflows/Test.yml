@@ -51,7 +51,7 @@ jobs:
         choco install mingw -y
         choco install msbuild -y
         choco install python -y
-        pip install gcovr
+        python -m pip install gcovr
 
     - name: Cache NuGet packages
       uses: actions/cache@v3
