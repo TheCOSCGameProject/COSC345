@@ -150,7 +150,7 @@ int CodeGuesser::generateRandomIndex(size_t size)
     }
     std::random_device rd;                            // Seed
     std::mt19937 gen(rd());                           // Mersenne Twister engine
-    std::uniform_int_distribution<> dis(0, size - 1); // Distribution range
+    std::uniform_int_distribution<> dis(0, (int)size - 1); // Distribution range
     return dis(gen);
 }
 
@@ -239,7 +239,7 @@ void CodeGuesser::printGuesses()
 
 void CodeGuesser::printWords()
 {
-    for (int i = 0; i < words.size(); i++)
+    for (int i = 0; i < (int)words.size(); i++)
     {
         std::cout << words.at(i) + "\n";
     }
@@ -252,7 +252,7 @@ int CodeGuesser::getWordLength() const
 
 int CodeGuesser::getGuessCount() const
 {
-    return guesses.size();
+    return (int)guesses.size();
 }
 
 std::string CodeGuesser::getLastGuess() const
@@ -367,7 +367,7 @@ int BlackJack::evaluate(bool hit)
 {
     int dealerTotal = dealer[0] + dealer[1];
     int playerTotal = 0;
-    for (int i = 0; i < playersCards.size(); i++)
+    for (int i = 0; i < (int)playersCards.size(); i++)
     {
         playerTotal += playersCards[i];
     }
@@ -414,7 +414,7 @@ void BlackJack::newGame()
             cards.push_back(10);
         }
     }
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    unsigned seed = (int)std::chrono::system_clock::now().time_since_epoch().count();
     auto rng = std::default_random_engine(seed);
     std::shuffle(std::begin(cards), std::end(cards), rng);
 

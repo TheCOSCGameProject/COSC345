@@ -39,7 +39,7 @@ void printHealth(int playerHealth, int enemyHealth)
 void combatV1(int playerHealth, int enemyHealth, int difficulty)
 {
     // Define directional moves and their keyboard equivalents
-    std::string moves[] = {"\u2190", "\u2191", "\u2192", "\u2193"};
+    std::string moves[] = {"a", "w", "d", "s"};
     std::string keyBoardEquivalent[] = {"a", "w", "d", "s"};
     std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed for randomness
 

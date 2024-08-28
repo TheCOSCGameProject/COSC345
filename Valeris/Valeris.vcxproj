@@ -132,12 +132,14 @@
     <ClCompile Include="..\helper\combat.cpp" />
     <ClCompile Include="..\helper\dungeon.cpp" />
     <ClCompile Include="..\helper\enemies.cpp" />
+    <ClCompile Include="..\helper\menu.cpp" />
     <ClCompile Include="..\helper\minigames.cpp" />
     <ClCompile Include="..\helper\player.cpp" />
     <ClCompile Include="..\helper\room.cpp" />
     <ClCompile Include="..\helper\toolkit.cpp" />
     <ClCompile Include="..\helper\weapon.cpp" />
     <ClCompile Include="..\src\valeris.cpp" />
+    <ClCompile Include="..\src\ValerisGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\reasources\intro.txt" />
@@ -147,6 +149,7 @@
     <ClInclude Include="..\lib\dependencies.h" />
     <ClInclude Include="..\lib\dungeon.h" />
     <ClInclude Include="..\lib\enemies.h" />
+    <ClInclude Include="..\lib\menu.h" />
     <ClInclude Include="..\lib\minigames.h" />
     <ClInclude Include="..\lib\player.h" />
     <ClInclude Include="..\lib\room.h" />

@@ -1,43 +1,16 @@
 ﻿  combat.cpp
-C:\345\helper\combat.cpp(24,28): warning C4566: character represented by universal-character-name '\u2190' cannot be represented in the current code page (1252)
-C:\345\helper\combat.cpp(24,38): warning C4566: character represented by universal-character-name '\u2191' cannot be represented in the current code page (1252)
-C:\345\helper\combat.cpp(24,48): warning C4566: character represented by universal-character-name '\u2192' cannot be represented in the current code page (1252)
-C:\345\helper\combat.cpp(24,58): warning C4566: character represented by universal-character-name '\u2193' cannot be represented in the current code page (1252)
   dungeon.cpp
-C:\345\helper\dungeon.cpp(4,35): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\345\helper\dungeon.cpp(92,80): warning C4267: 'argument': conversion from 'size_t' to '_Ty', possible loss of data
-C:\345\helper\dungeon.cpp(92,80): warning C4267:         with
-C:\345\helper\dungeon.cpp(92,80): warning C4267:         [
-C:\345\helper\dungeon.cpp(92,80): warning C4267:             _Ty=int
-C:\345\helper\dungeon.cpp(92,80): warning C4267:         ]
-C:\345\helper\dungeon.cpp(130,66): warning C4267: 'argument': conversion from 'size_t' to '_Ty', possible loss of data
-C:\345\helper\dungeon.cpp(130,66): warning C4267:         with
-C:\345\helper\dungeon.cpp(130,66): warning C4267:         [
-C:\345\helper\dungeon.cpp(130,66): warning C4267:             _Ty=int
-C:\345\helper\dungeon.cpp(130,66): warning C4267:         ]
   enemies.cpp
-C:\345\helper\enemies.cpp(41,21): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  menu.cpp
   minigames.cpp
-C:\345\helper\minigames.cpp(153,49): warning C4267: 'argument': conversion from 'size_t' to '_Ty', possible loss of data
-C:\345\helper\minigames.cpp(153,49): warning C4267:         with
-C:\345\helper\minigames.cpp(153,49): warning C4267:         [
-C:\345\helper\minigames.cpp(153,49): warning C4267:             _Ty=int
-C:\345\helper\minigames.cpp(153,49): warning C4267:         ]
-C:\345\helper\minigames.cpp(255,24): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\345\helper\minigames.cpp(417,19): warning C4244: 'initializing': conversion from '_Rep' to 'unsigned int', possible loss of data
-C:\345\helper\minigames.cpp(417,19): warning C4244:         with
-C:\345\helper\minigames.cpp(417,19): warning C4244:         [
-C:\345\helper\minigames.cpp(417,19): warning C4244:             _Rep=std::chrono::system_clock::rep
-C:\345\helper\minigames.cpp(417,19): warning C4244:         ]
   player.cpp
   room.cpp
-C:\345\helper\room.cpp(74,70): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\345\helper\room.cpp(82,66): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
   toolkit.cpp
   weapon.cpp
   valeris.cpp
+  ValerisGame.cpp
   Generating code
   Previous IPDB not found, fall back to full compilation.
-  All 570 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  All 869 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   Valeris.vcxproj -> C:\345\Valeris\x64\Release\Valeris.exe

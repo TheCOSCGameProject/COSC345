@@ -82,7 +82,7 @@ void RoomContent::emptyRoom()
     int numEnemiesToAdd = generateRandomNumber(1, 4);
     for (int i = 0; i < numEnemiesToAdd && !listOfRoomEnemies.empty(); i++)
     {
-        int index = generateRandomNumber(0, listOfRoomEnemies.size() - 1);
+        int index = generateRandomNumber(0, (int)listOfRoomEnemies.size() - 1);
         addEnemy(listOfRoomEnemies.at(index));
     }
 
@@ -90,7 +90,7 @@ void RoomContent::emptyRoom()
     int numItemsToAdd = generateRandomNumber(1, 3);
     for (int i = 0; i < numItemsToAdd && !listRoomItems.empty(); i++)
     {
-        int index = generateRandomNumber(0, listRoomItems.size() - 1);
+        int index = generateRandomNumber(0, (int)listRoomItems.size() - 1);
         addItem(listRoomItems.at(index));
     }
 }

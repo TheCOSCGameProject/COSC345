@@ -89,11 +89,12 @@ bool EnemySpawner::isDead(const Enemy &enemy) { return enemy.health <= 0; }
  */
 void EnemySpawner::damageDelt(Enemy &enemy, int hurt)
 {
+    double newHurt = hurt;
     if (enemy.type == "Sardaukar")
     {
-        hurt = hurt * 0.8; // Sardaukar enemies take reduced damage
+        newHurt = hurt * 0.8; // Sardaukar enemies take reduced damage
     }
-    enemy.health -= hurt * (1 - enemy.defence / 100);
+    enemy.health -= (int)(newHurt * (1 - enemy.defence / 100));
 }
 
 // Methods to set enemy attributes

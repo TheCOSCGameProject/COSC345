@@ -15,7 +15,7 @@ int main()
   std::string color = "\033[36m";
 
 #ifdef _WIN32
-  ConsoleSizeControl(800, 600);
+  SetConsoleSize(800, 600);
 #else
   SetTerminalSize(50, 100);
 #endif

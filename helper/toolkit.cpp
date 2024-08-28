@@ -1,4 +1,5 @@
 // toolkit.cpp
+#define NOMINMAX
 #include "../lib/toolkit.h"
 #include "../lib/dependencies.h"
 

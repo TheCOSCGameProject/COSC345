@@ -1,7 +1,7 @@
 #include "../lib/dungeon.h"
 
 // Constructor
-Dungeon::Dungeon() : rng(std::time(0)) {}
+Dungeon::Dungeon() : rng(static_cast<unsigned int>(std::time(0))) {}
 
 // Destructor
 Dungeon::~Dungeon()
@@ -89,7 +89,7 @@ Room *Dungeon::generateFloor(int numRooms)
         do
         {
             auto it = roomMap.begin();
-            std::advance(it, std::uniform_int_distribution<>(0, roomMap.size() - 1)(rng));
+            std::advance(it, std::uniform_int_distribution<>(0, (int)roomMap.size() - 1)(rng));
             existingRoom = it->second;
             x = it->first.first;
             y = it->first.second;
@@ -127,7 +127,7 @@ Room *Dungeon::generateFloor(int numRooms)
         checkAndLink(newRoom, newX, newY, roomMap);
     }
 
-    return rooms[std::uniform_int_distribution<>(0, rooms.size() - 1)(rng)];
+    return rooms[std::uniform_int_distribution<>(0, (int)rooms.size() - 1)(rng)];
 }
 
 // Public method to traverse the dungeon and print room contents
