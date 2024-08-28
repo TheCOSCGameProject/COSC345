@@ -24,6 +24,8 @@ public:
 
     int numRooms(Room *startRoom);
 
+    void linkRooms(Room *room1, Room *room2, int direction); // making it public for testing
+
 private:
     std::vector<Room *> rooms;
     std::mt19937 rng;
@@ -32,7 +34,7 @@ private:
     Room *generateRoom();
 
     // Link two rooms together in a specified direction
-    void linkRooms(Room *room1, Room *room2, int direction);
+    // void linkRooms(Room *room1, Room *room2, int direction);
 
     // Check and link a new room with existing adjacent rooms
     void checkAndLink(Room *newRoom, int x, int y, std::map<std::pair<int, int>, Room *> &roomMap);
