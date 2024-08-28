@@ -16,9 +16,9 @@ using namespace std;
 #endif
 
 /**
-@brief class to generate room with directions.
-@Description The room directions are classified as North, South, East and West.
-*/
+ * @brief Class to generate rooms with directional links.
+ * @details The room directions are classified as North, South, East, and West.
+ */
 class Room
 {
 public:
@@ -28,30 +28,45 @@ public:
     Room *east;
     std::string content;
 
+    /**
+     * @brief Constructor for the Room class.
+     * @details Initializes room directions to nullptr and content to "Empty room".
+     */
     Room() : north(nullptr), south(nullptr), west(nullptr), east(nullptr), content("Empty room") {}
 
+    /**
+     * @brief Displays available directions from the current room.
+     * @details Prints out which directions are available to move from the current room.
+     */
     void displayAvailableDirections() const
     {
         std::cout << "You can move: ";
         if (north)
-            std::cout << ", North ";
+            std::cout << "North ";
         if (south)
-            std::cout << ", South ";
+            std::cout << "South ";
         if (west)
-            std::cout << ", West ";
+            std::cout << "West ";
         if (east)
-            std::cout << ", East ";
+            std::cout << "East ";
         std::cout << std::endl;
     }
 };
 
-// Dungeon class definition
+/**
+ * @brief Class to manage the dungeon with multiple rooms.
+ * @details Handles room generation, linking, and traversal within a dungeon.
+ */
 class Dungeon
 {
 private:
     std::vector<Room *> rooms;
     std::mt19937 rng;
 
+    /**
+     * @brief Generates a new room and adds it to the dungeon.
+     * @return Pointer to the newly generated Room object.
+     */
     Room *generateRoom()
     {
         Room *newRoom = new Room();
@@ -59,6 +74,12 @@ private:
         return newRoom;
     }
 
+    /**
+     * @brief Links two rooms in a specified direction.
+     * @param room1 Pointer to the first room.
+     * @param room2 Pointer to the second room.
+     * @param direction Integer representing the direction (0: North, 1: South, 2: West, 3: East).
+     */
     void linkRooms(Room *room1, Room *room2, int direction)
     {
         switch (direction)
@@ -82,6 +103,13 @@ private:
         }
     }
 
+    /**
+     * @brief Checks and links a new room to adjacent rooms in all directions.
+     * @param newRoom Pointer to the new room.
+     * @param x The x-coordinate of the new room.
+     * @param y The y-coordinate of the new room.
+     * @param roomMap A map of existing rooms with their coordinates as keys.
+     */
     void checkAndLink(Room *newRoom, int x, int y, std::map<std::pair<int, int>, Room *> &roomMap)
     {
         // Check north
@@ -107,8 +135,16 @@ private:
     }
 
 public:
+    /**
+     * @brief Constructor for the Dungeon class.
+     * @details Initializes the random number generator with the current time.
+     */
     Dungeon() : rng(std::time(0)) {}
 
+    /**
+     * @brief Destructor for the Dungeon class.
+     * @details Deletes all dynamically allocated rooms.
+     */
     ~Dungeon()
     {
         for (Room *room : rooms)
@@ -117,6 +153,11 @@ public:
         }
     }
 
+    /**
+     * @brief Generates a floor with a specified number of rooms.
+     * @param numRooms The number of rooms to generate.
+     * @return Pointer to a randomly selected room on the floor.
+     */
     Room *generateFloor(int numRooms)
     {
         if (numRooms <= 0)
@@ -177,6 +218,10 @@ public:
         return rooms[std::uniform_int_distribution<>(0, rooms.size() - 1)(rng)];
     }
 
+    /**
+     * @brief Relinks all rooms in the dungeon starting from a specified room.
+     * @param startRoom Pointer to the starting room.
+     */
     void relinkDungeon(Room *startRoom)
     {
         if (startRoom == nullptr)
@@ -227,8 +272,12 @@ public:
         }
     }
 
+    /**
+     * @brief Traverses the dungeon and prints the room details.
+     * @param startRoom Pointer to the starting room.
+     */
     void traverseAndPrint(Room *startRoom)
-    { // Traverse the floor (used for testing or can create floor maps)
+    {
         if (startRoom == nullptr)
             return;
 
