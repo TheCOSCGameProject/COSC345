@@ -17,6 +17,7 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Cache Chocolatey packages
+      id: cache-chocolatey
       uses: actions/cache@v3
       with:
         path: C:\ProgramData\chocolatey\lib
@@ -32,13 +33,14 @@ jobs:
         iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
     - name: Cache MinGW and other dependencies
+      id: cache-mingw
       uses: actions/cache@v3
       with:
         path: C:\ProgramData\chocolatey\bin
         key: ${{ runner.os }}-mingw-${{ hashFiles('**/requirements.txt') }}
         restore-keys: |
           ${{ runner.os }}-mingw-
-          
+
     - name: Install MinGW and other dependencies
       if: steps.cache-mingw.outputs.cache-hit != 'true'
       run: |
@@ -50,7 +52,7 @@ jobs:
     - name: Cache NuGet packages
       uses: actions/cache@v3
       with:
-        path: ~/.nuget/packages
+        path: C:\Users\runneradmin\.nuget\packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.config') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
@@ -67,7 +69,8 @@ jobs:
 
     - name: Build and Run tests
       run: |
-        g++ -std=c++17 --coverage -o run_tests.exe tests/minigames_test.cpp helper/*.cpp; .\run_tests.exe
+        g++ -std=c++17 --coverage -o run_tests.exe tests/minigames_test.cpp helper/*.cpp
+        .\run_tests.exe
 
     - name: Generate Coverage Report with gcovr
       run: |
