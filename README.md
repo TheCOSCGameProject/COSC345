@@ -36,6 +36,24 @@ Valeris is a text-based dungeon crawler that offers players a unique experience 
 
 ### Clone the Repository
 
-```bash
-git clone https://github.com/yourusername/valeris.git
+git clone https://github.com/TheCOSCGameProject/COSC345.git
 cd valeris
+
+
+### Usage
+Once the game is started, you can navigate through the dungeons, interact with characters, and engage in mini-games using the keyboard. Each choice you make will affect the outcome of your journey.
+
+
+
+
+
+
+### Development Workflow
+
+We follow an agile development process with tasks managed via Trello and real-time communication through Discord. Continuous integration (CI) is set up to ensure that every component integrates smoothly with the rest of the system.
+
+
+### Documentation
+
+The codedocs.xyz has been used to generate Doxygen documentation. The documentation for this project can be found in the below webpage/website:
+
