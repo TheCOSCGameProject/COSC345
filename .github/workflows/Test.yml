@@ -16,53 +16,18 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Cache Chocolatey packages
-      id: cache-chocolatey
-      uses: actions/cache@v3
-      with:
-        path: C:\ProgramData\chocolatey\lib
-        key: ${{ runner.os }}-chocolatey-${{ hashFiles('**/chocolatey.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-chocolatey-
-
     - name: Install Chocolatey
-      if: steps.cache-chocolatey.outputs.cache-hit != 'true'
       run: |
-        if (!(Test-Path "C:\ProgramData\chocolatey\bin\choco.exe")) {
-          Set-ExecutionPolicy Bypass -Scope Process -Force
-          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
-          iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-        } else {
-          Write-Output "Chocolatey is already installed."
-        }
-        
-    - name: Cache MinGW and other dependencies
-      id: cache-mingw
-      uses: actions/cache@v3
-      with:
-        path: C:\ProgramData\chocolatey\bin
-        key: ${{ runner.os }}-mingw-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-mingw-
+        Set-ExecutionPolicy Bypass -Scope Process -Force
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+        iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
     - name: Install MinGW and other dependencies
-      if: steps.cache-mingw.outputs.cache-hit != 'true'
       run: |
         choco install mingw -y
         choco install msbuild -y
         choco install python -y
         python -m pip install gcovr
-
-    - name: Cache NuGet packages
-      uses: actions/cache@v3
-      with:
-        path: C:\Users\runneradmin\.nuget\packages
-        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.config') }}
-        restore-keys: |
-          ${{ runner.os }}-nuget-
-
-    - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.2
 
     - name: Restore NuGet packages
       run: nuget restore ${{env.SOLUTION_FILE_PATH}}
@@ -73,8 +38,7 @@ jobs:
 
     - name: Build and Run tests
       run: |
-        g++ -std=c++17 --coverage -o run_tests.exe tests/minigames_test.cpp helper/*.cpp
-        .\run_tests.exe
+        g++ -std=c++17 --coverage -o run_tests.exe tests/minigames_test.cpp helper/*.cpp; .\run_tests.exe
 
     - name: Generate Coverage Report with gcovr
       run: |
