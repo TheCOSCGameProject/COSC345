@@ -73,13 +73,13 @@ void ValerisGame::start()
         }
         else if (upperDirection == "/FIGHT" && currentRoom->roomContent.getRoomType() == 0)
         {
-            std::vector<EnemyStruct> enemies = currentRoom->roomContent.getEnemies();
-            for (int i = 0; i < (int)enemies.size(); i++)
-            {
-                EnemyStruct enemy = enemies[i];
-                int enemyHealth = enemy.health;
-                combatV1(player.getCurrHealth(), enemyHealth, 3000, enemy.name);
-            }
+            // std::vector<EnemyStruct> enemies = currentRoom->roomContent.getEnemies();
+            // for (int i = 0; i < (int)enemies.size(); i++)
+            // {
+            //     EnemyStruct enemy = enemies[i];
+            //     int enemyHealth = enemy.health;
+            //     combatV1(player.getCurrHealth(), enemyHealth, 3000, enemy.name);
+            // }
         }
         else if (upperDirection == "Q")
         {

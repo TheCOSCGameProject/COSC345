@@ -46,7 +46,6 @@ bool combatV1(int playerHealth, int enemyHealth, int difficulty, std::string nam
     // Combat loop: continue while both player and enemy have health
     while (playerHealth > 0 && enemyHealth > 0)
     {
-        printHealth(playerHealth, enemyHealth, name);
         int random_number = std::rand() % 4;             // Select a random direction
         std::cout << moves[random_number] << std::flush; // Display the move symbol
 
@@ -63,16 +62,19 @@ bool combatV1(int playerHealth, int enemyHealth, int difficulty, std::string nam
             if (inputStr == keyBoardEquivalent[random_number] && elapsed.count() < difficulty / 1000.0)
             {
                 enemyHealth -= 5; // Successful hit on the enemy
+                printHealth(playerHealth, enemyHealth, name);
                 break;
             }
             else if (elapsed.count() >= difficulty / 1000.0)
             {
                 playerHealth -= 10; // Player takes damage due to slow response
+                printHealth(playerHealth, enemyHealth, name);
                 break;
             }
             else
             {
                 playerHealth -= 5; // Incorrect input results in minor damage
+                printHealth(playerHealth, enemyHealth, name);
                 break;
             }
         }
@@ -90,7 +92,7 @@ bool combatV1(int playerHealth, int enemyHealth, int difficulty, std::string nam
         return false;
     }
 
-    std::cout << moves[0] << std::endl; // End message or action
+    // std::cout << moves[0] << std::endl; // End message or action
 }
 
 /**

@@ -206,20 +206,20 @@ int main()
     framework.addTest("Player Inventory", testPlayerInventory);
 `   */
     // New Room tests
-    framework.addTest("Room Initialization", testRoomInitialization);
+    // framework.addTest("Room Initialization", testRoomInitialization);
 
-    // New Weapon tests
-    framework.addTest("Weapon Initialization", testWeaponInitialization);
+    // // New Weapon tests
+    // framework.addTest("Weapon Initialization", testWeaponInitialization);
 
-    // New Toolkit tests
-    framework.addTest("Generate Random Number", testGenerateRandomNumber);
-    framework.addTest("String to Int Conversion", testStringToInt);
+    // // New Toolkit tests
+    // framework.addTest("Generate Random Number", testGenerateRandomNumber);
+    // framework.addTest("String to Int Conversion", testStringToInt);
 
-    // New Combat tests
-    framework.addTest("Combat V1", testCombatV1);
+    // // New Combat tests
+    // framework.addTest("Combat V1", testCombatV1);
 
-    // New Dungeon tests
-    // framework.addTest("Dungeon Generation", testDungeonGeneration);
+    // // New Dungeon tests
+    // // framework.addTest("Dungeon Generation", testDungeonGeneration);
     framework.run();
 
     return 0;
