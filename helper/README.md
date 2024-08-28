@@ -36,9 +36,11 @@ Valeris is a text-based dungeon crawler that offers players a unique experience 
 
 git clone https://github.com/TheCOSCGameProject/COSC345.git
 Run Project
+
 cd src && g++ -std=c++17 ../helper/*.cpp valeris.cpp -o valeris && ./valeris && cd ..
 
 Run Tests
+
 cd tests && g++ -std=c++17 -o run_tests minigames_test.cpp ../helper/*.cpp && ./run_tests && cd ..
 
 
