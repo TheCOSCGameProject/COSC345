@@ -15,7 +15,10 @@ using namespace std;
 #include <windows.h>
 #endif
 
-// Room class definition
+/**
+@brief class to generate room with directions.
+@param The room directions are classified as North, South, East and West.
+*/
 class Room
 {
 public:
