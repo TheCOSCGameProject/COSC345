@@ -1,5 +1,5 @@
-#ifndef ROOMCONTENT_H
-#define ROOMCONTENT_H
+#ifndef ROOM_H
+#define ROOM_H
 
 #include <vector>
 #include <string>
@@ -63,4 +63,4 @@ public:
     void displayAvailableDirections();
 };
 
-#endif // ROOMCONTENT_H
+#endif // ROOM_H

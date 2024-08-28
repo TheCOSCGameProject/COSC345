@@ -8,30 +8,40 @@
  */
 RoomContent::RoomContent()
 {
-    this->roomType = generateRandomNumber(0, 1);
-    // Call the appropriate method based on roomType
+
+    this->roomType = 1; // generateRandomNumber(0, 1);
     switch (roomType)
     {
     case 0:
         emptyRoom();
-        roomDesc = "Empty Room ";
-        for (int i = 0; i < (int)enemies.size() - 1; i++)
+        roomDesc = "Empty Room";
+        if (!enemies.empty())
         {
-            if (i == 0 && (int)enemies.size() > 0)
+            roomDesc.append(" containing ");
+            for (size_t i = 0; i < enemies.size(); ++i)
             {
-                roomDesc.append("containing a ");
+                if (i > 0)
+                {
+                    roomDesc.append(", ");
+                }
+                roomDesc.append(enemies[i].name);
             }
-            roomDesc.append(enemies[i].name + ", ");
         }
-        roomDesc.append(enemies[(int)enemies.size() - 1].name + ", ");
         break;
     case 1:
-        gamblingRoom();
-        roomDesc = "Gambling Room containing a " + npc.name + " who wants to play " + npc.gamblingGame.get()->getGameName();
 
+        gamblingRoom();
+        if (this->npc.gamblingGame)
+        {
+            roomDesc = "Gambling Room containing a " + this->npc.name + " who wants to play " + npc.gamblingGame->getGameName();
+        }
+        else
+        {
+            roomDesc = "Gambling Room containing a with an unknown game";
+        }
         break;
     default:
-        emptyRoom(); // Fallback, although unnecessary with current range
+        emptyRoom(); // Fallback
         roomDesc = "Empty Room";
         break;
     }
@@ -45,8 +55,8 @@ std::string RoomContent::getRoomDesc()
 void RoomContent::gamblingRoom()
 {
     int gamblingGameType = generateRandomNumber(0, 1);
-    int gameType = generateRandomNumber(0, 1);
     NPC newNPC;
+
     if (gamblingGameType == 0)
     {
         newNPC.gamblingGame = std::make_unique<TicTacToe>();
@@ -56,10 +66,19 @@ void RoomContent::gamblingRoom()
         newNPC.gamblingGame = std::make_unique<BlackJack>();
     }
 
+    // std::cout << "Hello2";
+
     std::vector<std::string> npcNames = split(getFileContent("../reasources/npc.txt"), '\n');
+    if (npcNames.empty())
+    {
+        std::cerr << "Error: NPC names list is empty.\n";
+        return; // Exit the function if there are no NPC names
+    }
+
     int index = generateRandomNumber(0, (int)npcNames.size() - 1);
 
     newNPC.name = npcNames[index];
+
     newNPC.skillLevel = 0;
     this->npc = std::move(newNPC);
 }

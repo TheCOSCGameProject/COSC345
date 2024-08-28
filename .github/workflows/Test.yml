@@ -14,67 +14,67 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Install Chocolatey
-      run: |
-        Set-ExecutionPolicy Bypass -Scope Process -Force
-        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
-        iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+      - name: Install Chocolatey
+        run: |
+          Set-ExecutionPolicy Bypass -Scope Process -Force
+          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+          iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
-    - name: Install MinGW and other dependencies
-      run: |
-        choco install mingw -y
-        choco install msbuild -y
-        choco install python -y
-        python -m pip install gcovr
+      - name: Install MinGW and other dependencies
+        run: |
+          choco install mingw -y
+          choco install msbuild -y
+          choco install python -y
+          python -m pip install gcovr
 
-    - name: Restore NuGet packages
-      run: nuget restore ${{env.SOLUTION_FILE_PATH}}
+      - name: Restore NuGet packages
+        run: nuget restore ${{env.SOLUTION_FILE_PATH}}
 
-    - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.2
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.2
 
-    - name: Build
-      run: |
-        msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:Platform=x64 /p:CXXLanguageStandard=C++17 /v:n ${{env.SOLUTION_FILE_PATH}}
+      - name: Build
+        run: |
+          msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:Platform=x64 /p:CXXLanguageStandard=C++17 /v:n ${{env.SOLUTION_FILE_PATH}}
 
-    - name: Build and Run tests
-      run: |
-        g++ -std=c++17 --coverage -o run_tests.exe tests/minigames_test.cpp helper/*.cpp; .\run_tests.exe
+      - name: Build and Run tests
+        run: |
+          cd tests && g++ -std=c++17 -o run_tests.exe minigames_test.cpp ..\helper\*.cpp && run_tests.exe && cd ..
 
-    - name: Generate Coverage Report with gcovr
-      run: |
-        python -m gcovr -r . --xml-pretty -o coverage.xml
-        python -m gcovr -r . --html --html-details -o coverage.html
+      - name: Generate Coverage Report with gcovr
+        run: |
+          python -m gcovr -r . --xml-pretty -o coverage.xml
+          python -m gcovr -r . --html --html-details -o coverage.html
 
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        files: ./coverage.xml
-        fail_ci_if_error: true
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          fail_ci_if_error: true
 
-    - name: Upload coverage to Codacy
-      shell: bash
-      run: |
-        # Download Codacy coverage reporter
-        curl -Ls https://coverage.codacy.com/get.sh > codacy-coverage-reporter.sh
-        chmod +x codacy-coverage-reporter.sh
+      - name: Upload coverage to Codacy
+        shell: bash
+        run: |
+          # Download Codacy coverage reporter
+          curl -Ls https://coverage.codacy.com/get.sh > codacy-coverage-reporter.sh
+          chmod +x codacy-coverage-reporter.sh
 
-        # Upload coverage for C++
-        ./codacy-coverage-reporter.sh report -l CPP -r coverage.xml --partial
+          # Upload coverage for C++
+          ./codacy-coverage-reporter.sh report -l CPP -r coverage.xml --partial
 
-        # Upload coverage for C
-        ./codacy-coverage-reporter.sh report -l C -r coverage.xml --partial
+          # Upload coverage for C
+          ./codacy-coverage-reporter.sh report -l C -r coverage.xml --partial
 
-        # Finalize the coverage report
-        ./codacy-coverage-reporter.sh final
-      env:
-        CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          # Finalize the coverage report
+          ./codacy-coverage-reporter.sh final
+        env:
+          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
 
-    - name: Upload HTML Coverage Report as Artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: coverage-report
-        path: coverage.html
+      - name: Upload HTML Coverage Report as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage.html
