@@ -149,8 +149,9 @@ void Dungeon::traverseAndPrint(Room *startRoom)
 
         int x = coords.first;
         int y = coords.second;
-        std::cout << "Room at (" << x << ", " << y << "): " << std::endl;
+        std::cout << "\nRoom at (" << x << ", " << y << "): \n\nRoom content:" << std::endl;
         currentRoom->roomContent.displayContent();
+        std::cout << "--------------------" << std::endl;
 
         if (currentRoom->north && visited.find({x, y + 1}) == visited.end())
         {
