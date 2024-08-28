@@ -175,3 +175,50 @@ void Dungeon::traverseAndPrint(Room *startRoom)
         }
     }
 }
+
+int Dungeon::numRooms(Room *startRoom)
+{   
+    if (startRoom == nullptr)
+        return 0;
+
+    std::queue<std::pair<Room *, std::pair<int, int>>> q;
+    std::map<std::pair<int, int>, Room *> visited;
+
+    q.push({startRoom, {0, 0}});
+    visited[{0, 0}] = startRoom;
+
+    int roomCount = 0;
+
+    while (!q.empty())
+    {
+        auto [currentRoom, coords] = q.front();
+        q.pop();
+
+        int x = coords.first;
+        int y = coords.second;
+
+        roomCount++;
+
+        if (currentRoom->north && visited.find({x, y + 1}) == visited.end())
+        {
+            q.push({currentRoom->north, {x, y + 1}});
+            visited[{x, y + 1}] = currentRoom->north;
+        }
+        if (currentRoom->south && visited.find({x, y - 1}) == visited.end())
+        {
+            q.push({currentRoom->south, {x, y - 1}});
+            visited[{x, y - 1}] = currentRoom->south;
+        }
+        if (currentRoom->east && visited.find({x + 1, y}) == visited.end())
+        {
+            q.push({currentRoom->east, {x + 1, y}});
+            visited[{x + 1, y}] = currentRoom->east;
+        }
+        if (currentRoom->west && visited.find({x - 1, y}) == visited.end())
+        {
+            q.push({currentRoom->west, {x - 1, y}});
+            visited[{x - 1, y}] = currentRoom->west;
+        }
+    }
+    return roomCount;
+}

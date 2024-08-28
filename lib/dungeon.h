@@ -22,6 +22,8 @@ public:
     // Traverse the dungeon and print room contents
     void traverseAndPrint(Room *startRoom);
 
+    int numRooms(Room *startRoom);
+
 private:
     std::vector<Room *> rooms;
     std::mt19937 rng;
