@@ -28,10 +28,14 @@ jobs:
     - name: Install Chocolatey
       if: steps.cache-chocolatey.outputs.cache-hit != 'true'
       run: |
-        Set-ExecutionPolicy Bypass -Scope Process -Force
-        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
-        iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-
+        if (!(Test-Path "C:\ProgramData\chocolatey\bin\choco.exe")) {
+          Set-ExecutionPolicy Bypass -Scope Process -Force
+          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+          iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+        } else {
+          Write-Output "Chocolatey is already installed."
+        }
+        
     - name: Cache MinGW and other dependencies
       id: cache-mingw
       uses: actions/cache@v3
