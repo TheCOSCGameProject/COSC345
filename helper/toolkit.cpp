@@ -15,7 +15,7 @@ void SetConsoleSize(int width, int height)
 #else
 void SetTerminalSize(int height, int width)
 {
-    std::cout << "\e[8;50;100t";
+    std::cout << "\033[8;" << height << ";" << width << "t";
 }
 #endif
 
@@ -103,6 +103,7 @@ void clear(int limit)
     {
         std::cout << "\033[A\033[K";
         std::cout.flush();
+        // delay(300);
     }
 }
 
@@ -110,6 +111,7 @@ std::string getUserInputLine()
 {
     std::string input;
     std::getline(std::cin, input);
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the newline character
     return input;
 }
 
@@ -117,6 +119,7 @@ std::string getUserInputToken()
 {
     std::string input;
     std::cin >> input;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the newline character
     return input;
 }
 

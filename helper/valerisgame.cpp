@@ -17,6 +17,7 @@ void ValerisGame::start()
 
         std::cout << "Enter Action: ";
         std::string direction = getUserInputToken();
+        std::cout << "\n";
 
         // Convert direction to uppercase for consistent comparisons
         std::string upperDirection = toUpperCase(direction);
@@ -73,13 +74,15 @@ void ValerisGame::start()
         }
         else if (upperDirection == "/FIGHT" && currentRoom->roomContent.getRoomType() == 0)
         {
-            // std::vector<EnemyStruct> enemies = currentRoom->roomContent.getEnemies();
-            // for (int i = 0; i < (int)enemies.size(); i++)
-            // {
-            //     EnemyStruct enemy = enemies[i];
-            //     int enemyHealth = enemy.health;
-            //     combatV1(player.getCurrHealth(), enemyHealth, 3000, enemy.name);
-            // }
+            std::vector<EnemyStruct> enemies = currentRoom->roomContent.getEnemies();
+            for (int i = 0; i < (int)enemies.size(); i++)
+            {
+                EnemyStruct enemy = enemies[i];
+                int enemyHealth = enemy.health;
+                combatV1(player.getCurrHealth(), enemyHealth, 3000, enemy.name);
+                delay(5000);
+                clear(5);
+            }
         }
         else if (upperDirection == "Q")
         {

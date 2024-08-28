@@ -9,7 +9,7 @@
 RoomContent::RoomContent()
 {
 
-    this->roomType = 1; // generateRandomNumber(0, 1);
+    this->roomType = generateRandomNumber(0, 1);
     switch (roomType)
     {
     case 0:
