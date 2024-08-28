@@ -145,7 +145,7 @@ void testCombatV1()
     std::istringstream input("w\n");
     std::streambuf *oldCin = std::cin.rdbuf(input.rdbuf());
 
-    combatV1(playerHealth, enemyHealth, difficulty);
+    combatV1(playerHealth, enemyHealth, difficulty, "Enemy");
 
     // Restore cout and cin
     std::cout.rdbuf(oldCout);
