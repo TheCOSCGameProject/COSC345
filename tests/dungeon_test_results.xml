@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testcase name="Dungeon Room Generation" time="0.00685333"/>
+  <testcase name="Dungeon Link Room" time="0.00142471"/>
+</testsuites>
