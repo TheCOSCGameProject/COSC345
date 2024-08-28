@@ -16,13 +16,31 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Cache Chocolatey packages
+      uses: actions/cache@v3
+      with:
+        path: C:\ProgramData\chocolatey\lib
+        key: ${{ runner.os }}-chocolatey-${{ hashFiles('**/chocolatey.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-chocolatey-
+
     - name: Install Chocolatey
+      if: steps.cache-chocolatey.outputs.cache-hit != 'true'
       run: |
         Set-ExecutionPolicy Bypass -Scope Process -Force
         [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
         iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
+    - name: Cache MinGW and other dependencies
+      uses: actions/cache@v3
+      with:
+        path: C:\ProgramData\chocolatey\bin
+        key: ${{ runner.os }}-mingw-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-mingw-
+          
     - name: Install MinGW and other dependencies
+      if: steps.cache-mingw.outputs.cache-hit != 'true'
       run: |
         choco install mingw -y
         choco install msbuild -y
