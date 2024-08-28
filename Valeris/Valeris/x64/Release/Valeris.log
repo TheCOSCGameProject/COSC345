@@ -6,11 +6,11 @@
   player.cpp
   room.cpp
   toolkit.cpp
+  valerisgame.cpp
   weapon.cpp
   valeris.cpp
-  ValerisGame.cpp
   Generating code
   Previous IPDB not found, fall back to full compilation.
-  All 869 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  All 876 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   Valeris.vcxproj -> C:\345\Valeris\x64\Release\Valeris.exe

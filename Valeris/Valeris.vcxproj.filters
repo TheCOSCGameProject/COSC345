@@ -42,10 +42,10 @@
     <ClCompile Include="..\helper\weapon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ValerisGame.cpp">
+    <ClCompile Include="..\helper\menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\helper\menu.cpp">
+    <ClCompile Include="..\helper\valerisgame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,6 +83,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\lib\menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\valerisgame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

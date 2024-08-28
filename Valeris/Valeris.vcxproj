@@ -137,9 +137,9 @@
     <ClCompile Include="..\helper\player.cpp" />
     <ClCompile Include="..\helper\room.cpp" />
     <ClCompile Include="..\helper\toolkit.cpp" />
+    <ClCompile Include="..\helper\valerisgame.cpp" />
     <ClCompile Include="..\helper\weapon.cpp" />
     <ClCompile Include="..\src\valeris.cpp" />
-    <ClCompile Include="..\src\ValerisGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\reasources\intro.txt" />
@@ -154,6 +154,7 @@
     <ClInclude Include="..\lib\player.h" />
     <ClInclude Include="..\lib\room.h" />
     <ClInclude Include="..\lib\toolkit.h" />
+    <ClInclude Include="..\lib\valerisgame.h" />
     <ClInclude Include="..\lib\weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
