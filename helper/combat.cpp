@@ -1,12 +1,20 @@
+/*!
+@file combat.cpp
+@brief Implementation of combat functions for the game.
+@details This file contains two versions of combat systems used in the game. The first version involves quick reflexes to match directional inputs, while the second version is a placeholder for a more strategic combat system.
+*/
+
 #include "../lib/dependencies.h"
 #include "../lib/combat.h"
 #include "../lib/toolkit.h"
 
-/**
- * @brief Prints the current health of both the player and the enemy.
- * @param playerHealth The current health of the player.
- * @param enemyHealth The current health of the enemy.
- */
+/*!
+@brief Print the current health status of the player and enemy.
+@param playerHealth The current health of the player.
+@param enemyHealth The current health of the enemy.
+@param name The name of the enemy.
+@details This function prints the player's and enemy's health in a formatted health bar.
+*/
 void printHealth(int playerHealth, int enemyHealth, std::string name)
 {
     // Prepare the health bar string
@@ -25,12 +33,15 @@ void printHealth(int playerHealth, int enemyHealth, std::string name)
               << std::endl;
 }
 
-/**
- * @brief Implements the first version of combat mechanics with directional input.
- * @param playerHealth The current health of the player.
- * @param enemyHealth The current health of the enemy.
- * @param difficulty The difficulty level affecting the speed of input reactions.
- */
+/*!
+@brief First version of the combat system.
+@param playerHealth The initial health of the player.
+@param enemyHealth The initial health of the enemy.
+@param difficulty The difficulty level of the combat, influencing the response time allowed.
+@param name The name of the enemy.
+@return True if the player wins, false if the player loses.
+@details This combat system involves the player quickly matching directional inputs to attack the enemy. The enemy's attacks decrease the player's health if the player fails to respond correctly or quickly enough.
+*/
 bool combatV1(int playerHealth, int enemyHealth, int difficulty, std::string name)
 {
     // Define directional moves and their keyboard equivalents
@@ -91,15 +102,14 @@ bool combatV1(int playerHealth, int enemyHealth, int difficulty, std::string nam
         delay(3000);
         return false;
     }
-
-    // std::cout << moves[0] << std::endl; // End message or action
 }
 
-/**
- * @brief Implements the second version of combat mechanics with type-based combat.
- * @param playerHealth The current health of the player.
- * @param enemyHealth The current health of the enemy.
- */
+/*!
+@brief Placeholder for the second version of the combat system.
+@param playerHealth The initial health of the player.
+@param enemyHealth The initial health of the enemy.
+@details This version of the combat system is intended to be more strategic, allowing the player to choose different combat styles (Offensive, Sneaky, Defensive). The implementation details are yet to be completed.
+*/
 void combatV2(int playerHealth, int enemyHealth)
 {
     // Define combat types: Offensive, Sneaky, Defensive
