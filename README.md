@@ -1,5 +1,7 @@
 # Valeris - A Text-Based Dungeon Crawler
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ad41c2aa69574f35a70913eb66e0c97d)](https://app.codacy.com/gh/TheCOSCGameProject/COSC345?utm_source=github.com&utm_medium=referral&utm_content=TheCOSCGameProject/COSC345&utm_campaign=Badge_Grade)
+
 Welcome to **Valeris**, a modern remake of classic text-based dungeon crawler games, inspired by "choose your adventure" books and set in an immersive sci-fi world. This project is being developed by the team **Wang and Co.** at the University of Otago.
 
 ## Table of Contents
