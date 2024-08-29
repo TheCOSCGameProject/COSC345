@@ -1,9 +1,19 @@
-// toolkit.cpp
+/*!
+ * @file toolkit.cpp
+ * @brief Implements utility functions for the Valeris game.
+ * @details This file contains various utility functions used throughout the Valeris game, including console/terminal manipulation, input handling, string processing, and delays.
+ */
+
 #define NOMINMAX
 #include "../lib/toolkit.h"
 #include "../lib/dependencies.h"
 
 #ifdef _WIN32
+/*!
+ * @brief Sets the console window size on Windows.
+ * @param width The desired width of the console window.
+ * @param height The desired height of the console window.
+ */
 void SetConsoleSize(int width, int height)
 {
     HWND console = GetConsoleWindow();
@@ -13,11 +23,21 @@ void SetConsoleSize(int width, int height)
     SetWindowLong(console, GWL_STYLE, GetWindowLong(console, GWL_STYLE) & ~WS_SIZEBOX);
 }
 #else
+/*!
+ * @brief Sets the terminal window size on non-Windows systems.
+ * @param height The desired height of the terminal window.
+ * @param width The desired width of the terminal window.
+ */
 void SetTerminalSize(int height, int width)
 {
     std::cout << "\033[8;" << height << ";" << width << "t";
 }
 #endif
+/*!
+ * @brief Creates a delay for a specified amount of time.
+ * @param milliseconds The number of milliseconds to delay.
+ * @details This function uses a busy-wait loop to create a delay, which can be used to control the timing of text display or other actions.
+ */
 
 void delay(int milliseconds)
 {
@@ -27,6 +47,10 @@ void delay(int milliseconds)
         // Busy-waiting loop to create a delay
     }
 }
+/*!
+ * @brief Disables user input on the console/terminal.
+ * @details Disables input features such as echo and canonical mode on both Windows and non-Windows systems.
+ */
 
 void disableInput()
 {
@@ -41,6 +65,11 @@ void disableInput()
     tcsetattr(STDIN_FILENO, TCSANOW, &t);
 #endif
 }
+
+/*!
+ * @brief Enables user input on the console/terminal.
+ * @details Restores input features such as echo and canonical mode on both Windows and non-Windows systems.
+ */
 
 void enableInput()
 {
@@ -57,6 +86,13 @@ void enableInput()
 #endif
 }
 
+/*!
+ * @brief Prints text with a typing effect.
+ * @param content The text content to print.
+ * @param delayTime The delay between each character in milliseconds. Default is 15 milliseconds.
+ * @param color The color code for the text. Default is cyan ("\033[36m").
+ * @details This function prints text one character at a time, simulating a typing effect, with customizable delay and color.
+ */
 void typePrint(std::string content, int delayTime = 15, std::string color = "\033[36m")
 {
 
@@ -67,6 +103,16 @@ void typePrint(std::string content, int delayTime = 15, std::string color = "\03
     }
     std::cout << "\033[37m";
 }
+
+
+
+
+
+/*!
+ * @brief Reads the content of a file into a string.
+ * @param fileName The name of the file to read.
+ * @return A string containing the contents of the file.
+ */
 
 std::string getFileContent(std::string fileName)
 {
@@ -82,7 +128,12 @@ std::string getFileContent(std::string fileName)
 
     return file_contents;
 }
-
+/*!
+ * @brief Splits a string into tokens based on a delimiter.
+ * @param str The string to split.
+ * @param delimiter The character used as the delimiter.
+ * @return A vector of strings representing the tokens.
+ */
 std::vector<std::string> split(const std::string &str, char delimiter)
 {
     std::vector<std::string> tokens;
@@ -97,6 +148,11 @@ std::vector<std::string> split(const std::string &str, char delimiter)
     return tokens;
 }
 
+/*!
+ * @brief Clears a specified number of lines from the console/terminal.
+ * @param limit The number of lines to clear.
+ * @details This function moves the cursor up and clears the specified number of lines from the console or terminal output.
+ */
 void clear(int limit)
 {
     for (int i = 0; i < limit; i++)
@@ -106,7 +162,10 @@ void clear(int limit)
         // delay(300);
     }
 }
-
+/*!
+ * @brief Gets a full line of user input from the console.
+ * @return A string containing the user's input.
+ */
 std::string getUserInputLine()
 {
     std::string input;
@@ -114,7 +173,10 @@ std::string getUserInputLine()
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the newline character
     return input;
 }
-
+/*!
+ * @brief Gets a single word or token of user input from the console.
+ * @return A string containing the user's input.
+ */
 std::string getUserInputToken()
 {
     std::string input;
@@ -122,6 +184,12 @@ std::string getUserInputToken()
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the newline character
     return input;
 }
+/*!
+ * @brief Generates a random number within a specified range.
+ * @param low The lower bound of the range.
+ * @param high The upper bound of the range.
+ * @return A randomly generated integer within the specified range.
+ */
 
 int generateRandomNumber(int low, int high)
 {
@@ -135,7 +203,11 @@ int generateRandomNumber(int low, int high)
     // Generate and return the random number
     return dist(rng);
 }
-
+/*!
+ * @brief Converts a string to an integer.
+ * @param str The string to convert.
+ * @return The integer value of the string, or 0 if the conversion fails.
+ */
 int stringToInt(const std::string &str)
 {
     try
@@ -156,7 +228,12 @@ int stringToInt(const std::string &str)
         return 0; // or throw an exception, or handle as needed
     }
 }
-
+/*!
+ * @brief Repeats a string a specified number of times.
+ * @param str The string to repeat.
+ * @param count The number of times to repeat the string.
+ * @return A string containing the repeated sequence.
+ */
 std::string repeatString(const std::string &str, int count)
 {
     if (count <= 0)
@@ -171,7 +248,11 @@ std::string repeatString(const std::string &str, int count)
     }
     return result;
 }
-
+/*!
+ * @brief Converts a string to lowercase.
+ * @param str The string to convert.
+ * @return The lowercase version of the string.
+ */
 std::string toLowerCase(const std::string &str)
 {
     std::string lowerStr = str;
@@ -180,7 +261,11 @@ std::string toLowerCase(const std::string &str)
                    { return std::tolower(c); });
     return lowerStr;
 }
-
+/*!
+ * @brief Reads an integer from user input.
+ * @return The integer value entered by the user.
+ * @details This function ensures that the input is a valid integer, handling errors and prompting the user until a valid input is received.
+ */
 int readInt()
 {
     int value;
@@ -221,6 +306,10 @@ int readInt()
     }
 }
 
+/*!
+ * @brief Waits for the user to press Enter.
+ * @details This function pauses the program and waits for the user to press the Enter key before continuing.
+ */
 void waitForEnter()
 {
     std::cout << "Press Enter to continue..." << std::endl;
@@ -231,7 +320,11 @@ void waitForEnter()
 
     system("stty echo icanon");
 }
-
+/*!
+ * @brief Converts a string to uppercase.
+ * @param input The string to convert.
+ * @return The uppercase version of the string.
+ */
 std::string toUpperCase(const std::string &input)
 {
     std::string result = input;
