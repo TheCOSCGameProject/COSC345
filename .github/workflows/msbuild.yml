@@ -58,24 +58,13 @@ jobs:
         $env:Path += ";$cppcheckPath"
         Write-Output "Current PATH: $env:Path"
 
-        cppcheck --enable=all --std=c++17 --force --xml --xml-version=2 . 2> cppcheck-result.xml
-
-    - name: Convert cppcheck results to text
-      shell: pwsh
-      run: |
-        # Simple PowerShell script to convert XML to plain text
-        [xml]$xml = Get-Content cppcheck-result.xml
-        $results = $xml.cppcheck.results.result | ForEach-Object {
-          "$($_.file):$($_.line) - $($_.id): $($_.msg)"
-        }
-        $results | Out-File cppcheck-results.txt
+        cppcheck --enable=all --std=c++17 --force . > cppcheck-results.txt 2>&1
 
     - name: Upload cppcheck results
       uses: actions/upload-artifact@v3
       with:
         name: cppcheck-results
         path: |
-          cppcheck-result.xml
           cppcheck-results.txt
 
     - name: Cache NuGet packages
