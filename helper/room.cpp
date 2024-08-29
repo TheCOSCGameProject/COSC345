@@ -2,7 +2,7 @@
 #include <iostream>
 #include "../lib/toolkit.h"
 
-/**
+/*!
  * @brief Constructor for the Room class.
  * @details Initializes room directions to nullptr and content to "Empty room".
  */
