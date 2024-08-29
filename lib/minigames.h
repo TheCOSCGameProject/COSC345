@@ -1,8 +1,8 @@
 /*!
  * @file minigames.h
  * @brief Defines the base Game class and its derived classes for the Valeris game.
- * @details This file contains the declaration of the Game class, which is a base class for different mini-games
- * such as TicTacToe, CodeGuesser, and BlackJack. Each game has its own implementation for starting the game and
+ * @details This file contains the declaration of the Game class, which is a base class for different mini-games 
+ * such as TicTacToe, CodeGuesser, and BlackJack. Each game has its own implementation for starting the game and 
  * other game-specific functionality.
  */
 
@@ -22,7 +22,7 @@
 /*!
  * @class Game
  * @brief Abstract base class for mini-games.
- * @details The Game class provides a common interface for all mini-games, enforcing the implementation
+ * @details The Game class provides a common interface for all mini-games, enforcing the implementation 
  * of the start method and providing a way to retrieve the game's name.
  */
 class Game
@@ -110,9 +110,9 @@ public:
 class CodeGuesser : public Game
 {
 private:
-    std::vector<std::string> words;   //!< List of possible secret words.
+    std::vector<std::string> words; //!< List of possible secret words.
     std::vector<std::string> guesses; //!< List of player guesses.
-    int index;                        //!< Index of the current secret word.
+    int index; //!< Index of the current secret word.
 
     /*!
      * @brief Generates a random index within a given range.
@@ -182,26 +182,53 @@ public:
  */
 class BlackJack : public Game
 {
-protected: // Change private to protected
-    std::vector<int> cards;
-    int dealer[2];
-    std::vector<int> playersCards;
-    int bid;
+private:
+    std::vector<int> cards; //!< Deck of cards for the game.
+    int dealer[2]; //!< Dealer's hand.
+    std::vector<int> playersCards; //!< Player's hand.
+    int bid; //!< The player's current bid.
 
+    /*!
+     * @brief Evaluates the player's hand.
+     * @param hit Indicates if the player has chosen to hit or stand.
+     * @return The result of the evaluation.
+     */
     int evaluate(bool hit);
+
+    /*!
+     * @brief Initializes the deck of cards.
+     */
     void initDecks();
+
+    /*!
+     * @brief Sets up a new game of BlackJack.
+     */
     void newGame();
+
+    /*!
+     * @brief Displays the current state of the game.
+     * @param printAll Indicates whether to print all details or just the player's perspective.
+     */
     void displayState(bool printAll);
 
 public:
+    /*!
+     * @brief Constructor for the BlackJack game.
+     * @details Initializes the game with default settings.
+     */
     BlackJack();
-    bool start() override;
-    std::string getGameName() override;
 
-    // Add public getter methods for testing
-    std::vector<int> getPlayerCards() const { return playersCards; }
-    std::array<int, 2> getDealerCards() const { return {dealer[0], dealer[1]}; }
-    int evaluateForTesting(bool hit) { return evaluate(hit); }
-    void newGameForTesting() { newGame(); }
+    /*!
+     * @brief Starts the BlackJack game.
+     * @return True if the game was completed successfully, otherwise false.
+     */
+    bool start() override;
+
+    /*!
+     * @brief Gets the name of the game.
+     * @return A string representing the name of the game.
+     */
+    std::string getGameName() override;
 };
+
 #endif // MINIGAMES_H

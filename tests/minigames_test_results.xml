@@ -1,42 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testcase name="TicTacToe Initialization" time="6.504e-06"/>
-  <testcase name="TicTacToe Player Move" time="9.0428e-05"/>
-  <testcase name="TicTacToe Computer Turn" time="0.000207485"/>
-  <testcase name="TicTacToe Check For Win" time="1.216e-06"/>
-  <testcase name="CodeGuesser Initialization" time="0.0122632"/>
-  <testcase name="CodeGuesser Game Name" time="0.000102483"/>
-  <testcase name="CodeGuesser Add Guess" time="7.7231e-05"/>
-  <testcase name="CodeGuesser Start Game" time="9.2048e-05"/>
-  <testcase name="BlackJack New Game" time="5.8546e-05"/>
-  <testcase name="BlackJack Evaluate" time="4.9728e-05"/>
-  <testcase name="BlackJack Start Game" time="0.0959419"/>
-  <testcase name="BlackJack Initialization" time="2.7134e-05"/>
-  <testcase name="Player Constructor" time="1.3682e-05"/>
-  <testcase name="Add To Inventory" time="2.1018e-05"/>
-  <testcase name="Remove From Inventory" time="7.994e-06"/>
-  <testcase name="Remove Nonexistent Item" time="7.042e-06"/>
-  <testcase name="Set Max Health" time="4.833e-06"/>
-  <testcase name="Set Current Health" time="5.094e-06"/>
-  <testcase name="Add Buff" time="8.117e-06"/>
-  <testcase name="Remove Buff" time="7.197e-06"/>
-  <testcase name="Remove Nonexistent Buff" time="5.837e-06"/>
-  <testcase name="Set Resistance" time="4.538e-06"/>
-  <testcase name="Weapon Initialization" time="8.4556e-05"/>
-  <testcase name="Random Weapon Generation" time="5.5972e-05"/>
-  <testcase name="Weapon Generation by Rarity" time="6.9451e-05"/>
-  <testcase name="Generate Random Number" time="7.061e-06"/>
-  <testcase name="String to Int Conversion" time="0.00134851"/>
-  <testcase name="Repeat String" time="2.787e-06"/>
-  <testcase name="To Lower Case" time="3.458e-06"/>
-  <testcase name="To Upper Case" time="2.88e-06"/>
-  <testcase name="Split String" time="1.5118e-05"/>
-  <testcase name="Get File Content" time="0.000118366"/>
-  <testcase name="Enemy Initialisation" time="4.5018e-05"/>
-  <testcase name="Enemy Damage Application" time="5.362e-06"/>
-  <testcase name="Enemy Death Condition" time="4.629e-06"/>
-  <testcase name="Enemy Custom Setters" time="1.6977e-05"/>
-  <testcase name="Dungeon Room Generation" time="0.00769569"/>
-  <testcase name="Dungeon Link Room" time="0.00170084"/>
-  <testcase name="Print Health" time="0.000241491"/>
+  <testcase name="TicTacToe Initialization" time="2.8042e-05"/>
+  <testcase name="TicTacToe Player Move" time="2.5e-07"/>
+  <testcase name="TicTacToe Computer Turn" time="7.6958e-05"/>
+  <testcase name="TicTacToe Check For Win" time="1.542e-06"/>
+  <testcase name="CodeGuesser Initialization" time="0.000371417"/>
+  <testcase name="CodeGuesser Game Name" time="9.1917e-05"/>
+  <testcase name="BlackJack Initialization" time="6.3167e-05"/>
+  <testcase name="Player Constructor" time="1.1542e-05"/>
+  <testcase name="Add To Inventory" time="1.1583e-05"/>
+  <testcase name="Remove From Inventory" time="8.5e-06"/>
+  <testcase name="Remove Nonexistent Item" time="7.584e-06"/>
+  <testcase name="Set Max Health" time="5.208e-06"/>
+  <testcase name="Set Current Health" time="5.625e-06"/>
+  <testcase name="Add Buff" time="8.5e-06"/>
+  <testcase name="Remove Buff" time="7.625e-06"/>
+  <testcase name="Remove Nonexistent Buff" time="6.167e-06"/>
+  <testcase name="Set Resistance" time="4.917e-06"/>
+  <testcase name="Weapon Initialization" time="0.000102833"/>
+  <testcase name="Random Weapon Generation" time="6.85e-05"/>
+  <testcase name="Weapon Generation by Rarity" time="8.2958e-05"/>
+  <testcase name="Generate Random Number" time="1.1625e-05"/>
+  <testcase name="String to Int Conversion" time="0.00116117"/>
+  <testcase name="Repeat String" time="2.542e-06"/>
+  <testcase name="To Lower Case" time="4.334e-06"/>
+  <testcase name="To Upper Case" time="2.75e-06"/>
+  <testcase name="Split String" time="1.1667e-05"/>
+  <testcase name="Get File Content" time="0.000264416"/>
+  <testcase name="Enemy Initialisation" time="8.833e-06"/>
+  <testcase name="Enemy Damage Application" time="5.75e-06"/>
+  <testcase name="Enemy Death Condition" time="5.125e-06"/>
+  <testcase name="Enemy Custom Setters" time="4.917e-06"/>
+  <testcase name="Dungeon Room Generation" time="0.00636754"/>
+  <testcase name="Dungeon Link Room" time="0.000250958"/>
+  <testcase name="Print Health" time="1.2083e-05"/>
 </testsuites>
