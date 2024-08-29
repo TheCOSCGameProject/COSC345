@@ -22,6 +22,26 @@ jobs:
           [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
           iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
+      - name: Install cppcheck
+        run: |
+          choco install cppcheck -y
+          # Ensure the path is updated in the current shell
+          refreshenv
+
+      - name: Verify cppcheck installation
+        run: |
+          cppcheck --version
+
+      - name: Run cppcheck
+        run: |
+          cppcheck --enable=all --std=c++17 --force --xml --xml-version=2 . 2> cppcheck-result.xml
+
+      - name: Upload cppcheck results
+        uses: actions/upload-artifact@v3
+        with:
+          name: cppcheck-results
+          path: cppcheck-result.xml
+          
       - name: Install MinGW and other dependencies
         run: |
           choco install mingw -y
@@ -72,26 +92,6 @@ jobs:
           ./codacy-coverage-reporter.sh final
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
-
-      - name: Install cppcheck
-        run: |
-          choco install cppcheck -y
-          # Add cppcheck to PATH manually if not automatically done
-          [System.Environment]::SetEnvironmentVariable('PATH', "$env:PATH;C:\Program Files\Cppcheck", [System.EnvironmentVariableTarget]::Machine)
-
-      - name: Verify cppcheck installation
-        run: |
-          cppcheck --version
-
-      - name: Run Cppcheck
-        run: |
-          cppcheck --enable=all --std=c++17 --force --xml --xml-version=2 . 2> cppcheck-result.xml
-
-      - name: Upload Cppcheck Results as Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: cppcheck-result
-          path: cppcheck-result.xml
 
       - name: Upload HTML Coverage Report as Artifact
         uses: actions/upload-artifact@v3
