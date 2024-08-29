@@ -6,9 +6,13 @@
 #include "../lib/toolkit.h"
 #include "../lib/weapon.h"
 #include "../lib/enemies.h"
+#include "../lib/menu.h"
+#include <algorithm>
+#include <cctype>
+#include <regex>
+#include <cassert>
 
 #include "custom_test_framework.h"
-#include "cassert"
 #include <sstream>
 
 void testTicTacToeInitialization()
@@ -451,6 +455,25 @@ void testSetResistance()
     player.setResistance(10);
     ASSERT_EQUAL(player.getResistance(), 10);
 }
+
+void testSetMaxHelth_AdjustCurrentHealth()
+{
+    // Create a Player object with initial settings
+    Player player = createPlayerWithInput("Alice", "Warrior");
+
+    // Manually set the player's current health to a value greater than the max health
+    player.setCurrHealth(150); // Set current health to 150 (greater than the max health that will be set)
+
+    // Set max health to a lower value than current health
+    player.setMaxHelth(100);
+
+    // Verify that current health has been adjusted to the new max health value
+    ASSERT_EQUAL(player.getCurrHealth(), 100); // Current health should be adjusted to match max health
+
+    // Verify that max health is set correctly
+    ASSERT_EQUAL(player.getMaxHealth(), 100); // Max health should be set to 100
+}
+
 // Combat testing
 void testPrintHealth()
 {
@@ -466,6 +489,117 @@ void testPrintHealth()
     // Check if the output contains the expected health information
     ASSERT(result.find("Player Health: 100") != std::string::npos);
     ASSERT(result.find("Enemy Health: 50") != std::string::npos);
+}
+
+// Menu tests
+std::string normalizeString(const std::string &input)
+{
+    std::regex ansiRegex(R"(\x1B\[[0-9;]*[a-zA-Z])");
+    return std::regex_replace(input, ansiRegex, "");
+}
+
+void testDisplayIntro()
+{
+    // Capture the output
+    std::stringstream simulatedOutput;
+    std::streambuf *coutBackup = std::cout.rdbuf();
+    std::cout.rdbuf(simulatedOutput.rdbuf());
+
+    // Call the function to test
+    displayIntro(15, "\033[36m");
+
+    // Restore std::cout
+    std::cout.rdbuf(coutBackup);
+
+    // Expected output
+    std::vector<std::string> intro = split(getFileContent("../reasources/intro.txt"), '@');
+    std::string expectedOutput;
+
+    for (int i = 0; i < 3; i++)
+    {
+        expectedOutput.append("\033[36m" + intro[i] + "\033[37m\n");
+    }
+    expectedOutput.append("\033[36m" + intro[intro.size() - 1] + "\033[37m\n");
+
+    // Capture actual output
+    std::string output = simulatedOutput.str();
+
+    std::string normalizedExpected = normalizeString(expectedOutput);
+    std::string normalizedOutput = normalizeString(output);
+
+    // Check if the normalized output matches the normalized expected output
+    if (normalizedOutput != normalizedExpected)
+    {
+        std::cout << "Test failed!\n";
+        std::cout << "Normalized Expected Output:\n"
+                  << normalizedExpected << "\n";
+        std::cout << "Normalized Actual Output:\n"
+                  << normalizedOutput << "\n";
+    }
+    else
+    {
+        std::cout << "Test passed!\n";
+    }
+
+    // Alternatively, use an assertion
+    ASSERT_EQUAL(normalizedOutput, normalizedExpected);
+}
+
+void testDisplayj()
+{
+    // Capture the output
+    std::stringstream simulatedOutput;
+    std::streambuf *coutBackup = std::cout.rdbuf();
+    std::cout.rdbuf(simulatedOutput.rdbuf());
+
+    // Call the function to test
+    Displayj();
+
+    // Restore std::cout
+    std::cout.rdbuf(coutBackup);
+
+    // Expected output
+    std::string expectedOutput =
+        "\033[37m==========================================================\n"
+        "               VALERIS GAME MENU\n"
+        "==========================================================\n"
+        "1. Start New Game\n"
+        "2. Load Saved Game\n"
+        "3. Instructions\n"
+        "4. Accessibility\n"
+        "5. Exit\n"
+        "==========================================================\n";
+
+    // Capture actual output
+    std::string output = simulatedOutput.str();
+
+    // Alternatively, use an assertion
+    ASSERT_EQUAL(output, expectedOutput);
+}
+
+void test_DisplayInstructionsText()
+{
+    std::stringstream buffer;
+    std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
+
+    // Fake the input to simulate Enter key press
+    std::istringstream fakeInput("\n");
+    std::cin.rdbuf(fakeInput.rdbuf());
+
+    // Call the function to test
+    DisplayInstructionsText();
+
+    // Restore the original cout buffer
+    std::cout.rdbuf(old);
+
+    // The expected output with ANSI escape code for white text
+    std::string expectedOutput = "\033[37m\nInstructions:\n1. Use the N, S, W, E keys to move your character.\n2. Fight enemies with ___\n3. Collect items to improve your chances of survival.\n4. Play minigames with ___\n5. Defeat bosses to progress to the next level.\n\n\033[0mPress Enter to continue...\n";
+
+    std::string normalizedExpected = normalizeString(expectedOutput);
+    std::string normalizedOutput = normalizeString(buffer.str());
+
+    // Compare the actual output with the expected output
+    ASSERT_EQUAL(normalizedOutput, normalizedExpected);
 }
 
 int main()
@@ -501,6 +635,7 @@ int main()
     framework.addTest("Remove Buff", testRemoveBuff);
     framework.addTest("Remove Nonexistent Buff", testRemoveNonexistentBuff);
     framework.addTest("Set Resistance", testSetResistance);
+    framework.addTest("Set Max Health Adjusts Current Health", testSetMaxHelth_AdjustCurrentHealth);
 
     // Weapon tests
     framework.addTest("Weapon Initialization", testWeaponInitialization);
@@ -528,6 +663,11 @@ int main()
 
     // combat tests
     framework.addTest("Print Health", testPrintHealth);
+
+    // Menu tests
+    framework.addTest("Display intro test", testDisplayIntro);
+    framework.addTest("Display menu test", testDisplayj);
+    framework.addTest("Display instructions test", test_DisplayInstructionsText);
 
     // Run framework
     framework.run();

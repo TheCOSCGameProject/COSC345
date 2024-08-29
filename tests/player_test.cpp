@@ -146,3 +146,21 @@ void testSetResistance()
     player.setResistance(10);
     ASSERT_EQUAL(player.getResistance(), 10);
 }
+
+void testSetMaxHelth_AdjustCurrentHealth()
+{
+    // Create a Player object with initial settings
+    Player player = createPlayerWithInput("Alice", "Warrior");
+
+    // Manually set the player's current health to a value greater than the max health
+    player.setCurrHealth(150); // Set current health to 150 (greater than the max health that will be set)
+
+    // Set max health to a lower value than current health
+    player.setMaxHelth(100);
+
+    // Verify that current health has been adjusted to the new max health value
+    ASSERT_EQUAL(player.getCurrHealth(), 100); // Current health should be adjusted to match max health
+
+    // Verify that max health is set correctly
+    ASSERT_EQUAL(player.getMaxHealth(), 100); // Max health should be set to 100
+}
