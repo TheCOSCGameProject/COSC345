@@ -58,34 +58,28 @@ bool combatV1(int playerHealth, int enemyHealth, int difficulty, const std::stri
         auto start = std::chrono::high_resolution_clock::now(); // Start timer for user input
         std::string inputStr;
 
-        while (true)
-        {
-            std::getline(std::cin, inputStr);                     // Get user input
-            auto now = std::chrono::high_resolution_clock::now(); // Capture current time
-            std::chrono::duration<double> elapsed = now - start;  // Calculate elapsed time
+        std::getline(std::cin, inputStr);                     // Get user input
+        auto now = std::chrono::high_resolution_clock::now(); // Capture current time
+        std::chrono::duration<double> elapsed = now - start;  // Calculate elapsed time
 
-            // Check if user input matches and is within the allowed time
-            if (inputStr == keyBoardEquivalent[random_number] && elapsed.count() < difficulty / 1000.0)
-            {
-                enemyHealth -= 5; // Successful hit on the enemy
-                clear(5);
-                printHealth(playerHealth, enemyHealth, name);
-                break;
-            }
-            else if (elapsed.count() >= difficulty / 1000.0)
-            {
-                playerHealth -= 10; // Player takes damage due to slow response
-                clear(5);
-                printHealth(playerHealth, enemyHealth, name);
-                break;
-            }
-            else
-            {
-                playerHealth -= 5; // Incorrect input results in minor damage
-                clear(5);
-                printHealth(playerHealth, enemyHealth, name);
-                break;
-            }
+        // Check if user input matches and is within the allowed time
+        if (inputStr == keyBoardEquivalent[random_number] && elapsed.count() < difficulty / 1000.0)
+        {
+            enemyHealth -= 5; // Successful hit on the enemy
+            clear(5);
+            printHealth(playerHealth, enemyHealth, name);
+        }
+        else if (elapsed.count() >= difficulty / 1000.0)
+        {
+            playerHealth -= 10; // Player takes damage due to slow response
+            clear(5);
+            printHealth(playerHealth, enemyHealth, name);
+        }
+        else
+        {
+            playerHealth -= 5; // Incorrect input results in minor damage
+            clear(5);
+            printHealth(playerHealth, enemyHealth, name);
         }
     }
 

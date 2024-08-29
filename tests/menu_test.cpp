@@ -116,3 +116,41 @@ void test_DisplayInstructionsText()
     // Compare the actual output with the expected output
     ASSERT_EQUAL(normalizedOutput, normalizedExpected);
 }
+
+// Test cases
+void testGetColor_Green()
+{
+    std::string result = getColor(1, "\033[37m"); // Default color
+    ASSERT_EQUAL("\033[32m", result);
+}
+
+void testGetColor_Blue()
+{
+    std::string result = getColor(2, "\033[37m");
+    ASSERT_EQUAL("\033[34m", result);
+}
+
+void testGetColor_Red()
+{
+    std::string result = getColor(3, "\033[37m");
+    ASSERT_EQUAL("\033[31m", result);
+}
+
+void testGetColor_Yellow()
+{
+    std::string result = getColor(4, "\033[37m");
+    ASSERT_EQUAL("\033[33m", result);
+}
+
+void testGetColor_Cyan()
+{
+    std::string result = getColor(5, "\033[37m");
+    ASSERT_EQUAL("\033[36m", result);
+}
+
+void testGetColor_Invalid()
+{
+    std::string initialColor = "\033[37m";           // Default color
+    std::string result = getColor(99, initialColor); // Invalid choice
+    ASSERT_EQUAL(initialColor, result);              // Should keep the original color
+}

@@ -691,6 +691,44 @@ void test_DisplayInstructionsText()
     ASSERT_EQUAL(normalizedOutput, normalizedExpected);
 }
 
+// Test cases
+void testGetColor_Green()
+{
+    std::string result = getColor(1, "\033[37m"); // Default color
+    ASSERT_EQUAL("\033[32m", result);
+}
+
+void testGetColor_Blue()
+{
+    std::string result = getColor(2, "\033[37m");
+    ASSERT_EQUAL("\033[34m", result);
+}
+
+void testGetColor_Red()
+{
+    std::string result = getColor(3, "\033[37m");
+    ASSERT_EQUAL("\033[31m", result);
+}
+
+void testGetColor_Yellow()
+{
+    std::string result = getColor(4, "\033[37m");
+    ASSERT_EQUAL("\033[33m", result);
+}
+
+void testGetColor_Cyan()
+{
+    std::string result = getColor(5, "\033[37m");
+    ASSERT_EQUAL("\033[36m", result);
+}
+
+void testGetColor_Invalid()
+{
+    std::string initialColor = "\033[37m";           // Default color
+    std::string result = getColor(99, initialColor); // Invalid choice
+    ASSERT_EQUAL(initialColor, result);              // Should keep the original color
+}
+
 int main()
 {
     TestFramework framework("minigames_test_results.xml");
@@ -763,6 +801,12 @@ int main()
     framework.addTest("Display intro test", testDisplayIntro);
     framework.addTest("Display menu test", testDisplayj);
     framework.addTest("Display instructions test", test_DisplayInstructionsText);
+    framework.addTest("Test GetColor Green", testGetColor_Green);
+    framework.addTest("Test GetColor Blue", testGetColor_Blue);
+    framework.addTest("Test GetColor Red", testGetColor_Red);
+    framework.addTest("Test GetColor Yellow", testGetColor_Yellow);
+    framework.addTest("Test GetColor Cyan", testGetColor_Cyan);
+    framework.addTest("Test GetColor Invalid", testGetColor_Invalid);
 
     // Run framework
     framework.run();

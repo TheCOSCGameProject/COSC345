@@ -58,18 +58,18 @@ void StartGame()
 }
 
 /*!
-@brief Load a saved game.
-@details This function simulates loading a saved game. The actual loading functionality is not implemented.
-*/
+ * @brief Load a saved game.
+ * @details This function simulates loading a saved game. The actual loading functionality is not implemented.
+ */
 void LoadSavedGame()
 {
     std::cout << "\033[37m" << "Loading game..." << std::endl;
 }
 
 /*!
-@brief Display the game instructions.
-@details This function prints the instructions for playing the Valeris game and waits for the user to press Enter before clearing the screen.
-*/
+ * @brief Display the game instructions.
+ * @details This function prints the instructions for playing the Valeris game and waits for the user to press Enter before clearing the screen.
+ */
 void DisplayInstructionsText()
 {
     std::string instructions = R"(
@@ -87,11 +87,46 @@ Instructions:
 }
 
 /*!
-@brief Configure accessibility options.
-@param delayTime Reference to the delay time between printing each character.
-@param color Reference to the color code for the text.
-@details This function allows the player to adjust text speed and color for better accessibility. Changes are applied immediately, and the player can return to the main menu at any time.
-*/
+ * @brief Get color from user for menu.
+ * @param colorChoice the color choice the user chose.
+ * @param color Reference to the old color code for the text.
+ * @details This function allows the player to select and change the color of the text
+ */
+std::string getColor(int colorChoice, std::string color)
+{
+    std::string newColor = color;
+    switch (colorChoice)
+    {
+    case 1:
+        newColor = "\033[32m";
+        break;
+    case 2:
+        newColor = "\033[34m";
+        break;
+    case 3:
+        newColor = "\033[31m";
+        break;
+    case 4:
+        newColor = "\033[33m";
+        break;
+    case 5:
+        newColor = "\033[36m";
+        break;
+    default:
+        std::cout << "\033[91m" << "Invalid choice. Keeping current color." << "\033[37m" << std::endl;
+        delay(2000);
+        clear(1);
+        break;
+    }
+    return newColor;
+}
+
+/*!
+ * @brief Configure accessibility options.
+ * @param delayTime Reference to the delay time between printing each character.
+ * @param color Reference to the color code for the text.
+ * @details This function allows the player to adjust text speed and color for better accessibility. Changes are applied immediately, and the player can return to the main menu at any time.
+ */
 void Accessiblity(int &delayTime, std::string &color)
 {
     std::cout << "\033[37m" << "Accessibility Options:" << std::endl;
@@ -119,29 +154,7 @@ void Accessiblity(int &delayTime, std::string &color)
         std::cout << "4. Yellow" << std::endl;
         std::cout << "5. Default Cyan" << std::endl;
         colorChoice = readInt();
-        switch (colorChoice)
-        {
-        case 1:
-            color = "\033[32m";
-            break;
-        case 2:
-            color = "\033[34m";
-            break;
-        case 3:
-            color = "\033[31m";
-            break;
-        case 4:
-            color = "\033[33m";
-            break;
-        case 5:
-            color = "\033[36m";
-            break;
-        default:
-            std::cout << "\033[91m" << "Invalid choice. Keeping current color." << "\033[37m" << std::endl;
-            delay(2000);
-            clear(1);
-            break;
-        }
+        color = getColor(colorChoice, color);
         clear(12);
         Accessiblity(delayTime, color); // Recursive call
         break;

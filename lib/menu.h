@@ -54,4 +54,12 @@ void DisplayInstructionsText();
  */
 void Accessiblity(int &delayTime, std::string &color);
 
+/*!
+ * @brief Get color from user for menu.
+ * @param colorChoice the color choice the user chose.
+ * @param color Reference to the old color code for the text.
+ * @details This function allows the player to select and change the color of the text
+ */
+std::string getColor(int colorChoice, std::string color);
+
 #endif // MENU_H
