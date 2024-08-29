@@ -53,6 +53,12 @@ Once the game is started, you can navigate through the dungeons, interact with c
 We follow an agile development process with tasks managed via Trello and real-time communication through Discord. Continuous integration (CI) is set up to ensure that every component integrates smoothly with the rest of the system. There are two .yml files located in the git Workflows folder that assist with the project build.
 
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/416142ee7b9049e3b421bc0592f98b00)](https://app.codacy.com/gh/TheCOSCGameProject/COSC345/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/416142ee7b9049e3b421bc0592f98b00)](https://app.codacy.com/gh/TheCOSCGameProject/COSC345/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
+
+
+
 ## Documentation
 
 The codedocs.xyz has been used to generate Doxygen documentation. The documentation for this project can be found in the below webpage/website:
