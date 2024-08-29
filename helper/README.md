@@ -44,12 +44,22 @@ cd src && g++ -std=c++17 ../helper/*.cpp valeris.cpp -o valeris && ./valeris && 
 
 cd tests && g++ -std=c++17 -o run_tests minigames_test.cpp ../helper/*.cpp && ./run_tests && cd ..
 
+
+
+
+
+
+
+
+
+
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/416142ee7b9049e3b421bc0592f98b00)](https://app.codacy.com/gh/TheCOSCGameProject/COSC345/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/416142ee7b9049e3b421bc0592f98b00)](https://app.codacy.com/gh/TheCOSCGameProject/COSC345/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
+[![Coverage Badge](https://app.codacy.com/project/badge/Coverage/416142ee7b9049e3b421bc0592f98b00)](https://app.codacy.com/gh/TheCOSCGameProject/COSC345/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
+
 
 ## Usage
-Once the game is started, you can navigate through the dungeons, interact with characters, and engage in mini-games using the keyboard. Each choice you make will affect the outcome of your journey. Once the game is run, the player will be represented with a main menue that can be used
+Once the game is started, you can navigate through the dungeons, interact with characters, and engage in mini-games using the keyboard. Each choice you make will affect the outcome of your journey. Once the game is run, the player will be represented with a main menu and the in-game actions can be utlised to play the game. The specific instructions to play the game, has been provided in the game play.
 
 
 
@@ -71,4 +81,11 @@ https://codedocs.xyz/TheCOSCGameProject/COSC345/
 ## Contributing
 
 You are welcome to contribute to the project, by simply making Git push requests. We may review the push requests and make changes accordingly.
+
+
+## The User Testing and the Feedback Collection
+
+The Google Form has been created to collect feedback regarding the game/project. The Google Form can be found below:
+
+https://forms.gle/UhVaeFyPmQwcN7Gx8
 
