@@ -26,24 +26,42 @@ jobs:
           [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
           iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
+    - name: Install Chocolatey
+      run: |
+          Set-ExecutionPolicy Bypass -Scope Process -Force
+          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+          iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
     - name: Install cppcheck
       run: |
-          choco install cppcheck -y
-          # Manually add cppcheck to PATH
-          [System.Environment]::SetEnvironmentVariable('PATH', "$env:PATH;C:\Program Files\Cppcheck", [System.EnvironmentVariableTarget]::Process)
+        choco install cppcheck -y
 
-    - name: Refresh environment variables
+    - name: Ensure cppcheck is in PATH and verify installation
+      shell: pwsh
       run: |
-          Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
-          [System.Environment]::SetEnvironmentVariable('PATH', "$env:PATH;C:\Program Files\Cppcheck", [System.EnvironmentVariableTarget]::Process)
+        # Import Chocolatey profile to refresh environment variables
+        Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
 
-    - name: Verify cppcheck installation
-      run: |
-          cppcheck --version
+        # Add cppcheck to PATH if not automatically added
+        $cppcheckPath = "C:\Program Files\Cppcheck"
+        $env:Path += ";$cppcheckPath"
+
+        # Print the current PATH to verify cppcheck is included
+        Write-Output "Current PATH: $env:Path"
+
+        # Verify cppcheck installation
+        $cppcheckExe = Join-Path $cppcheckPath "cppcheck.exe"
+        if (Test-Path $cppcheckExe) {
+          Write-Output "cppcheck is installed at: $cppcheckExe"
+          & $cppcheckExe --version
+        } else {
+          Write-Output "cppcheck not found at: $cppcheckExe"
+          exit 1
+        }
 
     - name: Run cppcheck
       run: |
-          cppcheck --enable=all --std=c++17 --force --xml --xml-version=2 . 2> cppcheck-result.xml
+        cppcheck --enable=all --std=c++17 --force --xml --xml-version=2 . 2> cppcheck-result.xml
 
     - name: Upload cppcheck results
       uses: actions/upload-artifact@v3
