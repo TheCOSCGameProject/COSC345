@@ -60,6 +60,9 @@ jobs:
 
         cppcheck --enable=all --std=c++17 --force . > cppcheck-results.txt 2>&1
 
+        Write-Output "cppcheck results:"
+        Write-Output (Get-Content cppcheck-results.txt)
+
     - name: Upload cppcheck results
       uses: actions/upload-artifact@v3
       with:
