@@ -1,3 +1,9 @@
+/*!
+@file menu.cpp
+@brief Implementation of the Valeris game menu system.
+@details This file contains functions for displaying the game menu, handling user input, and configuring accessibility options.
+*/
+
 #include "../lib/toolkit.h"
 #include "../lib/dependencies.h"
 #include "../lib/dungeon.h"
@@ -5,6 +11,12 @@
 #include "../lib/valerisgame.h"
 #include <iomanip>
 
+/*!
+@brief Display the game introduction.
+@param delayTime The delay time between printing each character.
+@param color The color code for the text.
+@details The introduction is read from a file and printed with a delay and color for dramatic effect.
+*/
 void displayIntro(int delayTime, std::string color)
 {
     std::vector<std::string> intro = split(getFileContent("../reasources/intro.txt"), '@');
@@ -18,6 +30,10 @@ void displayIntro(int delayTime, std::string color)
     std::cout << std::endl;
 }
 
+/*!
+@brief Display the Valeris game main menu.
+@details This function displays the main menu with options for starting a new game, loading a saved game, viewing instructions, adjusting accessibility settings, or exiting the game.
+*/
 void Displayj()
 {
     std::cout << "\033[37m" << "==========================================================" << std::endl;
@@ -31,17 +47,29 @@ void Displayj()
     std::cout << "==========================================================" << std::endl;
 }
 
+/*!
+@brief Start a new game of Valeris.
+@details This function creates an instance of the ValerisGame class and begins the game.
+*/
 void StartGame()
 {
     ValerisGame valerisGame;
     valerisGame.start();
 }
 
+/*!
+@brief Load a saved game.
+@details This function simulates loading a saved game. The actual loading functionality is not implemented.
+*/
 void LoadSavedGame()
 {
     std::cout << "\033[37m" << "Loading game..." << std::endl;
 }
 
+/*!
+@brief Display the game instructions.
+@details This function prints the instructions for playing the Valeris game and waits for the user to press Enter before clearing the screen.
+*/
 void DisplayInstructionsText()
 {
     std::string instructions = R"(
@@ -58,6 +86,12 @@ Instructions:
     clear(8);
 }
 
+/*!
+@brief Configure accessibility options.
+@param delayTime Reference to the delay time between printing each character.
+@param color Reference to the color code for the text.
+@details This function allows the player to adjust text speed and color for better accessibility. Changes are applied immediately, and the player can return to the main menu at any time.
+*/
 void Accessiblity(int &delayTime, std::string &color)
 {
     std::cout << "\033[37m" << "Accessibility Options:" << std::endl;
