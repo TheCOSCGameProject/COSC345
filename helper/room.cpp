@@ -1,14 +1,23 @@
+/*!
+@file room.cpp
+@brief Implementation of Room and RoomContent classes for dungeon system.
+@details This file contains the implementation of the Room and RoomContent classes, 
+which manage the creation and interaction with different types of rooms in a dungeon system.
+The RoomContent class handles the generation of room types, items, enemies, and NPCs, 
+while the Room class manages room connections and navigation.
+*/
+
 #include "../lib/room.h"
 #include <iostream>
 #include "../lib/toolkit.h"
 
 /*!
- * @brief Constructor for the Room class.
- * @details Initializes room directions to nullptr and content to "Empty room".
- */
+@brief Constructor for RoomContent class.
+@details Initializes a RoomContent object by randomly generating a room type (either empty or gambling room).
+Depending on the room type, it populates the room with appropriate items, enemies, or NPCs.
+*/
 RoomContent::RoomContent()
 {
-
     this->roomType = generateRandomNumber(0, 1);
     switch (roomType)
     {
@@ -29,7 +38,6 @@ RoomContent::RoomContent()
         }
         break;
     case 1:
-
         gamblingRoom();
         if (this->npc.gamblingGame)
         {
@@ -37,7 +45,7 @@ RoomContent::RoomContent()
         }
         else
         {
-            roomDesc = "Gambling Room containing a with an unknown game";
+            roomDesc = "Gambling Room containing a NPC with an unknown game";
         }
         break;
     default:
@@ -47,11 +55,20 @@ RoomContent::RoomContent()
     }
 }
 
+/*!
+@brief Get the description of the room.
+@return A string describing the room and its contents.
+*/
 std::string RoomContent::getRoomDesc()
 {
     return roomDesc;
 }
 
+/*!
+@brief Generate a gambling room with a random NPC and game.
+@details This method creates an NPC with a random gambling game (either TicTacToe or BlackJack). 
+It reads NPC names from a file and assigns one to the NPC.
+*/
 void RoomContent::gamblingRoom()
 {
     int gamblingGameType = generateRandomNumber(0, 1);
@@ -66,8 +83,6 @@ void RoomContent::gamblingRoom()
         newNPC.gamblingGame = std::make_unique<BlackJack>();
     }
 
-    // std::cout << "Hello2";
-
     std::vector<std::string> npcNames = split(getFileContent("../reasources/npc.txt"), '\n');
     if (npcNames.empty())
     {
@@ -76,19 +91,22 @@ void RoomContent::gamblingRoom()
     }
 
     int index = generateRandomNumber(0, (int)npcNames.size() - 1);
-
     newNPC.name = npcNames[index];
-
     newNPC.skillLevel = 0;
     this->npc = std::move(newNPC);
 }
 
+/*!
+@brief Generate an empty room with random enemies and items.
+@details This method reads enemy and item details from files, then randomly adds them to the room based on predefined probabilities.
+*/
 void RoomContent::emptyRoom()
 {
     std::vector<std::string> listOfEnemies = split(getFileContent("../reasources/enemies.txt"), '\n');
     std::vector<std::string> listOfItems = split(getFileContent("../reasources/room_items.txt"), '\n');
     std::vector<std::string> listRoomItems;
     std::vector<EnemyStruct> listOfRoomEnemies;
+
     for (int i = 0; i < listOfEnemies.size(); i++)
     {
         std::vector<std::string> enemyDetails = split(listOfEnemies.at(i), ':');
@@ -102,6 +120,7 @@ void RoomContent::emptyRoom()
             listOfRoomEnemies.push_back(enemy);
         }
     }
+
     for (int i = 0; i < listOfItems.size(); i++)
     {
         std::vector<std::string> itemDetails = split(listOfItems.at(i), ':');
@@ -119,7 +138,6 @@ void RoomContent::emptyRoom()
         addEnemy(listOfRoomEnemies.at(index));
     }
 
-    // Add a random number of items between 1 and 5
     int numItemsToAdd = generateRandomNumber(1, 3);
     for (int i = 0; i < numItemsToAdd && !listRoomItems.empty(); i++)
     {
@@ -128,31 +146,55 @@ void RoomContent::emptyRoom()
     }
 }
 
+/*!
+@brief Add an item to the room.
+@param item The name of the item to add.
+*/
 void RoomContent::addItem(const std::string &item)
 {
     items.push_back(item);
 }
 
+/*!
+@brief Add an enemy to the room.
+@param enemy The enemy to add to the room.
+*/
 void RoomContent::addEnemy(const EnemyStruct &enemy)
 {
     enemies.push_back(enemy);
 }
 
+/*!
+@brief Get the type of the room.
+@return An integer representing the room type (0 for empty room, 1 for gambling room).
+*/
 int RoomContent::getRoomType()
 {
     return this->roomType;
 }
 
+/*!
+@brief Get the NPC in the room.
+@return A reference to the NPC in the room.
+*/
 NPC &RoomContent::getNPC()
 {
     return npc;
 }
 
+/*!
+@brief Get the list of enemies in the room.
+@return A vector of EnemyStructs representing the enemies in the room.
+*/
 std::vector<EnemyStruct> RoomContent::getEnemies()
 {
     return enemies;
 }
 
+/*!
+@brief Display the content of the room.
+@details Prints the coordinates, visited status, items, enemies, and NPC details of the room to the console.
+*/
 void RoomContent::displayContent() const
 {
     std::cout << "cords: " << "(" << cords.first << ", " << cords.second << ")" << std::endl;
@@ -189,14 +231,21 @@ void RoomContent::displayContent() const
     {
         std::cout << "NPC Details:" << std::endl;
         std::cout << "Name: " << npc.name << std::endl;
-        std::cout << "Gambling Game: " << std::endl;
+        std::cout << "Gambling Game: " << npc.gamblingGame->getGameName() << std::endl;
         std::cout << "Skill Level: " << npc.skillLevel << std::endl;
     }
 }
 
-// Room methods
+/*!
+@brief Constructor for the Room class.
+@details Initializes a Room object with null pointers for all directions and an empty RoomContent.
+*/
 Room::Room() : north(nullptr), south(nullptr), west(nullptr), east(nullptr), roomContent() {}
 
+/*!
+@brief Display the available directions the player can move to.
+@details Checks the neighboring rooms and lists the possible directions the player can move in.
+*/
 void Room::displayAvailableDirections()
 {
     std::vector<std::string> directions;
@@ -211,7 +260,6 @@ void Room::displayAvailableDirections()
         directions.push_back("East");
 
     std::cout << "You can move: ";
-
     for (size_t i = 0; i < directions.size(); ++i)
     {
         std::cout << directions[i];
@@ -223,21 +271,38 @@ void Room::displayAvailableDirections()
     std::cout << std::endl;
 }
 
+/*!
+@brief Add coordinates to the room.
+@param x The x-coordinate of the room.
+@param y The y-coordinate of the room.
+*/
 void RoomContent::addCoordinates(int x, int y)
 {
     cords = std::make_pair(x, y);
 }
 
+/*!
+@brief Get the coordinates of the room.
+@return A pair of integers representing the x and y coordinates of the room.
+*/
 std::pair<int, int> RoomContent::getCoordinates()
 {
     return cords;
 }
 
+/*!
+@brief Check if the room has been visited.
+@return True if the room has been visited, false otherwise.
+*/
 bool RoomContent::getVisited()
 {
     return visited;
 }
 
+/*!
+@brief Set the visited status of the room.
+@param hasVisited Boolean value to set the visited status.
+*/
 void RoomContent::setVisited(bool hasVisited)
 {
     visited = hasVisited;
