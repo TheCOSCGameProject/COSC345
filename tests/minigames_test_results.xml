@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testcase name="TicTacToe Initialization" time="1.0959e-05"/>
+  <testcase name="TicTacToe Player Move" time="8.4e-08"/>
+  <testcase name="TicTacToe Computer Turn" time="3.975e-05"/>
+  <testcase name="TicTacToe Check For Win" time="7.08e-07"/>
+  <testcase name="CodeGuesser Initialization" time="0.000258125"/>
+  <testcase name="CodeGuesser Game Name" time="3.0416e-05"/>
+  <testcase name="CodeGuesser Add Guess" time="3.8209e-05"/>
+  <testcase name="CodeGuesser Start Game" time="3.7167e-05"/>
+  <testcase name="BlackJack Initialization" time="3.0125e-05"/>
+  <testcase name="Player Constructor" time="4.375e-06"/>
+  <testcase name="Add To Inventory" time="3.709e-06"/>
+  <testcase name="Remove From Inventory" time="3e-06"/>
+  <testcase name="Remove Nonexistent Item" time="2.708e-06"/>
+  <testcase name="Set Max Health" time="2.0709e-05"/>
+  <testcase name="Set Current Health" time="2.417e-06"/>
+  <testcase name="Add Buff" time="3.584e-06"/>
+  <testcase name="Remove Buff" time="2.959e-06"/>
+  <testcase name="Remove Nonexistent Buff" time="2.25e-06"/>
+  <testcase name="Set Resistance" time="1.875e-06"/>
+  <testcase name="Set Max Health Adjusts Current Health" time="1.833e-06"/>
+  <testcase name="Weapon Initialization" time="7.5708e-05"/>
+  <testcase name="Random Weapon Generation" time="2.5833e-05"/>
+  <testcase name="Weapon Generation by Rarity" time="7.9541e-05"/>
+  <testcase name="Generate Random Number" time="4.625e-06"/>
+  <testcase name="String to Int Conversion" time="0.000334375"/>
+  <testcase name="Repeat String" time="8.33e-07"/>
+  <testcase name="To Lower Case" time="1.1917e-05"/>
+  <testcase name="To Upper Case" time="1.041e-06"/>
+  <testcase name="Split String" time="4.291e-06"/>
+  <testcase name="Get File Content" time="0.000267125"/>
+  <testcase name="Read Int" time="4.5e-06"/>
+  <testcase name="Get User Input Line" time="1.625e-06"/>
+  <testcase name="Wait For Enter" time="0.020691"/>
+  <testcase name="Enemy Initialisation" time="6.166e-06"/>
+  <testcase name="Enemy Damage Application" time="3.6959e-05">
+    <failure message="Assertion failed: expectedHealth != spawner.getHealth(enemy)"/>
+  </testcase>
+  <testcase name="Enemy Death Condition" time="2.292e-06"/>
+  <testcase name="Enemy Custom Setters" time="1.875e-06"/>
+  <testcase name="Dungeon Room Generation" time="0.0046455"/>
+  <testcase name="Dungeon Link Room" time="0.000264625"/>
+  <testcase name="Print Health" time="6.625e-06"/>
+  <testcase name="Display intro test" time="11.3733"/>
+  <testcase name="Display menu test" time="3.25e-06"/>
+  <testcase name="Display instructions test" time="0.00711862"/>
+</testsuites>
