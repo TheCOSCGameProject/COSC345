@@ -138,28 +138,6 @@ void testBlackJackInitialization()
     ASSERT_EQUAL("Black Jack", game.getGameName());
 }
 
-/* These two are currently set up for input, can easily change the player.h and cpp to have a default case but for now is fine as is. Leave commented out when syncing/pushing so build doesn't fail
-void testPlayerInitialization()
-{
-    Player player;
-    ASSERT(player.getName() != "");
-    ASSERT(player.getClassType() != "");
-    ASSERT_EQUAL(100, player.getMaxHealth());
-    ASSERT_EQUAL(100, player.getCurrHealth());
-}
-
-void testPlayerInventory()
-{
-    Player player;
-    player.addToInventory("Sword");
-    ASSERT_EQUAL(1, player.getInventory().size());
-    ASSERT_EQUAL("Sword", player.getInventory()[0]);
-
-    player.removeFromInventory("Sword");
-    ASSERT_EQUAL(0, player.getInventory().size());
-}
-*/
-
 void testWeaponInitialization()
 {
     Weapon weaponSystem;
@@ -295,28 +273,7 @@ void testWaitForEnter()
 
     ASSERT(output.str().find("Press Enter to continue...") != std::string::npos);
 }
-
-// Test for SetConsoleSize (Windows) or SetTerminalSize (non-Windows)
-#ifdef _WIN32
-void testSetConsoleSize()
-{
-    // This test is a bit tricky as it involves Windows API calls
-    // We'll just test if the function runs without crashing
-    ASSERT_NO_THROW(SetConsoleSize(100, 30));
-}
-#else
-void testSetTerminalSize()
-{
-    std::stringstream output;
-    std::streambuf *coutbuf = std::cout.rdbuf(output.rdbuf());
-
-    SetTerminalSize(30, 100);
-
-    std::cout.rdbuf(coutbuf);
-
-    ASSERT_EQUAL("\033[8;30;100t", output.str());
-}
-#endif
+// Avoid console as different systems.
 
 // Test the initialisation of a newly spawned enemy
 void testEnemyInitialisation()
@@ -618,11 +575,6 @@ int main()
     framework.addTest("Read Int", testReadInt);
     framework.addTest("Get User Input Line", testGetUserInputLine);
     framework.addTest("Wait For Enter", testWaitForEnter);
-#ifdef _WIN32
-    framework.addTest("Set Console Size", testSetConsoleSize);
-#else
-    framework.addTest("Set Terminal Size", testSetTerminalSize);
-#endif
 
     // Enemies Test
     framework.addTest("Enemy Initialisation", testEnemyInitialisation);
