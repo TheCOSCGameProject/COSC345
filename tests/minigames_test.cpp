@@ -152,6 +152,48 @@ void testStringToInt()
     ASSERT_EQUAL(0, stringToInt("abc")); // Invalid input should return 0
 }
 
+void testRepeatString()
+{
+    ASSERT_EQUAL("", repeatString("test", 0));
+    ASSERT_EQUAL("testtesttest", repeatString("test", 3));
+    ASSERT_EQUAL("", repeatString("test", -1));
+}
+
+void testToLowerCase()
+{
+    ASSERT_EQUAL("hello world", toLowerCase("HELLO WORLD"));
+    ASSERT_EQUAL("mixed case 123", toLowerCase("MiXeD cAsE 123"));
+    ASSERT_EQUAL("already lowercase", toLowerCase("already lowercase"));
+}
+
+void testToUpperCase()
+{
+    ASSERT_EQUAL("HELLO WORLD", toUpperCase("hello world"));
+    ASSERT_EQUAL("MIXED CASE 123", toUpperCase("MiXeD cAsE 123"));
+    ASSERT_EQUAL("ALREADY UPPERCASE", toUpperCase("ALREADY UPPERCASE"));
+}
+
+void testSplit()
+{
+    std::vector<std::string> result = split("hello,world,test", ',');
+    ASSERT_EQUAL(3, result.size());
+    ASSERT_EQUAL("hello", result[0]);
+    ASSERT_EQUAL("world", result[1]);
+    ASSERT_EQUAL("test", result[2]);
+
+    result = split("no delimiter here", ',');
+    ASSERT_EQUAL(1, result.size());
+    ASSERT_EQUAL("no delimiter here", result[0]);
+}
+
+void testGetFileContent()
+{
+    // The actual content of the test file, including the literal "\n" at the end
+    std::string expectedContent = "This is content of the test txt file\\n\n";
+    std::string actualContent = getFileContent("test_file.txt");
+
+    ASSERT_EQUAL(expectedContent, actualContent);
+}
 // Test the initialisation of a newly spawned enemy
 void testEnemyInitialisation()
 {
@@ -268,6 +310,11 @@ int main()
     // Toolkit tests
     framework.addTest("Generate Random Number", testGenerateRandomNumber);
     framework.addTest("String to Int Conversion", testStringToInt);
+    framework.addTest("Repeat String", testRepeatString);
+    framework.addTest("To Lower Case", testToLowerCase);
+    framework.addTest("To Upper Case", testToUpperCase);
+    framework.addTest("Split String", testSplit);
+    framework.addTest("Get File Content", testGetFileContent);
 
     // Enemies Test
     framework.addTest("Enemy Initialisation", testEnemyInitialisation);
