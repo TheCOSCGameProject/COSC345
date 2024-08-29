@@ -29,10 +29,6 @@ jobs:
           choco install python -y
           python -m pip install gcovr
 
-      - name: Install Cppcheck
-        run: |
-          choco install cppcheck -y
-
       - name: Restore NuGet packages
         run: nuget restore ${{env.SOLUTION_FILE_PATH}}
 
@@ -77,9 +73,15 @@ jobs:
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
 
-      - name: Import Chocolatey Profile
+      - name: Install cppcheck
         run: |
-          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+          choco install cppcheck -y
+          # Add cppcheck to PATH manually if not automatically done
+          [System.Environment]::SetEnvironmentVariable('PATH', "$env:PATH;C:\Program Files\Cppcheck", [System.EnvironmentVariableTarget]::Machine)
+
+      - name: Verify cppcheck installation
+        run: |
+          cppcheck --version
 
       - name: Run Cppcheck
         run: |
