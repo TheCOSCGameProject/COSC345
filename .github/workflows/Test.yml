@@ -25,8 +25,13 @@ jobs:
       - name: Install cppcheck
         run: |
           choco install cppcheck -y
-          # Ensure the path is updated in the current shell
-          refreshenv
+          # Manually add cppcheck to PATH
+          [System.Environment]::SetEnvironmentVariable('PATH', "$env:PATH;C:\Program Files\Cppcheck", [System.EnvironmentVariableTarget]::Process)
+
+      - name: Refresh environment variables
+        run: |
+          Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
+          [System.Environment]::SetEnvironmentVariable('PATH', "$env:PATH;C:\Program Files\Cppcheck", [System.EnvironmentVariableTarget]::Process)
 
       - name: Verify cppcheck installation
         run: |
