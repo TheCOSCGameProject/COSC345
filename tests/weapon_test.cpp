@@ -1,10 +1,24 @@
+/**
+ * @file weapon_test.cpp
+ * @brief Unit tests for the Weapon class.
+ *
+ * This file contains test cases for verifying the correct behavior of the Weapon class,
+ * including weapon initialization, random weapon generation, and weapon generation by rarity.
+ */
+
 #include "../lib/weapon.h"
 #include "custom_test_framework.h"
 
 // g++ -std=c++17 -o run_tests.exe tests/weapon_test.cpp ./helper/weapon.cpp
-// ./ run_tests.exe
+// ./run_tests.exe
 
-// Test the initialization of weapons and their attributes
+/**
+ * @brief Test the initialization of weapons and their attributes.
+ *
+ * This test verifies that the Weapon class correctly initializes weapons with their
+ * respective attributes such as name, description, damage, rarity, and properties
+ * like ranged and stun capabilities.
+ */
 void testWeaponInitialization()
 {
     Weapon weaponSystem;
@@ -16,7 +30,12 @@ void testWeaponInitialization()
     ASSERT(!weaponSystem.getStun(1));
 }
 
-// Test random weapon generation
+/**
+ * @brief Test the random weapon generation functionality.
+ *
+ * This test ensures that the Weapon class can generate a random weapon ID within
+ * the valid range and that the generated weapon has a non-empty name.
+ */
 void testRandomWeaponGeneration()
 {
     Weapon weaponSystem;
@@ -25,7 +44,13 @@ void testRandomWeaponGeneration()
     ASSERT(!weaponSystem.getName(weaponId).empty());
 }
 
-// Test weapon generation by rarity
+/**
+ * @brief Test the generation of weapons by rarity.
+ *
+ * This test verifies that the Weapon class can correctly generate weapons based on
+ * specified rarity levels (e.g., "Common", "Rare") and ensures that it returns -1
+ * when attempting to generate a weapon of a nonexistent rarity.
+ */
 void testWeaponGenerationByRarity()
 {
     Weapon weaponSystem;
@@ -42,6 +67,14 @@ void testWeaponGenerationByRarity()
     ASSERT_EQUAL(-1, nonexistentWeaponId); // No weapons of this rarity should exist
 }
 
+/**
+ * @brief Main function that runs the test cases for the Weapon class.
+ *
+ * The main function creates a TestFramework object, adds the test cases for the Weapon class,
+ * and then runs the tests, outputting the results to an XML file.
+ *
+ * @return int Returns 0 upon successful execution of the tests.
+ */
 int main()
 {
     TestFramework framework("weapon_test_results.xml");
