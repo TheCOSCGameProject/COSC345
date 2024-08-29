@@ -19,8 +19,6 @@ void testDungeonRoomGeneration()
     ASSERT_EQUAL(10, numRoom); // Assuming you add a getRoomCount method in the Dungeon class
 }
 
-
-
 // Test if the dungeon destructor correctly deletes rooms to avoid memory leaks
 void testDungeonDestructor()
 {
@@ -35,10 +33,10 @@ void testDungeonDestructor()
 
     int numRoom2 = dungeon.numRooms(startRoom);
     ASSERT_EQUAL(0, numRoom2);
-
 }
 
-void testLinkRooms(){
+void testLinkRooms()
+{
     Dungeon dungeon;
     Room *newRoom1 = new Room();
     Room *newRoom2 = new Room();

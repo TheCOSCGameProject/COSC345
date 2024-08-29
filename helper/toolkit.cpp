@@ -104,10 +104,6 @@ void typePrint(std::string content, int delayTime = 15, std::string color = "\03
     std::cout << "\033[37m";
 }
 
-
-
-
-
 /*!
  * @brief Reads the content of a file into a string.
  * @param fileName The name of the file to read.
@@ -273,7 +269,7 @@ int readInt()
     {
         try
         {
-           
+
             std::cout << "Enter your choice: " << std::flush;
 
             std::cin >> value;

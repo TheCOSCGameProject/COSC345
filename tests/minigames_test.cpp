@@ -306,6 +306,33 @@ void testLinkRooms()
     ASSERT_EQUAL(newRoom1->east, newRoom2);
 }
 
+void testPlayerConstructor()
+{
+    // Simulate input for name and class type
+    std::stringstream simulatedInput("Alice\nWarrior\n");
+    std::stringstream simulatedOutput;
+
+    // Redirect std::cin and std::cout
+    std::streambuf *cinBackup = std::cin.rdbuf();
+    std::streambuf *coutBackup = std::cout.rdbuf();
+
+    std::cin.rdbuf(simulatedInput.rdbuf());
+    std::cout.rdbuf(simulatedOutput.rdbuf());
+
+    // Create Player object (which invokes the constructor)
+    Player player;
+
+    // Restore std::cin and std::cout
+    std::cin.rdbuf(cinBackup);
+    std::cout.rdbuf(coutBackup);
+
+    // Validate that the player was correctly initialized
+    ASSERT_EQUAL(player.getName(), "Alice");
+    ASSERT_EQUAL(player.getClassType(), "Warrior");
+    ASSERT_EQUAL(player.getMaxHealth(), 100);
+    ASSERT_EQUAL(player.getCurrHealth(), 100);
+}
+
 // Combat testing
 void testPrintHealth()
 {
@@ -346,6 +373,7 @@ int main()
     framework.addTest("Player Initialization", testPlayerInitialization);
     framework.addTest("Player Inventory", testPlayerInventory);
 `   */
+    framework.addTest("Player Constructor", testPlayerConstructor);
 
     // Weapon tests
     framework.addTest("Weapon Initialization", testWeaponInitialization);
@@ -369,12 +397,12 @@ int main()
 
     // Dungeon tests
     framework.addTest("Dungeon Room Generation", testDungeonRoomGeneration);
-
     framework.addTest("Dungeon Link Room", testLinkRooms);
 
     // combat tests
     framework.addTest("Print Health", testPrintHealth);
 
+    // Run framework
     framework.run();
 
     return 0;
