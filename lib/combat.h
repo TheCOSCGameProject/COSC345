@@ -22,7 +22,7 @@
  * @param name The name of the enemy.
  * @details This function displays the current health points of both the player and the enemy, providing an overview of the combat situation.
  */
-void printHealth(int playerHealth, int enemyHealth, std::string name);
+void printHealth(int playerHealth, int enemyHealth, const std::string &name);
 
 /*!
  * @brief Handles combat mechanics for version 1.
@@ -34,7 +34,7 @@ void printHealth(int playerHealth, int enemyHealth, std::string name);
  * @details This function simulates a combat scenario between the player and an enemy, taking into account the difficulty level.
  * The outcome of the combat is determined based on the player's and enemy's health.
  */
-bool combatV1(int playerHealth, int enemyHealth, int difficulty, std::string name);
+bool combatV1(int playerHealth, int enemyHealth, int difficulty, const std::string &name);
 
 /*!
  * @brief Handles combat mechanics for version 2.

@@ -15,7 +15,7 @@
 @param name The name of the enemy.
 @details This function prints the player's and enemy's health in a formatted health bar.
 */
-void printHealth(int playerHealth, int enemyHealth, std::string name)
+void printHealth(int playerHealth, int enemyHealth, const std::string &name)
 {
     // Prepare the health bar string
     std::string healthBars = "* Player Health: " + std::to_string(playerHealth) + " " + name + " Health: " + std::to_string(enemyHealth) + " *";
@@ -42,11 +42,11 @@ void printHealth(int playerHealth, int enemyHealth, std::string name)
 @return True if the player wins, false if the player loses.
 @details This combat system involves the player quickly matching directional inputs to attack the enemy. The enemy's attacks decrease the player's health if the player fails to respond correctly or quickly enough.
 */
-bool combatV1(int playerHealth, int enemyHealth, int difficulty, std::string name)
+bool combatV1(int playerHealth, int enemyHealth, int difficulty, const std::string &name)
 {
     // Define directional moves and their keyboard equivalents
-    std::string moves[] = {"A", "W", "D", "S"};
-    std::string keyBoardEquivalent[] = {"a", "w", "d", "s"};
+    const std::string moves[] = {"A", "W", "D", "S"};
+    const std::string keyBoardEquivalent[] = {"a", "w", "d", "s"};
     std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed for randomness
     printHealth(playerHealth, enemyHealth, name);
     // Combat loop: continue while both player and enemy have health
@@ -113,8 +113,8 @@ bool combatV1(int playerHealth, int enemyHealth, int difficulty, std::string nam
 void combatV2(int playerHealth, int enemyHealth)
 {
     // Define combat types: Offensive, Sneaky, Defensive
-    char combatType[] = {'o', 'd', 's'};
-    std::string options[] = {"Offensive", "Sneaky", "Defensive"};
+    const char combatType[] = {'o', 'd', 's'};
+    const std::string options[] = {"Offensive", "Sneaky", "Defensive"};
     std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed for randomness
     int random_number = std::rand() % 3;                       // Randomly choose an enemy attack type
 

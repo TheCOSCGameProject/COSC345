@@ -17,7 +17,7 @@
 @param color The color code for the text.
 @details The introduction is read from a file and printed with a delay and color for dramatic effect.
 */
-void displayIntro(int delayTime, std::string color)
+void displayIntro(int delayTime, const std::string &color)
 {
     std::vector<std::string> intro = split(getFileContent("../reasources/intro.txt"), '@');
 

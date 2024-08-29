@@ -19,7 +19,7 @@
  * @param delayTime The time delay between each printed character in milliseconds.
  * @param color The color code for the text.
  */
-void displayIntro(int delayTime, std::string color);
+void displayIntro(int delayTime, const std::string &color);
 
 /*!
  * @brief Displays the game menu.
