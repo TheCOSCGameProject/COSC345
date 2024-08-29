@@ -1,7 +1,7 @@
 /*!
  * @file room.h
  * @brief Defines the Room and RoomContent classes for the Valeris game.
- * @details This file contains the definitions of the Room and RoomContent classes, 
+ * @details This file contains the definitions of the Room and RoomContent classes,
  * which represent the various rooms in the game's dungeon and their contents, such as items, enemies, and NPCs.
  */
 
@@ -27,8 +27,8 @@
 struct EnemyStruct
 {
     std::string name; //!< Name of the enemy.
-    int health; //!< Health points of the enemy.
-    int attack; //!< Attack power of the enemy.
+    int health;       //!< Health points of the enemy.
+    int attack;       //!< Attack power of the enemy.
 };
 
 /*!
@@ -38,15 +38,15 @@ struct EnemyStruct
  */
 struct NPC
 {
-    std::string name; //!< Name of the NPC.
+    std::string name;                   //!< Name of the NPC.
     std::unique_ptr<Game> gamblingGame; //!< Pointer to a gambling game associated with the NPC.
-    int skillLevel; //!< Skill level of the NPC in the gambling game.
+    int skillLevel;                     //!< Skill level of the NPC in the gambling game.
 };
 
 /*!
  * @class RoomContent
  * @brief Manages the content within a room, including items, enemies, and NPCs.
- * @details The RoomContent class is responsible for handling the contents of a room, 
+ * @details The RoomContent class is responsible for handling the contents of a room,
  * such as items that can be collected, enemies that can be fought, and NPCs that can be interacted with.
  */
 class RoomContent
@@ -109,13 +109,40 @@ public:
      */
     std::vector<EnemyStruct> getEnemies();
 
+    /*!
+     * @brief Sets the coordinates for this room.
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     */
+    void addCoordinates(int x, int y);
+
+    /*!
+     * @brief Gets the coordinates for this room.
+     * @return The coordinates for this room
+     */
+    std::pair<int, int> getCoordinates();
+
+    /*!
+     * @brief Gets whether or not the room has been visited
+     * @return Whether or not the room has been visited
+     */
+    bool getVisited();
+
+    /*!
+     * @brief Sets whether or not the room has been visited
+     * @param hasVisited Whether or not the room has been visited
+     */
+    void setVisited(bool hasVisited);
+
 private:
-    std::vector<std::string> items; //!< Items available in the room.
+    std::vector<std::string> items;   //!< Items available in the room.
     std::vector<EnemyStruct> enemies; //!< Enemies present in the room.
-    NPC npc; //!< NPC present in the room.
-    bool passcode; //!< Indicates if the room has a passcode.
-    int roomType; //!< The type of the room.
-    std::string roomDesc; //!< Description of the room.
+    NPC npc;                          //!< NPC present in the room.
+    bool passcode;                    //!< Indicates if the room has a passcode.
+    int roomType;                     //!< The type of the room.
+    std::string roomDesc;             //!< Description of the room.
+    std::pair<int, int> cords;        //!< (x,y) Coordinates of room
+    bool visited;                     //!< Whether or not the room has been visited
 };
 
 /*!
@@ -132,10 +159,10 @@ public:
      */
     Room();
 
-    Room *north; //!< Pointer to the room to the north.
-    Room *south; //!< Pointer to the room to the south.
-    Room *west; //!< Pointer to the room to the west.
-    Room *east; //!< Pointer to the room to the east.
+    Room *north;             //!< Pointer to the room to the north.
+    Room *south;             //!< Pointer to the room to the south.
+    Room *west;              //!< Pointer to the room to the west.
+    Room *east;              //!< Pointer to the room to the east.
     RoomContent roomContent; //!< The content of the room.
 
     /*!

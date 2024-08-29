@@ -5,6 +5,7 @@ ValerisGame::ValerisGame()
 {
     numRooms = 10;
     currentRoom = dungeon.generateFloor(numRooms);
+    // dungeon.traverseAndPrint(currentRoom);
 }
 
 void ValerisGame::start()
@@ -12,6 +13,8 @@ void ValerisGame::start()
     bool exploring = true;
     while (exploring)
     {
+        // dungeon.traverseAndPrint(currentRoom);
+        std::cout << dungeon.getMap(currentRoom) << std::endl;
         std::cout << "You have entered a " << currentRoom->roomContent.getRoomDesc() << ".\n\n";
         currentRoom->displayAvailableDirections();
 
@@ -71,6 +74,10 @@ void ValerisGame::start()
             while (!currentRoom->roomContent.getNPC().gamblingGame.get()->start())
             {
             }
+        }
+        else if (upperDirection == "/SCAN")
+        {
+            std::cout << dungeon.getMap(currentRoom) << std::endl;
         }
         else if (upperDirection == "/FIGHT" && currentRoom->roomContent.getRoomType() == 0)
         {

@@ -1,4 +1,7 @@
 #include "../lib/dungeon.h"
+#include <queue>
+#include <set>
+#include <memory> // For std::shared_ptr
 
 // Constructor
 Dungeon::Dungeon() : rng(static_cast<unsigned int>(std::time(0))) {}
@@ -13,9 +16,10 @@ Dungeon::~Dungeon()
 }
 
 // Private method to generate a new room
-Room *Dungeon::generateRoom()
+Room *Dungeon::generateRoom(int x, int y)
 {
     Room *newRoom = new Room();
+    newRoom->roomContent.addCoordinates(x, y);
     rooms.push_back(newRoom);
     return newRoom;
 }
@@ -69,6 +73,104 @@ void Dungeon::checkAndLink(Room *newRoom, int x, int y, std::map<std::pair<int, 
     }
 }
 
+std::string Dungeon::getMap(Room *room)
+{
+
+    room->roomContent.setVisited(true);
+    std::queue<Room *> roomQueue;
+    std::set<std::pair<int, int>> visitedRooms;
+    roomQueue.push(room);
+
+    int originX = room->roomContent.getCoordinates().first;
+    int originY = room->roomContent.getCoordinates().second;
+
+    // std::cout << originX << " " << originY << std::endl;
+
+    std::map<std::pair<int, int>, bool> roomsForMap;
+    std::map<std::pair<int, int>, bool> roomsVisited;
+
+    for (int i = 0; i < (int)rooms.size(); i++)
+    {
+        roomsVisited[rooms[i]->roomContent.getCoordinates()] = rooms[i]->roomContent.getVisited();
+    }
+
+    while (!roomQueue.empty())
+    {
+        Room *currentRoom = roomQueue.front();
+        roomQueue.pop();
+
+        int currX = currentRoom->roomContent.getCoordinates().first;
+        int currY = currentRoom->roomContent.getCoordinates().second;
+
+        if (currX > originX + 2 || currX < originX - 2 || currY > originY + 2 || currY < originY - 2)
+        {
+            // std::cout << "fails" << currX << " " << currY << std::endl;
+            continue;
+        }
+
+        if (visitedRooms.find({currX, currY}) != visitedRooms.end())
+        {
+            continue;
+        }
+
+        roomsForMap[currentRoom->roomContent.getCoordinates()] = true;
+        visitedRooms.insert(currentRoom->roomContent.getCoordinates());
+        roomsVisited[currentRoom->roomContent.getCoordinates()] = currentRoom->roomContent.getVisited();
+
+        if (currentRoom->north)
+        {
+            roomQueue.push(currentRoom->north);
+        }
+        if (currentRoom->east)
+        {
+            roomQueue.push(currentRoom->east);
+        }
+        if (currentRoom->south)
+        {
+            roomQueue.push(currentRoom->south);
+        }
+        if (currentRoom->west)
+        {
+            roomQueue.push(currentRoom->west);
+        }
+    }
+
+    std::string map = "+ - - - - - +\n";
+    for (int y = originY + 2; y >= originY - 2; y--)
+    {
+        map.append("| ");
+        for (int x = originX - 2; x <= originX + 2; x++)
+        {
+            auto it = roomsForMap.find(std::make_pair(x, y));
+            auto it2 = roomsVisited.find(std::make_pair(x, y));
+            if (it != roomsForMap.end())
+            {
+                std::string roomToken = "X ";
+                if (it2->second)
+                {
+                    roomToken = "* ";
+                }
+                // Room exists, append a symbol to the map string
+                if (x == originX && y == originY)
+                {
+                    map.append("\033[34m" + roomToken + "\033[37m");
+                }
+                else
+                {
+                    map.append(roomToken);
+                }
+            }
+            else
+            {
+                map.append(". ");
+            }
+        }
+        map.append("|\n");
+    }
+    map.append("+ - - - - - +\n");
+    return map;
+}
+
 // Public method to generate a floor with a specified number of rooms
 Room *Dungeon::generateFloor(int numRooms)
 {
@@ -77,7 +179,7 @@ Room *Dungeon::generateFloor(int numRooms)
         return nullptr;
     }
 
-    Room *startRoom = generateRoom();
+    Room *startRoom = generateRoom(0, 0);
     std::map<std::pair<int, int>, Room *> roomMap;
     roomMap[{0, 0}] = startRoom;
 
@@ -119,7 +221,7 @@ Room *Dungeon::generateFloor(int numRooms)
             break; // East
         }
 
-        Room *newRoom = generateRoom();
+        Room *newRoom = generateRoom(newX, newY);
         roomMap[{newX, newY}] = newRoom;
         linkRooms(existingRoom, newRoom, direction);
 
@@ -177,7 +279,7 @@ void Dungeon::traverseAndPrint(Room *startRoom)
 }
 
 int Dungeon::numRooms(Room *startRoom)
-{   
+{
     if (startRoom == nullptr)
         return 0;
 

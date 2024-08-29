@@ -155,6 +155,10 @@ std::vector<EnemyStruct> RoomContent::getEnemies()
 
 void RoomContent::displayContent() const
 {
+    std::cout << "cords: " << "(" << cords.first << ", " << cords.second << ")" << std::endl;
+
+    std::cout << visited << std::endl;
+
     if (roomType == 0)
     {
         // Display items
@@ -217,4 +221,24 @@ void Room::displayAvailableDirections()
         }
     }
     std::cout << std::endl;
+}
+
+void RoomContent::addCoordinates(int x, int y)
+{
+    cords = std::make_pair(x, y);
+}
+
+std::pair<int, int> RoomContent::getCoordinates()
+{
+    return cords;
+}
+
+bool RoomContent::getVisited()
+{
+    return visited;
+}
+
+void RoomContent::setVisited(bool hasVisited)
+{
+    visited = hasVisited;
 }

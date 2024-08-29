@@ -26,12 +26,14 @@ public:
 
     void linkRooms(Room *room1, Room *room2, int direction); // making it public for testing
 
+    std::string getMap(Room *room);
+
 private:
     std::vector<Room *> rooms;
     std::mt19937 rng;
 
     // Generate a new room
-    Room *generateRoom();
+    Room *generateRoom(int x, int y);
 
     // Link two rooms together in a specified direction
     // void linkRooms(Room *room1, Room *room2, int direction);
