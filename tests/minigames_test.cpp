@@ -80,6 +80,7 @@ void testTicTacToeCheckForWin()
     ASSERT(game.checkForWin());
 }
 
+// CodeGuesser tests
 void testCodeGuesserInitialization()
 {
     CodeGuesser game;
@@ -88,19 +89,50 @@ void testCodeGuesserInitialization()
     ASSERT_EQUAL("", game.getLastGuess());
 }
 
-void testCodeGuesserAddGuess()
-{
-    CodeGuesser game;
-    int initialGuessCount = game.getGuessCount();
-    game.addGuess();
-    ASSERT_EQUAL(initialGuessCount + 1, game.getGuessCount());
-    ASSERT(game.getLastGuess() != "");
-}
-
 void testCodeGuesserGameName()
 {
     CodeGuesser game;
     ASSERT_EQUAL("Code Guesser", game.getGameName());
+}
+
+void testCodeGuesserAddGuess()
+{
+    CodeGuesser game;
+
+    // Simulate input for addGuess
+    std::stringstream simulatedInput("GUESS\n");
+    std::streambuf *cinBackup = std::cin.rdbuf(simulatedInput.rdbuf());
+
+    bool guessAdded = game.addGuess();
+
+    // Restore cin
+    std::cin.rdbuf(cinBackup);
+
+    ASSERT_EQUAL(1, game.getGuessCount());
+}
+
+void testCodeGuesserStart()
+{
+    CodeGuesser game;
+
+    // Simulate 5 incorrect guesses
+    std::stringstream simulatedInput("wrong\nwrong\nwrong\nwrong\nwrong\n");
+    std::streambuf *cinBackup = std::cin.rdbuf();
+    std::cin.rdbuf(simulatedInput.rdbuf());
+
+    // Capture output
+    std::stringstream capturedOutput;
+    std::streambuf *coutBackup = std::cout.rdbuf();
+    std::cout.rdbuf(capturedOutput.rdbuf());
+
+    bool result = game.start();
+
+    // Restore cin and cout
+    std::cin.rdbuf(cinBackup);
+    std::cout.rdbuf(coutBackup);
+
+    ASSERT_EQUAL(false, result);
+    ASSERT(capturedOutput.str().find("Too many failed attempts!") != std::string::npos);
 }
 
 // BlackJack tests
@@ -109,28 +141,6 @@ void testBlackJackInitialization()
     BlackJack game;
     ASSERT_EQUAL("Black Jack", game.getGameName());
 }
-
-/* These two are currently set up for input, can easily change the player.h and cpp to have a default case but for now is fine as is. Leave commented out when syncing/pushing so build doesn't fail
-void testPlayerInitialization()
-{
-    Player player;
-    ASSERT(player.getName() != "");
-    ASSERT(player.getClassType() != "");
-    ASSERT_EQUAL(100, player.getMaxHealth());
-    ASSERT_EQUAL(100, player.getCurrHealth());
-}
-
-void testPlayerInventory()
-{
-    Player player;
-    player.addToInventory("Sword");
-    ASSERT_EQUAL(1, player.getInventory().size());
-    ASSERT_EQUAL("Sword", player.getInventory()[0]);
-
-    player.removeFromInventory("Sword");
-    ASSERT_EQUAL(0, player.getInventory().size());
-}
-*/
 
 void testWeaponInitialization()
 {
@@ -224,6 +234,51 @@ void testGetFileContent()
 
     ASSERT_EQUAL(expectedContent, actualContent);
 }
+
+// Test for readInt
+void testReadInt()
+{
+    std::stringstream input("42\n");
+    std::streambuf *cinbuf = std::cin.rdbuf(input.rdbuf());
+
+    int result = readInt();
+
+    std::cin.rdbuf(cinbuf);
+
+    ASSERT_EQUAL(42, result);
+}
+
+// Test for getUserInputLine
+void testGetUserInputLine()
+{
+    std::stringstream input("Test input\n");
+    std::streambuf *cinbuf = std::cin.rdbuf(input.rdbuf());
+
+    std::string result = getUserInputLine();
+
+    std::cin.rdbuf(cinbuf);
+
+    ASSERT_EQUAL("Test input", result);
+}
+
+// Test for waitForEnter
+void testWaitForEnter()
+{
+    std::stringstream input("\n");
+    std::streambuf *cinbuf = std::cin.rdbuf(input.rdbuf());
+
+    std::stringstream output;
+    std::streambuf *coutbuf = std::cout.rdbuf(output.rdbuf());
+
+    waitForEnter();
+
+    std::cin.rdbuf(cinbuf);
+    std::cout.rdbuf(coutbuf);
+
+    ASSERT(output.str().find("Press Enter to continue...") != std::string::npos);
+}
+// Avoid console as different systems.
+
 // Test the initialisation of a newly spawned enemy
 void testEnemyInitialisation()
 {
@@ -614,8 +669,9 @@ int main()
 
     // CodeGuesser tests
     framework.addTest("CodeGuesser Initialization", testCodeGuesserInitialization);
-    // framework.addTest("CodeGuesser Add Guess", testCodeGuesserAddGuess); need to have not input based.
     framework.addTest("CodeGuesser Game Name", testCodeGuesserGameName);
+    framework.addTest("CodeGuesser Add Guess", testCodeGuesserAddGuess);
+    framework.addTest("CodeGuesser Start Game", testCodeGuesserStart);
 
     // BlackJack tests
     framework.addTest("BlackJack Initialization", testBlackJackInitialization);
@@ -650,6 +706,10 @@ int main()
     framework.addTest("To Upper Case", testToUpperCase);
     framework.addTest("Split String", testSplit);
     framework.addTest("Get File Content", testGetFileContent);
+    // Add these tests to your framework{
+    framework.addTest("Read Int", testReadInt);
+    framework.addTest("Get User Input Line", testGetUserInputLine);
+    framework.addTest("Wait For Enter", testWaitForEnter);
 
     // Enemies Test
     framework.addTest("Enemy Initialisation", testEnemyInitialisation);

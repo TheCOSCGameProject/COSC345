@@ -1,5 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
+  <testcase name="TicTacToe Initialization" time="4.018e-06"/>
+  <testcase name="TicTacToe Player Move" time="2.241e-06"/>
+  <testcase name="TicTacToe Computer Turn" time="4.6562e-05"/>
+  <testcase name="TicTacToe Check For Win" time="8.75e-07"/>
+  <testcase name="CodeGuesser Initialization" time="0.00028512"/>
+  <testcase name="CodeGuesser Game Name" time="7.1747e-05"/>
+  <testcase name="CodeGuesser Add Guess" time="9.3973e-05"/>
+  <testcase name="CodeGuesser Start Game" time="0.000111195"/>
+  <testcase name="BlackJack Initialization" time="2.8644e-05"/>
+  <testcase name="Player Constructor" time="1.118e-05"/>
+  <testcase name="Add To Inventory" time="1.033e-05"/>
+  <testcase name="Remove From Inventory" time="5.074e-06"/>
+  <testcase name="Remove Nonexistent Item" time="4.812e-06"/>
+  <testcase name="Set Max Health" time="4.514e-06"/>
+  <testcase name="Set Current Health" time="4.472e-06"/>
+  <testcase name="Add Buff" time="7.177e-06"/>
+  <testcase name="Remove Buff" time="6.824e-06"/>
+  <testcase name="Remove Nonexistent Buff" time="6.245e-06"/>
+  <testcase name="Set Resistance" time="4.459e-06"/>
+  <testcase name="Weapon Initialization" time="8.6182e-05"/>
+  <testcase name="Random Weapon Generation" time="5.66e-05"/>
+  <testcase name="Weapon Generation by Rarity" time="7.1834e-05"/>
+  <testcase name="Generate Random Number" time="5.732e-06"/>
+  <testcase name="String to Int Conversion" time="0.000182751"/>
+  <testcase name="Repeat String" time="1.636e-06"/>
+  <testcase name="To Lower Case" time="7.031e-06"/>
+  <testcase name="To Upper Case" time="2.719e-06"/>
+  <testcase name="Split String" time="1.1687e-05"/>
+  <testcase name="Get File Content" time="0.000324216"/>
+  <testcase name="Read Int" time="5.8625e-05"/>
+  <testcase name="Get User Input Line" time="5.737e-06"/>
+  <testcase name="Wait For Enter" time="0.0360922"/>
+  <testcase name="Enemy Initialisation" time="1.0184e-05"/>
+  <testcase name="Enemy Damage Application" time="8.414e-06"/>
+  <testcase name="Enemy Death Condition" time="5.027e-06"/>
+  <testcase name="Enemy Custom Setters" time="4.694e-06"/>
+  <testcase name="Dungeon Room Generation" time="0.00221868"/>
+  <testcase name="Dungeon Link Room" time="0.000526117"/>
+  <testcase name="Print Health" time="2.2869e-05"/>
   <testcase name="TicTacToe Initialization" time="3.5042e-05"/>
   <testcase name="TicTacToe Player Move" time="3.75e-07"/>
   <testcase name="TicTacToe Computer Turn" time="9.9333e-05"/>
