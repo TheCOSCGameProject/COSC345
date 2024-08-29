@@ -60,11 +60,32 @@ jobs:
 
         cppcheck --enable=all --std=c++17 --force --xml --xml-version=2 . 2> cppcheck-result.xml
 
+    - name: Convert cppcheck results to text
+      shell: pwsh
+      run: |
+        # Simple PowerShell script to convert XML to plain text
+        [xml]$xml = Get-Content cppcheck-result.xml
+        $results = $xml.cppcheck.results.result | ForEach-Object {
+          "$($_.file):$($_.line) - $($_.id): $($_.msg)"
+        }
+        $results | Out-File cppcheck-results.txt
+
     - name: Upload cppcheck results
       uses: actions/upload-artifact@v3
       with:
         name: cppcheck-results
-        path: cppcheck-result.xml
+        path: |
+          cppcheck-result.xml
+          cppcheck-results.txt
+
+    - name: Store results in the repo (Optional)
+      if: github.event_name == 'push'
+      uses: EndBug/add-and-commit@v9
+      with:
+        add: 'cppcheck-results.txt'
+        message: 'Add cppcheck results'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Cache NuGet packages
       uses: actions/cache@v3
