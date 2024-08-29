@@ -1,13 +1,29 @@
+/*!
+@file minigames.cpp
+@brief Implementation of the TicTacToe, CodeGuesser, and BlackJack games.
+@details This file contains the implementation of three mini-games: TicTacToe, CodeGuesser, and BlackJack.
+Each game has methods for setting up the game, handling player input, and determining the outcome.
+*/
+
 #include "../lib/toolkit.h"
 #include "../lib/dependencies.h"
 #include "../lib/minigames.h"
+
 /* TicTacToe */
 
+/*!
+@brief Get the name of the TicTacToe game.
+@return A string representing the name of the game.
+*/
 std::string TicTacToe::getGameName()
 {
     return "TicTacToe";
 }
 
+/*!
+@brief Print the current state of the TicTacToe board.
+@details Displays the current state of the TicTacToe board, showing the positions of 'X', 'O', and empty spaces.
+*/
 void TicTacToe::printBoard()
 {
     std::string arr[2] = {"\n   |   |   ", "\n___|___|___"};
@@ -20,11 +36,22 @@ void TicTacToe::printBoard()
     std::cout.flush();
 }
 
+/*!
+@brief Get the value at a specific square on the TicTacToe board.
+@param row The row of the square (0-indexed).
+@param col The column of the square (0-indexed).
+@return The character ('X', 'O', or ' ') at the specified square.
+*/
 char TicTacToe::getSquare(int row, int col) const
 {
     return squares[row][col];
 }
 
+/*!
+@brief Handle the player's move in TicTacToe.
+@param row The row where the player wants to place their 'X' (1-indexed).
+@param col The column where the player wants to place their 'X' (1-indexed).
+*/
 void TicTacToe::playerMove(int row, int col)
 {
     if (row >= 0 && row < 3 && col >= 0 && col < 3 && squares[row][col] == ' ')
@@ -33,6 +60,10 @@ void TicTacToe::playerMove(int row, int col)
     }
 }
 
+/*!
+@brief Handle the computer's turn in TicTacToe.
+@details The computer randomly selects an empty square to place its 'O'.
+*/
 void TicTacToe::computerTurn()
 {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
@@ -52,6 +83,11 @@ void TicTacToe::computerTurn()
     printBoard();
 }
 
+/*!
+@brief Check if there is a winner in TicTacToe.
+@return True if there is a winner, false otherwise.
+@details Checks all rows, columns, and diagonals for three matching symbols ('X' or 'O').
+*/
 bool TicTacToe::checkForWin()
 {
     bool wasWin = false;
@@ -85,6 +121,11 @@ bool TicTacToe::checkForWin()
     return wasWin;
 }
 
+/*!
+@brief Start the TicTacToe game.
+@return True if the player wins, false otherwise.
+@details Alternates turns between the player and the computer until there is a win or a draw.
+*/
 bool TicTacToe::start()
 {
     printBoard();
@@ -155,11 +196,21 @@ bool TicTacToe::start()
 
 /** CodeGuesser game */
 
+/*!
+@brief Get the name of the CodeGuesser game.
+@return A string representing the name of the game.
+*/
 std::string CodeGuesser::getGameName()
 {
     return "Code Guesser";
 }
 
+/*!
+@brief Generate a random index for selecting a word.
+@param size The size of the list of words.
+@return A random index within the range of the word list.
+@throws std::invalid_argument if the size is 0.
+*/
 int CodeGuesser::generateRandomIndex(size_t size)
 {
     if (size == 0)
@@ -172,10 +223,19 @@ int CodeGuesser::generateRandomIndex(size_t size)
     return dis(gen);
 }
 
+/*!
+@brief Constructor for the CodeGuesser class.
+@details Initializes the word list and randomly selects one word for the game.
+*/
 CodeGuesser::CodeGuesser()
     : words(split(getFileContent("../reasources/cg_words.txt"), '\n')),
       index(generateRandomIndex(words.size())) {}
 
+/*!
+@brief Start the CodeGuesser game.
+@return True if the player successfully guesses the code, false otherwise.
+@details The player has five attempts to guess a five-letter passcode.
+*/
 bool CodeGuesser::start()
 {
     bool success = false;
@@ -206,6 +266,11 @@ bool CodeGuesser::start()
     }
 }
 
+/*!
+@brief Add a guess and check it against the secret passcode.
+@return True if the guess matches the passcode, false otherwise.
+@details Colors the guess based on correctness (green for correct letters in the correct position, yellow for correct letters in the wrong position).
+*/
 bool CodeGuesser::addGuess()
 {
     // Yellow, Green, Reset
@@ -248,6 +313,9 @@ bool CodeGuesser::addGuess()
     return correct;
 }
 
+/*!
+@brief Print all the guesses made by the player so far.
+*/
 void CodeGuesser::printGuesses()
 {
     for (const auto &guess : guesses)
@@ -257,6 +325,9 @@ void CodeGuesser::printGuesses()
     std::cout << +"\npasscode: ";
 }
 
+/*!
+@brief Print all the possible words (for debugging or testing).
+*/
 void CodeGuesser::printWords()
 {
     for (int i = 0; i < words.size(); i++)
@@ -265,31 +336,58 @@ void CodeGuesser::printWords()
     }
 }
 
+/*!
+@brief Get the length of the word (always 5 in this game).
+@return The length of the word (5).
+*/
 int CodeGuesser::getWordLength() const
 {
     return 5; // For testing...
 }
 
+/*!
+@brief Get the number of guesses made by the player.
+@return The number of guesses as an integer.
+*/
 int CodeGuesser::getGuessCount() const
 {
     return guesses.size();
 }
 
+/*!
+@brief Get the last guess made by the player.
+@return The last guess as a string.
+*/
 std::string CodeGuesser::getLastGuess() const
 {
     return guesses.empty() ? "" : guesses.back();
 }
 
+/** BlackJack game */
+
+/*!
+@brief Constructor for the BlackJack class.
+@details Initializes a new game of BlackJack by shuffling the deck and dealing cards to the player and dealer.
+*/
 BlackJack::BlackJack()
 {
     newGame();
 }
 
+/*!
+@brief Get the name of the BlackJack game.
+@return A string representing the name of the game.
+*/
 std::string BlackJack::getGameName()
 {
     return "Black Jack";
 }
 
+/*!
+@brief Start the BlackJack game.
+@return True if the player wins, false otherwise.
+@details The player plays against the dealer, attempting to win the majority of rounds.
+*/
 bool BlackJack::start()
 {
     int maxRounds = 1; // generateRandomNumber(1, 5);
@@ -356,13 +454,18 @@ bool BlackJack::start()
     }
     else
     {
-        std::cout << "Game Over You Loose!" << std::endl;
+        std::cout << "Game Over You Lose!" << std::endl;
         delay(2000);
         clear(1);
         return false;
     }
 }
 
+/*!
+@brief Evaluate the player's hand against the dealer's.
+@param hit A boolean indicating if the player chose to hit.
+@return An integer indicating the outcome (-1 for loss, 0 for continue, 1 for win).
+*/
 int BlackJack::evaluate(bool hit)
 {
     int dealerTotal = dealer[0] + dealer[1];
@@ -386,6 +489,10 @@ int BlackJack::evaluate(bool hit)
     }
 }
 
+/*!
+@brief Initialize the decks for a new round of BlackJack.
+@details Deals two cards to both the player and the dealer.
+*/
 void BlackJack::initDecks()
 {
 
@@ -401,6 +508,10 @@ void BlackJack::initDecks()
     cards.pop_back();
 }
 
+/*!
+@brief Set up a new game of BlackJack by shuffling the deck and dealing initial cards.
+@details Shuffles the deck using the Mersenne Twister engine and deals cards to both the player and the dealer.
+*/
 void BlackJack::newGame()
 {
     for (int i = 0; i < 4; i++)
@@ -421,6 +532,11 @@ void BlackJack::newGame()
     initDecks();
 }
 
+/*!
+@brief Display the current state of the BlackJack game.
+@param printAll A boolean indicating whether to show all the dealer's cards.
+@details Prints the dealer's and player's cards, and whether the dealer's second card should be hidden.
+*/
 void BlackJack::displayState(bool printAll)
 {
     const int terminalWidth = 40; // Example width, adjust based on your terminal size
