@@ -1,4 +1,4 @@
-name: MSBuild CI with CodeCov and Codacy
+name: MSBuild CI with CodeCov, Codacy, and Cppcheck
 
 on: [push, pull_request]
 
@@ -28,6 +28,10 @@ jobs:
           choco install msbuild -y
           choco install python -y
           python -m pip install gcovr
+
+      - name: Install Cppcheck
+        run: |
+          choco install cppcheck -y
 
       - name: Restore NuGet packages
         run: nuget restore ${{env.SOLUTION_FILE_PATH}}
@@ -72,6 +76,16 @@ jobs:
           ./codacy-coverage-reporter.sh final
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+
+      - name: Run Cppcheck
+        run: |
+          cppcheck --enable=all --std=c++17 --force --xml --xml-version=2 . 2> cppcheck-result.xml
+
+      - name: Upload Cppcheck Results as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: cppcheck-result
+          path: cppcheck-result.xml
 
       - name: Upload HTML Coverage Report as Artifact
         uses: actions/upload-artifact@v3
