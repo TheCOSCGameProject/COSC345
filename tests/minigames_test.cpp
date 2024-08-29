@@ -252,6 +252,72 @@ void testGetFileContent()
 
     ASSERT_EQUAL(expectedContent, actualContent);
 }
+
+// Test for readInt
+void testReadInt()
+{
+    std::stringstream input("42\n");
+    std::streambuf *cinbuf = std::cin.rdbuf(input.rdbuf());
+
+    int result = readInt();
+
+    std::cin.rdbuf(cinbuf);
+
+    ASSERT_EQUAL(42, result);
+}
+
+// Test for getUserInputLine
+void testGetUserInputLine()
+{
+    std::stringstream input("Test input\n");
+    std::streambuf *cinbuf = std::cin.rdbuf(input.rdbuf());
+
+    std::string result = getUserInputLine();
+
+    std::cin.rdbuf(cinbuf);
+
+    ASSERT_EQUAL("Test input", result);
+}
+
+// Test for waitForEnter
+void testWaitForEnter()
+{
+    std::stringstream input("\n");
+    std::streambuf *cinbuf = std::cin.rdbuf(input.rdbuf());
+
+    std::stringstream output;
+    std::streambuf *coutbuf = std::cout.rdbuf(output.rdbuf());
+
+    waitForEnter();
+
+    std::cin.rdbuf(cinbuf);
+    std::cout.rdbuf(coutbuf);
+
+    ASSERT(output.str().find("Press Enter to continue...") != std::string::npos);
+}
+
+// Test for SetConsoleSize (Windows) or SetTerminalSize (non-Windows)
+#ifdef _WIN32
+void testSetConsoleSize()
+{
+    // This test is a bit tricky as it involves Windows API calls
+    // We'll just test if the function runs without crashing
+    ASSERT_NO_THROW(SetConsoleSize(100, 30));
+}
+#else
+void testSetTerminalSize()
+{
+    std::stringstream output;
+    std::streambuf *coutbuf = std::cout.rdbuf(output.rdbuf());
+
+    SetTerminalSize(30, 100);
+
+    std::cout.rdbuf(coutbuf);
+
+    ASSERT_EQUAL("\033[8;30;100t", output.str());
+}
+#endif
+
 // Test the initialisation of a newly spawned enemy
 void testEnemyInitialisation()
 {
@@ -548,6 +614,15 @@ int main()
     framework.addTest("To Upper Case", testToUpperCase);
     framework.addTest("Split String", testSplit);
     framework.addTest("Get File Content", testGetFileContent);
+    // Add these tests to your framework{
+    framework.addTest("Read Int", testReadInt);
+    framework.addTest("Get User Input Line", testGetUserInputLine);
+    framework.addTest("Wait For Enter", testWaitForEnter);
+#ifdef _WIN32
+    framework.addTest("Set Console Size", testSetConsoleSize);
+#else
+    framework.addTest("Set Terminal Size", testSetTerminalSize);
+#endif
 
     // Enemies Test
     framework.addTest("Enemy Initialisation", testEnemyInitialisation);
