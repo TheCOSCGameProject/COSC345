@@ -128,16 +128,42 @@ void testPlayerInventory()
 }
 */
 
-// Weapon tests
 void testWeaponInitialization()
+{
+    Weapon weaponSystem;
+    ASSERT_EQUAL("Plasma Rifle", weaponSystem.getName(1));
+    ASSERT_EQUAL("A high-energy weapon that fires concentrated plasma bolts.", weaponSystem.getDescription(1));
+    ASSERT_EQUAL(45, weaponSystem.getDamage(1));
+    ASSERT_EQUAL("Rare", weaponSystem.getRarity(1));
+    ASSERT(weaponSystem.getRanged(1));
+    ASSERT(!weaponSystem.getStun(1));
+}
+
+// Test random weapon generation
+void testRandomWeaponGeneration()
 {
     Weapon weaponSystem;
     int weaponId = weaponSystem.giveRandWeapon();
     ASSERT(weaponId >= 1 && weaponId <= 27);
-    ASSERT(weaponSystem.getName(weaponId) != "");
-    ASSERT(weaponSystem.getDamage(weaponId) > 0);
+    ASSERT(!weaponSystem.getName(weaponId).empty());
 }
 
+// Test weapon generation by rarity
+void testWeaponGenerationByRarity()
+{
+    Weapon weaponSystem;
+
+    int commonWeaponId = weaponSystem.giveRariWeapon("Common");
+    ASSERT(commonWeaponId != -1);
+    ASSERT_EQUAL("Common", weaponSystem.getRarity(commonWeaponId));
+
+    int rareWeaponId = weaponSystem.giveRariWeapon("Rare");
+    ASSERT(rareWeaponId != -1);
+    ASSERT_EQUAL("Rare", weaponSystem.getRarity(rareWeaponId));
+
+    int nonexistentWeaponId = weaponSystem.giveRariWeapon("Nonexistent");
+    ASSERT_EQUAL(-1, nonexistentWeaponId); // No weapons of this rarity should exist
+}
 // Toolkit tests
 void testGenerateRandomNumber()
 {
@@ -280,6 +306,23 @@ void testLinkRooms()
     ASSERT_EQUAL(newRoom1->east, newRoom2);
 }
 
+// Combat testing
+void testPrintHealth()
+{
+    std::stringstream buffer;
+    std::streambuf *prevcoutbuf = std::cout.rdbuf(buffer.rdbuf());
+
+    printHealth(100, 50, "Enemy");
+    std::string result = buffer.str();
+
+    // Reset cout's buffer
+    std::cout.rdbuf(prevcoutbuf);
+
+    // Check if the output contains the expected health information
+    ASSERT(result.find("Player Health: 100") != std::string::npos);
+    ASSERT(result.find("Enemy Health: 50") != std::string::npos);
+}
+
 int main()
 {
     TestFramework framework("minigames_test_results.xml");
@@ -306,6 +349,8 @@ int main()
 
     // Weapon tests
     framework.addTest("Weapon Initialization", testWeaponInitialization);
+    framework.addTest("Random Weapon Generation", testRandomWeaponGeneration);
+    framework.addTest("Weapon Generation by Rarity", testWeaponGenerationByRarity);
 
     // Toolkit tests
     framework.addTest("Generate Random Number", testGenerateRandomNumber);
@@ -326,6 +371,9 @@ int main()
     framework.addTest("Dungeon Room Generation", testDungeonRoomGeneration);
 
     framework.addTest("Dungeon Link Room", testLinkRooms);
+
+    // combat tests
+    framework.addTest("Print Health", testPrintHealth);
 
     framework.run();
 
