@@ -80,6 +80,40 @@ void testTicTacToeCheckForWin()
     ASSERT(game.checkForWin());
 }
 
+void testTicTacToeStart()
+{
+    TicTacToe game;
+
+    // Prepare simulated input for a game where the player wins
+    std::stringstream simulatedInput;
+    simulatedInput << "1 1\n2 2\n3 3\n";
+
+    // Capture console output
+    std::stringstream capturedOutput;
+
+    // Save the current state of cin and cout
+    std::streambuf *originalCin = std::cin.rdbuf();
+    std::streambuf *originalCout = std::cout.rdbuf();
+
+    // Redirect cin and cout
+    std::cin.rdbuf(simulatedInput.rdbuf());
+    std::cout.rdbuf(capturedOutput.rdbuf());
+
+    // Run the game
+    bool result = game.start();
+
+    // Restore cin and cout
+    std::cin.rdbuf(originalCin);
+    std::cout.rdbuf(originalCout);
+
+    // Check the result
+    ASSERT(result); // Player should win with this input
+
+    // Check if the output contains expected phrases
+    std::string output = capturedOutput.str();
+    ASSERT(output.find("You win!") != std::string::npos);
+}
+
 // CodeGuesser tests
 void testCodeGuesserInitialization()
 {
@@ -666,6 +700,7 @@ int main()
     framework.addTest("TicTacToe Player Move", testTicTacToePlayerMove);
     framework.addTest("TicTacToe Computer Turn", testTicTacToeComputerTurn);
     framework.addTest("TicTacToe Check For Win", testTicTacToeCheckForWin);
+    framework.addTest("TicTacToe Start", testTicTacToeStart);
 
     // CodeGuesser tests
     framework.addTest("CodeGuesser Initialization", testCodeGuesserInitialization);
