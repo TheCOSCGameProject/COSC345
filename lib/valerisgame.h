@@ -1,5 +1,5 @@
 /*!
- * @file ValerisGame.h
+ * @file valerisgame.h
  * @brief This file contains the declaration of the ValerisGame class.
  * @details The ValerisGame class manages the main game loop, player state, and dungeon exploration.
  */
