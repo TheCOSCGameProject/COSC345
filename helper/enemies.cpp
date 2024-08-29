@@ -94,7 +94,7 @@ void EnemySpawner::damageDelt(Enemy &enemy, int hurt)
     {
         newHurt = hurt * 0.8; // Sardaukar enemies take reduced damage
     }
-    enemy.health -= (int)(newHurt * (1 - enemy.defence / 100));
+    enemy.health -= (int)(newHurt * (1 - enemy.defence / 100.0));
 }
 
 // Methods to set enemy attributes

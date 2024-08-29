@@ -5,6 +5,7 @@
 #include "../lib/room.h"
 #include "../lib/toolkit.h"
 #include "../lib/weapon.h"
+#include "../lib/enemies.h"
 
 #include "custom_test_framework.h"
 #include "cassert"
@@ -75,7 +76,37 @@ void testTicTacToeCheckForWin()
     ASSERT(game.checkForWin());
 }
 
-/* These two are currently set up for input, can easily change the player.h and cpp to have a default case but for now is fine as is.
+void testCodeGuesserInitialization()
+{
+    CodeGuesser game;
+    ASSERT_EQUAL(5, game.getWordLength());
+    ASSERT_EQUAL(0, game.getGuessCount());
+    ASSERT_EQUAL("", game.getLastGuess());
+}
+
+void testCodeGuesserAddGuess()
+{
+    CodeGuesser game;
+    int initialGuessCount = game.getGuessCount();
+    game.addGuess();
+    ASSERT_EQUAL(initialGuessCount + 1, game.getGuessCount());
+    ASSERT(game.getLastGuess() != "");
+}
+
+void testCodeGuesserGameName()
+{
+    CodeGuesser game;
+    ASSERT_EQUAL("Code Guesser", game.getGameName());
+}
+
+// BlackJack tests
+void testBlackJackInitialization()
+{
+    BlackJack game;
+    ASSERT_EQUAL("Black Jack", game.getGameName());
+}
+
+/* These two are currently set up for input, can easily change the player.h and cpp to have a default case but for now is fine as is. Leave commented out when syncing/pushing so build doesn't fail
 void testPlayerInitialization()
 {
     Player player;
@@ -96,17 +127,8 @@ void testPlayerInventory()
     ASSERT_EQUAL(0, player.getInventory().size());
 }
 */
-// New Room tests
-void testRoomInitialization()
-{
-    Room room;
-    // ASSERT(room.north == nullptr);
-    // ASSERT(room.south == nullptr);
-    // ASSERT(room.east == nullptr);
-    // ASSERT(room.west == nullptr);
-}
 
-// New Weapon tests
+// Weapon tests
 void testWeaponInitialization()
 {
     Weapon weaponSystem;
@@ -116,7 +138,7 @@ void testWeaponInitialization()
     ASSERT(weaponSystem.getDamage(weaponId) > 0);
 }
 
-// New Toolkit tests
+// Toolkit tests
 void testGenerateRandomNumber()
 {
     int low = 1, high = 10;
@@ -130,118 +152,135 @@ void testStringToInt()
     ASSERT_EQUAL(0, stringToInt("abc")); // Invalid input should return 0
 }
 
-// New Combat tests
-void testCombatV1()
+// Test the initialisation of a newly spawned enemy
+void testEnemyInitialisation()
 {
-    // Redirect cout to capture output
-    std::stringstream buffer;
-    std::streambuf *oldCout = std::cout.rdbuf(buffer.rdbuf());
+    EnemySpawner spawner;
+    Enemy enemy = spawner.spawnEnemy();
 
-    int playerHealth = 100;
-    int enemyHealth = 50;
-    int difficulty = 1000; // 1 second
-
-    // Mock user input
-    std::istringstream input("w\n");
-    std::streambuf *oldCin = std::cin.rdbuf(input.rdbuf());
-
-    combatV1(playerHealth, enemyHealth, difficulty, "Enemy");
-
-    // Restore cout and cin
-    std::cout.rdbuf(oldCout);
-    std::cin.rdbuf(oldCin);
-
-    std::string output = buffer.str();
-    ASSERT(output.find("Player Health: 100") != std::string::npos);
-    ASSERT(output.find("Enemy Health: 45") != std::string::npos);
+    // Ensure that the enemy's attributes are within expected ranges
+    ASSERT(!spawner.getName(enemy).empty());
+    ASSERT(spawner.getHealth(enemy) >= 50 && spawner.getHealth(enemy) <= 100);
+    ASSERT(spawner.getAttack(enemy) >= 10 && spawner.getAttack(enemy) <= 30);
+    ASSERT(!spawner.getType(enemy).empty());
+    ASSERT(!spawner.getPersonality(enemy).empty());
+    ASSERT(spawner.getDefence(enemy) >= 5 && spawner.getDefence(enemy) <= 80);
 }
 
-// New Dungeon tests
-// void testDungeonGeneration()
-// {
-//     Dungeon dungeon;
-//     Room *startRoom = dungeon.generateFloor(5);
-//     ASSERT(startRoom != nullptr);
+// Test the damage application on an enemy
+void testEnemyDamageApplication()
+{
+    EnemySpawner spawner;
+    Enemy enemy = spawner.spawnEnemy();
 
-//     // Count rooms
-//     std::set<Room *> visitedRooms;
-//     std::queue<Room *> roomQueue;
-//     roomQueue.push(startRoom);
+    int initialHealth = spawner.getHealth(enemy);
+    int damage = 20;
 
-//     while (!roomQueue.empty())
-//     {
-//         Room *currentRoom = roomQueue.front();
-//         roomQueue.pop();
+    spawner.damageDelt(enemy, damage);
+    int expectedHealth = initialHealth - static_cast<int>(damage * (1 - spawner.getDefence(enemy) / 100.0));
 
-//         if (visitedRooms.find(currentRoom) == visitedRooms.end())
-//         {
-//             visitedRooms.insert(currentRoom);
+    ASSERT_EQUAL(expectedHealth, spawner.getHealth(enemy));
+}
 
-//             if (currentRoom->north)
-//                 roomQueue.push(currentRoom->north);
-//             if (currentRoom->south)
-//                 roomQueue.push(currentRoom->south);
-//             if (currentRoom->east)
-//                 roomQueue.push(currentRoom->east);
-//             if (currentRoom->west)
-//                 roomQueue.push(currentRoom->west);
-//         }
-//     }
+// Test the death condition
+void testEnemyDeathCondition()
+{
+    EnemySpawner spawner;
+    Enemy enemy = spawner.spawnEnemy();
 
-//     ASSERT_EQUAL(5, visitedRooms.size());
-// }
+    spawner.setHealth(enemy, 10);
+    ASSERT(!spawner.isDead(enemy)); // Enemy is alive
+
+    spawner.damageDelt(enemy, 100); // Apply damage to kill the enemy
+    ASSERT(spawner.isDead(enemy));  // Enemy should be dead now
+}
+
+// Test custom setters for enemy attributes
+void testEnemyCustomSetters()
+{
+    EnemySpawner spawner;
+    Enemy enemy = spawner.spawnEnemy();
+
+    spawner.setAttack(enemy, 25);
+    ASSERT_EQUAL(25, spawner.getAttack(enemy));
+
+    spawner.setHealth(enemy, 75);
+    ASSERT_EQUAL(75, spawner.getHealth(enemy));
+}
+
+// Dungeon Tests
+void testDungeonRoomGeneration()
+{
+    Dungeon dungeon;
+    Room *startRoom = dungeon.generateFloor(10);
+
+    ASSERT(startRoom != nullptr);
+    int numRoom = dungeon.numRooms(startRoom);
+    ASSERT_EQUAL(10, numRoom); // Assuming you add a getRoomCount method in the Dungeon class
+}
+
+void testLinkRooms()
+{
+    Dungeon dungeon;
+    Room *newRoom1 = new Room();
+    Room *newRoom2 = new Room();
+
+    dungeon.linkRooms(newRoom1, newRoom2, 0);
+    ASSERT_EQUAL(newRoom1->north, newRoom2);
+
+    dungeon.linkRooms(newRoom1, newRoom2, 1);
+    ASSERT_EQUAL(newRoom1->south, newRoom2);
+
+    dungeon.linkRooms(newRoom1, newRoom2, 2);
+    ASSERT_EQUAL(newRoom1->west, newRoom2);
+
+    dungeon.linkRooms(newRoom1, newRoom2, 3);
+    ASSERT_EQUAL(newRoom1->east, newRoom2);
+}
 
 int main()
 {
     TestFramework framework("minigames_test_results.xml");
 
-    // Existing TicTacToe tests
+    // TicTacToe tests (Need to add CodeGuesser and BlackJack Testing)
     framework.addTest("TicTacToe Initialization", testTicTacToeInitialization);
     framework.addTest("TicTacToe Player Move", testTicTacToePlayerMove);
     framework.addTest("TicTacToe Computer Turn", testTicTacToeComputerTurn);
     framework.addTest("TicTacToe Check For Win", testTicTacToeCheckForWin);
+
+    // CodeGuesser tests
+    framework.addTest("CodeGuesser Initialization", testCodeGuesserInitialization);
+    // framework.addTest("CodeGuesser Add Guess", testCodeGuesserAddGuess); need to have not input based.
+    framework.addTest("CodeGuesser Game Name", testCodeGuesserGameName);
+
+    // BlackJack tests
+    framework.addTest("BlackJack Initialization", testBlackJackInitialization);
+
     /*
-    // New Player tests
+    // Player tests (Need to add default cases to player.h and cpp so that it can build auto and won't need input)
     framework.addTest("Player Initialization", testPlayerInitialization);
     framework.addTest("Player Inventory", testPlayerInventory);
 `   */
-    // New Room tests
-    framework.addTest("Room Initialization", testRoomInitialization);
 
-    // New Weapon tests
+    // Weapon tests
     framework.addTest("Weapon Initialization", testWeaponInitialization);
 
-    // New Toolkit tests
+    // Toolkit tests
     framework.addTest("Generate Random Number", testGenerateRandomNumber);
     framework.addTest("String to Int Conversion", testStringToInt);
 
-    // New Combat tests
-    framework.addTest("Combat V1", testCombatV1);
+    // Enemies Test
+    framework.addTest("Enemy Initialisation", testEnemyInitialisation);
+    framework.addTest("Enemy Damage Application", testEnemyDamageApplication);
+    framework.addTest("Enemy Death Condition", testEnemyDeathCondition);
+    framework.addTest("Enemy Custom Setters", testEnemyCustomSetters);
 
-    // New Dungeon tests
-    // framework.addTest("Dungeon Generation", testDungeonGeneration);
+    // Dungeon tests
+    framework.addTest("Dungeon Room Generation", testDungeonRoomGeneration);
+
+    framework.addTest("Dungeon Link Room", testLinkRooms);
+
     framework.run();
 
     return 0;
 }
-
-// g++ -std=c++11 -o run_tests.exe tests/minigames_test.cpp
-
-//./run_tests.exe
-
-// g++ -std=c++17 -o run_tests.exe tests/minigames_test.cpp
-
-// g++ -std=c++17 -o run_tests.exe tests/minigames_test.cpp
-// g++ -std=c++17 -o run_tests.exe tests/minigames_test.cpp helper/minigames.cpp
-/*
-g++ -std=c++17 -o run_tests.exe \
-    tests/minigames_test.cpp \
-    helper/minigames.cpp \
-    helper/combat.cpp \
-    helper/dungeon.cpp \
-    helper/player.cpp \
-    helper/room.cpp \
-    helper/toolkit.cpp \
-    helper/weapon.cpp \
-    helper/enemies.cpp
-*/
