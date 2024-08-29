@@ -1,7 +1,7 @@
 /*!
  * @file main.cpp
  * @brief Main entry point for the game.
- * @details This file contains the main function, which serves as the entry point for the game. 
+ * @details This file contains the main function, which serves as the entry point for the game.
  * It initializes the game, provides menu options, and handles user input to control the game flow.
  */
 
@@ -15,17 +15,17 @@
 
 /*!
  * @brief Main function of the game.
- * @details The main function initializes the game, sets up the console or terminal, 
+ * @details The main function initializes the game, sets up the console or terminal,
  * and displays the main menu. It also handles user input and navigates to different game functionalities.
- * 
+ *
  * @return Returns 0 upon successful execution.
  */
 int main()
 {
-  int j; //!< Stores the user's menu selection.
+  int j;               //!< Stores the user's menu selection.
   bool running = true; //!< Controls the main loop for the game.
 
-  int delayTime = 0; //!< Delay time for displaying text.
+  int delayTime = 0;              //!< Delay time for displaying text.
   std::string color = "\033[36m"; //!< Color code for text display.
 
 #ifdef _WIN32
@@ -36,13 +36,13 @@ int main()
 
   /*!
    * @brief Main game loop.
-   * @details This loop keeps the game running until the user chooses to exit. 
-   * Depending on the user's input, it can start a new game, load a saved game, 
+   * @details This loop keeps the game running until the user chooses to exit.
+   * Depending on the user's input, it can start a new game, load a saved game,
    * display instructions, or modify accessibility settings.
    */
   while (running)
   {
-    Displayj(); //!< Display the main menu.
+    Displayj();    //!< Display the main menu.
     j = readInt(); //!< Read user's menu selection.
 
     switch (j)
@@ -50,7 +50,7 @@ int main()
     case 1:
       clear(10);
       displayIntro(delayTime, color); //!< Display the game introduction.
-      StartGame(); //!< Start a new game.
+      StartGame();                    //!< Start a new game.
       break;
     case 2:
       clear(10);
