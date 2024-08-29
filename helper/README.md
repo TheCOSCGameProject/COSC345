@@ -1,6 +1,6 @@
 ![Codacy Badge](https://app.codacy.com/project/badge/Grade/416142ee7b9049e3b421bc0592f98b00)
 
-
+###
 ![Coverage Badge](https://app.codacy.com/project/badge/Coverage/416142ee7b9049e3b421bc0592f98b00)
 
 # Valeris - A Text-Based Dungeon Crawler
