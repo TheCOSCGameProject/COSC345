@@ -1,22 +1,36 @@
+/*!
+ * @file valerisgame.cpp
+ * @brief Implements the ValerisGame class for the Valeris game.
+ * @details This file defines the methods of the ValerisGame class, which manages the game's main loop, dungeon exploration, and player interactions.
+ */
+
 #include "../lib/valerisgame.h"
 #include "../lib/combat.h"
 
+/*!
+ * @brief Constructor for the ValerisGame class.
+ * @details Initializes the game by generating a dungeon floor with a specified number of rooms and setting the current room to the starting point.
+ */
 ValerisGame::ValerisGame()
 {
-    numRooms = 10;
-    currentRoom = dungeon.generateFloor(numRooms);
+    numRooms = 10; //!< Sets the number of rooms in the dungeon.
+    currentRoom = dungeon.generateFloor(numRooms); //!< Generates the dungeon floor and sets the starting room.
 }
 
+/*!
+ * @brief Starts the game and manages the main exploration loop.
+ * @details The start method enters a loop where the player explores the dungeon, moves between rooms, and interacts with the game world. The player can move in cardinal directions, engage in combat, play games, or view help information.
+ */
 void ValerisGame::start()
 {
-    bool exploring = true;
+    bool exploring = true; //!< Flag to control the exploration loop.
     while (exploring)
     {
         std::cout << "You have entered a " << currentRoom->roomContent.getRoomDesc() << ".\n\n";
         currentRoom->displayAvailableDirections();
 
         std::cout << "Enter Action: ";
-        std::string direction = getUserInputToken();
+        std::string direction = getUserInputToken(); //!< Gets the player's input for movement or action.
         std::cout << "\n";
 
         // Convert direction to uppercase for consistent comparisons
@@ -26,7 +40,7 @@ void ValerisGame::start()
         {
             if (currentRoom->north)
             {
-                currentRoom = currentRoom->north;
+                currentRoom = currentRoom->north; //!< Move the player to the room to the north.
             }
             else
             {
@@ -37,7 +51,7 @@ void ValerisGame::start()
         {
             if (currentRoom->south)
             {
-                currentRoom = currentRoom->south;
+                currentRoom = currentRoom->south; //!< Move the player to the room to the south.
             }
             else
             {
@@ -48,7 +62,7 @@ void ValerisGame::start()
         {
             if (currentRoom->east)
             {
-                currentRoom = currentRoom->east;
+                currentRoom = currentRoom->east; //!< Move the player to the room to the east.
             }
             else
             {
@@ -59,7 +73,7 @@ void ValerisGame::start()
         {
             if (currentRoom->west)
             {
-                currentRoom = currentRoom->west;
+                currentRoom = currentRoom->west; //!< Move the player to the room to the west.
             }
             else
             {
@@ -70,6 +84,7 @@ void ValerisGame::start()
         {
             while (!currentRoom->roomContent.getNPC().gamblingGame.get()->start())
             {
+                //!< Starts the NPC's gambling game if the current room is a gambling room.
             }
         }
         else if (upperDirection == "/FIGHT" && currentRoom->roomContent.getRoomType() == 0)
@@ -79,19 +94,19 @@ void ValerisGame::start()
             {
                 EnemyStruct enemy = enemies[i];
                 int enemyHealth = enemy.health;
-                combatV1(player.getCurrHealth(), enemyHealth, 3000, enemy.name);
+                combatV1(player.getCurrHealth(), enemyHealth, 3000, enemy.name); //!< Initiates combat with the enemy.
                 delay(5000);
                 clear(5);
             }
         }
         else if (upperDirection == "Q")
         {
-            exploring = false;
+            exploring = false; //!< Exits the exploration loop and ends the game.
             std::cout << "Exiting dungeon exploration." << std::endl;
         }
         else if (upperDirection == "/HELP")
         {
-            std::cout << getFileContent("../reasources/help.txt") << std::endl;
+            std::cout << getFileContent("../resources/help.txt") << std::endl; //!< Displays help information from a file.
         }
         else
         {
