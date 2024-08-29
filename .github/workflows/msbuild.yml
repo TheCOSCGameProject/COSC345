@@ -58,7 +58,7 @@ jobs:
         $env:Path += ";$cppcheckPath"
         Write-Output "Current PATH: $env:Path"
 
-        cppcheck --enable=all --std=c++17 --force . > cppcheck-results.txt 2>&1
+        cppcheck --enable=all --suppress=missingIncludeSystem --std=c++17 --force . > cppcheck-results.txt 2>&1
 
         Write-Output "cppcheck results:"
         Write-Output (Get-Content cppcheck-results.txt)
