@@ -77,6 +77,9 @@ jobs:
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
 
+      - name: Refresh environment variables
+        run: refreshenv
+
       - name: Run Cppcheck
         run: |
           cppcheck --enable=all --std=c++17 --force --xml --xml-version=2 . 2> cppcheck-result.xml
