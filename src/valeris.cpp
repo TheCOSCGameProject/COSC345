@@ -1,5 +1,5 @@
 /*!
- * @file main.cpp
+ * @file valeris.cpp
  * @brief Main entry point for the game.
  * @details This file contains the main function, which serves as the entry point for the game.
  * It initializes the game, provides menu options, and handles user input to control the game flow.
