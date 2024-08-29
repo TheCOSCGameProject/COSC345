@@ -77,8 +77,9 @@ jobs:
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
 
-      - name: Refresh environment variables
-        run: refreshenv
+      - name: Import Chocolatey Profile
+        run: |
+          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 
       - name: Run Cppcheck
         run: |
