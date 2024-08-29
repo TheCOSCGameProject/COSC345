@@ -1,3 +1,8 @@
+/*!
+ * @file weapon.cpp
+ * @brief Implements the Weapon class for managing weapon data in the Valeris game.
+ * @details This file defines the methods of the Weapon class, which is responsible for handling various weapons, including generating random weapons, filtering weapons by rarity, and accessing weapon attributes.
+ */
 #include <iostream>
 #include <unordered_map>
 #include <vector>
@@ -5,8 +10,10 @@
 #include <ctime>
 #include "../lib/weapon.h"
 
-// weapon class
-// constructor
+/*!
+ * @brief Constructor for the Weapon class.
+ * @details Initializes the weapon system by seeding the random number generator and adding a predefined set of weapons to the system.
+ */
 Weapon::Weapon()
 {
     // seed
@@ -42,14 +49,28 @@ Weapon::Weapon()
     addWeapon(27, "Sardaukar Blade", "A razor-sharp sword used by the elite Sardaukar troops, feared across the galaxy.", 65, "Rare", false, false);
 }
 
-// give random weapon
+
+
+
+
+/*!
+ * @brief Returns a random weapon ID.
+ * @details Selects a random weapon from the available weapons.
+ * @return An integer representing the ID of the randomly selected weapon.
+ */
 int Weapon::giveRandWeapon()
 {
     int randomIndex = rand() % weaponIds.size();
     return weaponIds[randomIndex];
 }
 
-// give weapon based on rarity
+
+
+/*!
+ * @brief Returns a weapon ID based on the specified rarity.
+ * @param rarity The rarity of the desired weapon (e.g., "Common", "Rare", "Epic").
+ * @return An integer representing the ID of the randomly selected weapon with the specified rarity, or -1 if no such weapon exists.
+ */
 int Weapon::giveRariWeapon(const std::string &rarity)
 {
     std::vector<int> filteredIds;
@@ -68,38 +89,74 @@ int Weapon::giveRariWeapon(const std::string &rarity)
     return -1;
 }
 
-// accessors
+/*!
+ * @brief Returns the name of the weapon with the specified ID.
+ * @param weaponId The ID of the weapon.
+ * @return A string representing the name of the weapon.
+ */
 std::string Weapon::getName(int weaponId)
 {
     return weapons[weaponId].name;
 }
-
+/*!
+ * @brief Returns the description of the weapon with the specified ID.
+ * @param weaponId The ID of the weapon.
+ * @return A string representing the description of the weapon.
+ */
 std::string Weapon::getDescription(int weaponId)
 {
     return weapons[weaponId].description;
 }
-
+/*!
+ * @brief Returns the damage value of the weapon with the specified ID.
+ * @param weaponId The ID of the weapon.
+ * @return An integer representing the damage dealt by the weapon.
+ */
 int Weapon::getDamage(int weaponId)
 {
     return weapons[weaponId].damage;
 }
-
+/*!
+ * @brief Returns the rarity of the weapon with the specified ID.
+ * @param weaponId The ID of the weapon.
+ * @return A string representing the rarity of the weapon.
+ */
 std::string Weapon::getRarity(int weaponId)
 {
     return weapons[weaponId].rarity;
 }
 
+/*!
+ * @brief Checks if the weapon with the specified ID is ranged.
+ * @param weaponId The ID of the weapon.
+ * @return True if the weapon is ranged, otherwise false.
+ */
+
 bool Weapon::getRanged(int weaponId)
 {
     return weapons[weaponId].ranged;
 }
-
+/*!
+ * @brief Checks if the weapon with the specified ID has stun capability.
+ * @param weaponId The ID of the weapon.
+ * @return True if the weapon has stun capability, otherwise false.
+ */
 bool Weapon::getStun(int weaponId)
 {
     return weapons[weaponId].stun;
 }
 
-// add weapons to the dictionary
+/*!
+ * @brief Adds a new weapon to the weapon system.
+ * @param id The ID of the weapon.
+ * @param name The name of the weapon.
+ * @param description The description of the weapon.
+ * @param damage The damage dealt by the weapon.
+ * @param rarity The rarity of the weapon (e.g., "Common", "Rare").
+ * @param ranged Indicates if the weapon is ranged.
+ * @param stun Indicates if the weapon has stun capability.
+ * @details This function adds a new weapon to the internal storage, making it available for selection and use within the game.
+ */
 void Weapon::addWeapon(int id, const std::string &name, const std::string &description, int damage, const std::string &rarity, bool ranged, bool stun)
 {
     weapons[id] = {name, description, damage, rarity, ranged, stun};
