@@ -15,37 +15,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Install Chocolatey
-        run: |
-          Set-ExecutionPolicy Bypass -Scope Process -Force
-          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
-          iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-
-      - name: Install cppcheck
-        run: |
-          choco install cppcheck -y
-          # Manually add cppcheck to PATH
-          [System.Environment]::SetEnvironmentVariable('PATH', "$env:PATH;C:\Program Files\Cppcheck", [System.EnvironmentVariableTarget]::Process)
-
-      - name: Refresh environment variables
-        run: |
-          Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
-          [System.Environment]::SetEnvironmentVariable('PATH', "$env:PATH;C:\Program Files\Cppcheck", [System.EnvironmentVariableTarget]::Process)
-
-      - name: Verify cppcheck installation
-        run: |
-          cppcheck --version
-
-      - name: Run cppcheck
-        run: |
-          cppcheck --enable=all --std=c++17 --force --xml --xml-version=2 . 2> cppcheck-result.xml
-
-      - name: Upload cppcheck results
-        uses: actions/upload-artifact@v3
-        with:
-          name: cppcheck-results
-          path: cppcheck-result.xml
           
       - name: Install MinGW and other dependencies
         run: |
