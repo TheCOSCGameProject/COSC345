@@ -162,7 +162,7 @@ std::string Dungeon::getMap(Room *room)
             }
             else
             {
-                map.append(". ");
+                map.append("  ");
             }
         }
         map.append("|\n");

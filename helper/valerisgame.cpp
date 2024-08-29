@@ -47,7 +47,10 @@ void ValerisGame::start()
             else
             {
                 std::cout << "You can't move North." << std::endl;
+                delay(3000);
+                clear(1);
             }
+            clear(13);
         }
         else if (upperDirection == "S")
         {
@@ -58,7 +61,10 @@ void ValerisGame::start()
             else
             {
                 std::cout << "You can't move South." << std::endl;
+                delay(3000);
+                clear(1);
             }
+            clear(13);
         }
         else if (upperDirection == "E")
         {
@@ -69,7 +75,10 @@ void ValerisGame::start()
             else
             {
                 std::cout << "You can't move East." << std::endl;
+                delay(3000);
+                clear(1);
             }
+            clear(13);
         }
         else if (upperDirection == "W")
         {
@@ -80,7 +89,10 @@ void ValerisGame::start()
             else
             {
                 std::cout << "You can't move West." << std::endl;
+                delay(3000);
+                clear(1);
             }
+            clear(13);
         }
         else if (upperDirection == "/PLAY" && currentRoom->roomContent.getRoomType() == 1)
         {
@@ -88,7 +100,7 @@ void ValerisGame::start()
             {
                 //!< Starts the NPC's gambling game if the current room is a gambling room.
             }
-        }
+                }
         else if (upperDirection == "/SCAN")
         {
             std::cout << dungeon.getMap(currentRoom) << std::endl;
@@ -104,6 +116,7 @@ void ValerisGame::start()
                 delay(5000);
                 clear(5);
             }
+            clear(13);
         }
         else if (upperDirection == "Q")
         {
