@@ -100,7 +100,8 @@ void ValerisGame::start()
             {
                 //!< Starts the NPC's gambling game if the current room is a gambling room.
             }
-                }
+            clear(13);
+        }
         else if (upperDirection == "/SCAN")
         {
             std::cout << dungeon.getMap(currentRoom) << std::endl;

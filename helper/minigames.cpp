@@ -115,12 +115,16 @@ bool TicTacToe::start()
         if (checkForWin())
         {
             std::cout << "You win!" << std::endl;
+            delay(3000);
+            clear(11);
             return true;
         }
         count++;
         if (count == 9)
         {
             std::cout << "Draw!" << std::endl;
+            delay(3000);
+            clear(11);
             return false;
         }
 
@@ -134,12 +138,16 @@ bool TicTacToe::start()
         if (checkForWin())
         {
             std::cout << "You lose!" << std::endl;
+            delay(3000);
+            clear(11);
             return false;
         }
         count++;
         if (count == 9)
         {
             std::cout << "Draw!" << std::endl;
+            delay(3000);
+            clear(11);
             return true;
         }
     }
@@ -284,7 +292,7 @@ std::string BlackJack::getGameName()
 
 bool BlackJack::start()
 {
-    int maxRounds = generateRandomNumber(3, 15);
+    int maxRounds = 1; // generateRandomNumber(1, 5);
     if (maxRounds % 2 == 0)
     {
         maxRounds++;
@@ -299,11 +307,7 @@ bool BlackJack::start()
         bool wasHit = false;
         if (toLowerCase(hit) == "hit")
         {
-            for (int i = 0; i < 9; i++)
-            {
-                std::cout << "\033[A\033[K" << std::flush;
-                // delay(1000);
-            }
+            clear(9);
             wasHit = true;
             playersCards.push_back(cards.back());
             cards.pop_back();
@@ -314,11 +318,7 @@ bool BlackJack::start()
         {
             if (!wasHit)
             {
-                for (int i = 0; i < 9; i++)
-                {
-                    std::cout << "\033[A\033[K" << std::flush;
-                    // delay(1000);
-                }
+                clear(9);
             }
             rounds++;
             displayState(true);
@@ -326,22 +326,14 @@ bool BlackJack::start()
             std::cout << "Rounds left: " << (maxRounds - rounds) << std::endl;
             std::cout << "Total rounds won: " << totalWins << std::endl;
             waitForEnter();
-            for (int i = 0; i < 11; i++)
-            {
-                std::cout << "\033[A\033[K" << std::flush;
-                // delay(1000);
-            }
+            clear(11);
             initDecks();
         }
         else if (eval == 1)
         {
             if (!wasHit)
             {
-                for (int i = 0; i < 9; i++)
-                {
-                    std::cout << "\033[A\033[K" << std::flush;
-                    // delay(1000);
-                }
+                clear(9);
             }
             rounds++;
             totalWins++;
@@ -350,11 +342,7 @@ bool BlackJack::start()
             std::cout << "Rounds left: " << (maxRounds - rounds) << std::endl;
             std::cout << "Total rounds won: " << totalWins << std::endl;
             waitForEnter();
-            for (int i = 0; i < 11; i++)
-            {
-                std::cout << "\033[A\033[K" << std::flush;
-                // delay(1000);
-            }
+            clear(11);
             initDecks();
         }
     }
@@ -362,11 +350,15 @@ bool BlackJack::start()
     if (totalWins >= maxRounds / 2)
     {
         std::cout << "Game Over You Win!" << std::endl;
+        delay(2000);
+        clear(1);
         return true;
     }
     else
     {
         std::cout << "Game Over You Loose!" << std::endl;
+        delay(2000);
+        clear(1);
         return false;
     }
 }
