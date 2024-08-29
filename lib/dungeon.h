@@ -65,8 +65,6 @@ public:
 
     std::string getMap(Room *room);
 
-    std::string getMap(Room *room);
-
 private:
     std::vector<Room *> rooms; //!< A vector containing pointers to all the rooms in the dungeon.
     std::mt19937 rng;          //!< Random number generator for generating random dungeon elements.
