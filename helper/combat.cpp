@@ -38,7 +38,7 @@ void printHealth(int playerHealth, int enemyHealth, const std::string &name)
 @param playerHealth The initial health of the player.
 @param enemyHealth The initial health of the enemy.
 @param difficulty The difficulty level of the combat, influencing the response time allowed.
-@param name The name of the enemy.
+@param name The name of the enemy G.
 @return True if the player wins, false if the player loses.
 @details This combat system involves the player quickly matching directional inputs to attack the enemy. The enemy's attacks decrease the player's health if the player fails to respond correctly or quickly enough.
 */
