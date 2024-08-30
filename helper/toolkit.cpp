@@ -308,13 +308,13 @@ int readInt()
  */
 void waitForEnter()
 {
-    std::cout << "Press Enter to continue..." << std::endl;
-    system("stty -echo -icanon");
+    std::cout << "Press Enter to continue...";
+    //system("stty -echo -icanon");
 
-    std::cin.ignore(); // Waits for the user to press Ente
+    //std::cin.ignore(); // Waits for the user to press Ente
     std::cin.get();
 
-    system("stty echo icanon");
+    //system("stty echo icanon");
 }
 /*!
  * @brief Converts a string to uppercase.

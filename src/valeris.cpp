@@ -29,7 +29,7 @@ int main()
   std::string color = "\033[36m"; //!< Color code for text display.
 
 #ifdef _WIN32
-  SetConsoleSize(137, 50);
+  SetConsoleSize(1200, 600);
 #else
   SetTerminalSize(50, 137);
 #endif
