@@ -27,7 +27,7 @@ parsers:
       macro: no
 
 ignore:
-  - "tests/**/*"
+  - "tests"
   - "**/lib*"
   - "**/*.md"
   - "**/*.h"
