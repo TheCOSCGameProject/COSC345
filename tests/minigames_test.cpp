@@ -794,6 +794,51 @@ void testCombatV1PressP()
     ASSERT_EQUAL(false, result);
 }
 
+void testTicTacToePrintBoard()
+{
+    TicTacToe game;
+
+    // Redirect cout to capture output
+    std::stringstream outputBuffer;
+    std::streambuf *oldCout = std::cout.rdbuf(outputBuffer.rdbuf());
+
+    // Call the function to test
+    game.printBoard();
+
+    // Restore the original cout buffer
+    std::cout.rdbuf(oldCout);
+
+    // Expected output
+    std::string expectedOutput =
+        "\n   |   |   "
+        "\n   |   |   "
+        "\n___|___|___"
+        "\n   |   |   "
+        "\n   |   |   "
+        "\n___|___|___"
+        "\n   |   |   "
+        "\n   |   |   "
+        "\n   |   |   ";
+
+    // Get the actual output
+    std::string actualOutput = outputBuffer.str();
+
+    while (!expectedOutput.empty() && (expectedOutput.back() == '\n'))
+    {
+        expectedOutput.pop_back();
+    }
+    while (!actualOutput.empty() && (actualOutput.back() == '\n'))
+    {
+        actualOutput.pop_back();
+    }
+
+    std::string normalizedExpected = normalizeString(expectedOutput);
+    std::string normalizedActual = normalizeString(actualOutput);
+
+    // Compare the actual output with the expected output
+    ASSERT_EQUAL(normalizedExpected, normalizedActual);
+}
+
 int main()
 {
     TestFramework framework("minigames_test_results.xml");
@@ -875,6 +920,8 @@ int main()
     framework.addTest("Test GetColor Invalid", testGetColor_Invalid);
 
     framework.addTest("CombatV1PressP", testCombatV1PressP);
+
+    framework.addTest("TicTacToePrintBoard", testTicTacToePrintBoard);
 
     // Run framework
     framework.run();
