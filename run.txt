@@ -4,4 +4,4 @@ cd src && g++ -std=c++17 ../helper/*.cpp valeris.cpp -o valeris && ./valeris && 
 Run Tests
 cd tests && g++ -std=c++17 -o run_tests minigames_test.cpp ../helper/*.cpp && ./run_tests && cd ..
 
-Testing(to add tomorrow morning needa sleep but repo secret was wrong :////)
+Just needa push a commit to see what goes wrong.........
