@@ -1,0 +1,32 @@
+#ifndef AUDIO_H
+#define AUDIO_H
+
+#ifdef _WIN32
+#include <windows.h>
+#include <mmsystem.h>
+#pragma comment(lib, "winmm.lib")
+#else
+#include <alsa/asoundlib.h>
+#include <thread>
+#endif
+
+class AudioPlayer {
+public:
+    AudioPlayer();
+    ~AudioPlayer();
+    void playBackgroundMusic(const char* filename);
+    void stopBackgroundMusic();
+
+private:
+    #ifdef _WIN32
+    // Windows-specific members
+    #else
+    // ALSA-specific members
+    snd_pcm_t *handle;
+    std::thread playbackThread;
+    bool isPlaying;
+    void playbackLoop(const char* filename);
+    #endif
+};
+
+#endif // AUDIO_H

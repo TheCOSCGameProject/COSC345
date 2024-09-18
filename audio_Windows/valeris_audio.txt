@@ -1,0 +1,9 @@
+#include "../lib/audio.h"
+
+audioPlayer.playBackgroundMusic("backgroundMusic2.wav");
+
+
+
+
+
+audioPlayer.stopBackgroundMusic();

@@ -1,0 +1,72 @@
+#include "audio.h"
+#include <iostream>
+
+#ifdef _WIN32
+AudioPlayer::AudioPlayer() {}
+AudioPlayer::~AudioPlayer() {}
+
+void AudioPlayer::playBackgroundMusic(const char* filename) {
+    PlaySound(filename, NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+}
+
+void AudioPlayer::stopBackgroundMusic() {
+    PlaySound(NULL, NULL, 0);
+}
+
+#else
+AudioPlayer::AudioPlayer() : handle(nullptr), isPlaying(false) {}
+
+AudioPlayer::~AudioPlayer() {
+    stopBackgroundMusic();
+    if (handle) {
+        snd_pcm_close(handle);
+    }
+}
+
+void AudioPlayer::playBackgroundMusic(const char* filename) {
+    stopBackgroundMusic();
+    isPlaying = true;
+    playbackThread = std::thread(&AudioPlayer::playbackLoop, this, filename);
+}
+
+void AudioPlayer::stopBackgroundMusic() {
+    isPlaying = false;
+    if (playbackThread.joinable()) {
+        playbackThread.join();
+    }
+}
+
+void AudioPlayer::playbackLoop(const char* filename) {
+    // Open the PCM device
+    int rc = snd_pcm_open(&handle, "default", SND_PCM_STREAM_PLAYBACK, 0);
+    if (rc < 0) {
+        std::cerr << "Unable to open PCM device: " << snd_strerror(rc) << std::endl;
+        return;
+    }
+
+    // Set PCM parameters (this is a simplified example)
+    snd_pcm_set_params(handle, SND_PCM_FORMAT_S16_LE, SND_PCM_ACCESS_RW_INTERLEAVED, 2, 44100, 1, 500000);
+
+    // Open the audio file
+    FILE* file = fopen(filename, "rb");
+    if (!file) {
+        std::cerr << "Unable to open file: " << filename << std::endl;
+        return;
+    }
+
+    // Read and play the file
+    const int bufferSize = 4096;
+    char buffer[bufferSize];
+    while (isPlaying) {
+        size_t bytesRead = fread(buffer, 1, bufferSize, file);
+        if (bytesRead == 0) {
+            // Loop back to the beginning of the file
+            fseek(file, 0, SEEK_SET);
+            continue;
+        }
+        snd_pcm_writei(handle, buffer, bytesRead / 4);  // Assuming 16-bit stereo
+    }
+
+    fclose(file);
+}
+#endif
