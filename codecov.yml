@@ -27,12 +27,6 @@ parsers:
       macro: no
   partial_coverage_penalty_enabled: false
 
-
-comment:
-  layout: "reach,diff,flags,files,footer"
-  behavior: default
-  require_changes: no
-
 ignore:
   - "**/tests*"
   - "**/lib*"
@@ -41,4 +35,10 @@ ignore:
   - (?s:tests/.*/[^\/]*)\Z
   - (?s:.*/[^\/]*\.h)\Z
   - (?s:lib/.*/[^\/]*)\Z
+
+comment:
+  layout: "reach,diff,flags,files,footer"
+  behavior: default
+  require_changes: no
+
 
