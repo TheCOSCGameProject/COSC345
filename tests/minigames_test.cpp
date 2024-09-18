@@ -839,6 +839,46 @@ void testTicTacToePrintBoard()
     ASSERT_EQUAL(normalizedExpected, normalizedActual);
 }
 
+void testCodeGuesserPrintWords()
+{
+    // Initialize CodeGuesser with some test words
+
+    CodeGuesser guesser;
+
+    // Redirect cout to capture output
+    std::stringstream outputBuffer;
+    std::streambuf *oldCout = std::cout.rdbuf(outputBuffer.rdbuf());
+
+    std::string expectedOutput =
+        "spice\n"
+        "knife\n"
+        "blade\n"
+        "maker\n"
+        "worms\n"
+        "baron\n"
+        "guild\n"
+        "dunes\n"
+        "sandy\n"
+        "space\n"
+        "light\n";
+
+    // Call the function to test
+    guesser.printWords();
+
+    // Restore the original cout buffer
+    std::cout.rdbuf(oldCout);
+
+    // Get the actual output
+    std::string actualOutput = outputBuffer.str();
+
+    // Compare the actual output with the expected output
+    std::string normalizedExpected = normalizeString(expectedOutput);
+    std::string normalizedActual = normalizeString(actualOutput);
+
+    // Compare the actual output with the expected output
+    ASSERT_EQUAL(normalizedExpected, normalizedActual);
+}
+
 int main()
 {
     TestFramework framework("minigames_test_results.xml");
@@ -922,6 +962,8 @@ int main()
     framework.addTest("CombatV1PressP", testCombatV1PressP);
 
     framework.addTest("TicTacToePrintBoard", testTicTacToePrintBoard);
+
+    framework.addTest("CodeGuesserPrintWords", testCodeGuesserPrintWords);
 
     // Run framework
     framework.run();
