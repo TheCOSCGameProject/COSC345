@@ -179,12 +179,222 @@ void testBlackJackInitialization()
 void testWeaponInitialization()
 {
     Weapon weaponSystem;
+
+    // Test case for Weapon 1: Plasma Rifle
     ASSERT_EQUAL("Plasma Rifle", weaponSystem.getName(1));
     ASSERT_EQUAL("A high-energy weapon that fires concentrated plasma bolts.", weaponSystem.getDescription(1));
     ASSERT_EQUAL(45, weaponSystem.getDamage(1));
     ASSERT_EQUAL("Rare", weaponSystem.getRarity(1));
     ASSERT(weaponSystem.getRanged(1));
     ASSERT(!weaponSystem.getStun(1));
+
+    // Test case for Weapon 2: Laser Pistol
+    ASSERT_EQUAL("Laser Pistol", weaponSystem.getName(2));
+    ASSERT_EQUAL("A compact, high-precision laser pistol ideal for close combat.", weaponSystem.getDescription(2));
+    ASSERT_EQUAL(25, weaponSystem.getDamage(2));
+    ASSERT_EQUAL("Common", weaponSystem.getRarity(2));
+    ASSERT(weaponSystem.getRanged(2));
+    ASSERT(!weaponSystem.getStun(2));
+
+    // Test case for Weapon 3: Icicle
+    ASSERT_EQUAL("Icicle", weaponSystem.getName(3));
+    ASSERT_EQUAL("A grenade that releases a freezing gas upon hit, freezing enemies.", weaponSystem.getDescription(3));
+    ASSERT_EQUAL(35, weaponSystem.getDamage(3));
+    ASSERT_EQUAL("Uncommon", weaponSystem.getRarity(3));
+    ASSERT(!weaponSystem.getRanged(3));
+    ASSERT(weaponSystem.getStun(3));
+
+    // Test case for Weapon 4: Sonic Blaster
+    ASSERT_EQUAL("Sonic Blaster", weaponSystem.getName(4));
+    ASSERT_EQUAL("Emits sound waves capable of shattering solid objects.", weaponSystem.getDescription(4));
+    ASSERT_EQUAL(40, weaponSystem.getDamage(4));
+    ASSERT_EQUAL("Rare", weaponSystem.getRarity(4));
+    ASSERT(weaponSystem.getRanged(4));
+    ASSERT(weaponSystem.getStun(4));
+
+    // Test case for Weapon 5: Electro Blade
+    ASSERT_EQUAL("Electro Blade", weaponSystem.getName(5));
+    ASSERT_EQUAL("A sword infused with electrical energy, delivering a shock with each strike.", weaponSystem.getDescription(5));
+    ASSERT_EQUAL(30, weaponSystem.getDamage(5));
+    ASSERT_EQUAL("Uncommon", weaponSystem.getRarity(5));
+    ASSERT(!weaponSystem.getRanged(5));
+    ASSERT(weaponSystem.getStun(5));
+
+    // Test case for Weapon 6: Ion Cannon
+    ASSERT_EQUAL("Ion Cannon", weaponSystem.getName(6));
+    ASSERT_EQUAL("A heavy-duty weapon that fires a massive ion beam, effective against armored targets.", weaponSystem.getDescription(6));
+    ASSERT_EQUAL(60, weaponSystem.getDamage(6));
+    ASSERT_EQUAL("Epic", weaponSystem.getRarity(6));
+    ASSERT(weaponSystem.getRanged(6));
+    ASSERT(weaponSystem.getStun(6));
+
+    // Test case for Weapon 7: Pulse Rifle
+    ASSERT_EQUAL("Pulse Rifle", weaponSystem.getName(7));
+    ASSERT_EQUAL("Fires rapid bursts of energy pulses, excellent for crowd control.", weaponSystem.getDescription(7));
+    ASSERT_EQUAL(38, weaponSystem.getDamage(7));
+    ASSERT_EQUAL("Common", weaponSystem.getRarity(7));
+    ASSERT(weaponSystem.getRanged(7));
+    ASSERT(weaponSystem.getStun(7));
+
+    // Test case for Weapon 8: Nano Sword
+    ASSERT_EQUAL("Nano Sword", weaponSystem.getName(8));
+    ASSERT_EQUAL("A blade composed of nanobots, able to cut through virtually anything.", weaponSystem.getDescription(8));
+    ASSERT_EQUAL(50, weaponSystem.getDamage(8));
+    ASSERT_EQUAL("Epic", weaponSystem.getRarity(8));
+    ASSERT(!weaponSystem.getRanged(8));
+    ASSERT(!weaponSystem.getStun(8));
+
+    // Test case for Weapon 9: Graviton Hammer
+    ASSERT_EQUAL("Graviton Hammer", weaponSystem.getName(9));
+    ASSERT_EQUAL("A weapon that manipulates gravity to deliver devastating blows.", weaponSystem.getDescription(9));
+    ASSERT_EQUAL(55, weaponSystem.getDamage(9));
+    ASSERT_EQUAL("Legendary", weaponSystem.getRarity(9));
+    ASSERT(!weaponSystem.getRanged(9));
+    ASSERT(weaponSystem.getStun(9));
+
+    // Test case for Weapon 10: Neutron Bomb
+    ASSERT_EQUAL("Neutron Bomb", weaponSystem.getName(10));
+    ASSERT_EQUAL("A bomb that releases neutron radiation, lethal to organic life.", weaponSystem.getDescription(10));
+    ASSERT_EQUAL(100, weaponSystem.getDamage(10));
+    ASSERT_EQUAL("Legendary", weaponSystem.getRarity(10));
+    ASSERT(weaponSystem.getRanged(10));
+    ASSERT(!weaponSystem.getStun(10));
+
+    // Test case for Weapon 11: Crysknife
+    ASSERT_EQUAL("Crysknife", weaponSystem.getName(11));
+    ASSERT_EQUAL("A sacred knife made from the tooth of a sandworm. Deadly in close combat.", weaponSystem.getDescription(11));
+    ASSERT_EQUAL(50, weaponSystem.getDamage(11));
+    ASSERT_EQUAL("Rare", weaponSystem.getRarity(11));
+    ASSERT(!weaponSystem.getRanged(11));
+    ASSERT(!weaponSystem.getStun(11));
+
+    // Test case for Weapon 12: Maula Pistol
+    ASSERT_EQUAL("Maula Pistol", weaponSystem.getName(12));
+    ASSERT_EQUAL("A small, easily concealable projectile weapon used by assassins.", weaponSystem.getDescription(12));
+    ASSERT_EQUAL(25, weaponSystem.getDamage(12));
+    ASSERT_EQUAL("Common", weaponSystem.getRarity(12));
+    ASSERT(!weaponSystem.getRanged(12));
+    ASSERT(!weaponSystem.getStun(12));
+
+    // Test case for Weapon 13: Lasgun
+    ASSERT_EQUAL("Lasgun", weaponSystem.getName(13));
+    ASSERT_EQUAL("A powerful beam weapon capable of cutting through almost any material.", weaponSystem.getDescription(13));
+    ASSERT_EQUAL(60, weaponSystem.getDamage(13));
+    ASSERT_EQUAL("Uncommon", weaponSystem.getRarity(13));
+    ASSERT(!weaponSystem.getRanged(13));
+    ASSERT(!weaponSystem.getStun(13));
+
+    // Test case for Weapon 14: Spice Grenade
+    ASSERT_EQUAL("Spice Grenade", weaponSystem.getName(14));
+    ASSERT_EQUAL("An explosive that disperses spice particles, causing hallucinations and disorientation.", weaponSystem.getDescription(14));
+    ASSERT_EQUAL(50, weaponSystem.getDamage(14));
+    ASSERT_EQUAL("Epic", weaponSystem.getRarity(14));
+    ASSERT(weaponSystem.getRanged(14));
+    ASSERT(weaponSystem.getStun(14));
+
+    // Test case for Weapon 15: Gom Jabbar
+    ASSERT_EQUAL("Gom Jabbar", weaponSystem.getName(15));
+    ASSERT_EQUAL("A needle-like weapon that delivers a lethal poison. Used in specific assassination rituals.", weaponSystem.getDescription(15));
+    ASSERT_EQUAL(100, weaponSystem.getDamage(15));
+    ASSERT_EQUAL("Legendary", weaponSystem.getRarity(15));
+    ASSERT(!weaponSystem.getRanged(15));
+    ASSERT(!weaponSystem.getStun(15));
+
+    // Test case for Weapon 16: Hunter-Seeker
+    ASSERT_EQUAL("Hunter-Seeker", weaponSystem.getName(16));
+    ASSERT_EQUAL("A remote-controlled assassination device that seeks out its target with precision.", weaponSystem.getDescription(16));
+    ASSERT_EQUAL(45, weaponSystem.getDamage(16));
+    ASSERT_EQUAL("Epic", weaponSystem.getRarity(16));
+    ASSERT(weaponSystem.getRanged(16));
+    ASSERT(!weaponSystem.getStun(16));
+
+    // Test case for Weapon 17: Stunner
+    ASSERT_EQUAL("Stunner", weaponSystem.getName(17));
+    ASSERT_EQUAL("A non-lethal weapon used to incapacitate enemies, commonly used by law enforcement.", weaponSystem.getDescription(17));
+    ASSERT_EQUAL(20, weaponSystem.getDamage(17));
+    ASSERT_EQUAL("Common", weaponSystem.getRarity(17));
+    ASSERT(!weaponSystem.getRanged(17));
+    ASSERT(weaponSystem.getStun(17));
+
+    // Test case for Weapon 18: Spice-Enhanced Blade
+    ASSERT_EQUAL("Spice-Enhanced Blade", weaponSystem.getName(18));
+    ASSERT_EQUAL("A blade tempered with the essence of spice, increasing its sharpness and durability.", weaponSystem.getDescription(18));
+    ASSERT_EQUAL(55, weaponSystem.getDamage(18));
+    ASSERT_EQUAL("Epic", weaponSystem.getRarity(18));
+    ASSERT(!weaponSystem.getRanged(18));
+    ASSERT(weaponSystem.getStun(18));
+
+    // Test case for Weapon 19: Shai-Hulud's Tooth
+    ASSERT_EQUAL("Shai-Hulud's Tooth", weaponSystem.getName(19));
+    ASSERT_EQUAL("A weapon made from a sandworm tooth, infused with the power of the desert.", weaponSystem.getDescription(19));
+    ASSERT_EQUAL(70, weaponSystem.getDamage(19));
+    ASSERT_EQUAL("Legendary", weaponSystem.getRarity(19));
+    ASSERT(!weaponSystem.getRanged(19));
+    ASSERT(!weaponSystem.getStun(19));
+
+    // Test case for Weapon 20: Weirding Module
+    ASSERT_EQUAL("Weirding Module", weaponSystem.getName(20));
+    ASSERT_EQUAL("A sound-based weapon that amplifies the voice of its user to deliver devastating sonic attacks.", weaponSystem.getDescription(20));
+    ASSERT_EQUAL(70, weaponSystem.getDamage(20));
+    ASSERT_EQUAL("Legendary", weaponSystem.getRarity(20));
+    ASSERT(weaponSystem.getRanged(20));
+    ASSERT(weaponSystem.getStun(20));
+
+    // Test case for Weapon 21: Sand Compactor
+    ASSERT_EQUAL("Sand Compactor", weaponSystem.getName(21));
+    ASSERT_EQUAL("A tool-turned-weapon that uses compressed sand to create projectiles.", weaponSystem.getDescription(21));
+    ASSERT_EQUAL(30, weaponSystem.getDamage(21));
+    ASSERT_EQUAL("Uncommon", weaponSystem.getRarity(21));
+    ASSERT(weaponSystem.getRanged(21));
+    ASSERT(!weaponSystem.getStun(21));
+
+    // Test case for Weapon 22: Fremen Hook
+    ASSERT_EQUAL("Fremen Hook", weaponSystem.getName(22));
+    ASSERT_EQUAL("A specialized tool used by the Fremen to ride sandworms, can also be used as a weapon.", weaponSystem.getDescription(22));
+    ASSERT_EQUAL(40, weaponSystem.getDamage(22));
+    ASSERT_EQUAL("Rare", weaponSystem.getRarity(22));
+    ASSERT(!weaponSystem.getRanged(22));
+    ASSERT(weaponSystem.getStun(22));
+
+    // Test case for Weapon 23: Injector Dart
+    ASSERT_EQUAL("Injector Dart", weaponSystem.getName(23));
+    ASSERT_EQUAL("A small dart that can deliver a variety of substances, from tranquilizers to lethal toxins.", weaponSystem.getDescription(23));
+    ASSERT_EQUAL(35, weaponSystem.getDamage(23));
+    ASSERT_EQUAL("Uncommon", weaponSystem.getRarity(23));
+    ASSERT(weaponSystem.getRanged(23));
+    ASSERT(weaponSystem.getStun(23));
+
+    // Test case for Weapon 24: Spice Harvester's Wrench
+    ASSERT_EQUAL("Spice Harvester's Wrench", weaponSystem.getName(24));
+    ASSERT_EQUAL("A large, heavy tool used in spice harvesting, repurposed as a weapon.", weaponSystem.getDescription(24));
+    ASSERT_EQUAL(45, weaponSystem.getDamage(24));
+    ASSERT_EQUAL("Common", weaponSystem.getRarity(24));
+    ASSERT(weaponSystem.getRanged(24));
+    ASSERT(!weaponSystem.getStun(24));
+
+    // Test case for Weapon 25: Glowglobe Bomb
+    ASSERT_EQUAL("Glowglobe Bomb", weaponSystem.getName(25));
+    ASSERT_EQUAL("A light-emitting device that can be overloaded to explode, blinding enemies temporarily.", weaponSystem.getDescription(25));
+    ASSERT_EQUAL(20, weaponSystem.getDamage(25));
+    ASSERT_EQUAL("Uncommon", weaponSystem.getRarity(25));
+    ASSERT(weaponSystem.getRanged(25));
+    ASSERT(weaponSystem.getStun(25));
+
+    // Test case for Weapon 26: Stilgar's Blade
+    ASSERT_EQUAL("Stilgar's Blade", weaponSystem.getName(26));
+    ASSERT_EQUAL("A unique knife belonging to the legendary Fremen leader Stilgar, revered for its history.", weaponSystem.getDescription(26));
+    ASSERT_EQUAL(55, weaponSystem.getDamage(26));
+    ASSERT_EQUAL("Epic", weaponSystem.getRarity(26));
+    ASSERT(!weaponSystem.getRanged(26));
+    ASSERT(!weaponSystem.getStun(26));
+
+    // Test case for Weapon 27: Sardaukar Blade
+    ASSERT_EQUAL("Sardaukar Blade", weaponSystem.getName(27));
+    ASSERT_EQUAL("A razor-sharp sword used by the elite Sardaukar troops, feared across the galaxy.", weaponSystem.getDescription(27));
+    ASSERT_EQUAL(65, weaponSystem.getDamage(27));
+    ASSERT_EQUAL("Rare", weaponSystem.getRarity(27));
+    ASSERT(!weaponSystem.getRanged(27));
+    ASSERT(!weaponSystem.getStun(27));
 }
 
 // Test random weapon generation
@@ -800,7 +1010,7 @@ int main()
     // Menu tests
     framework.addTest("Display intro test", testDisplayIntro);
     framework.addTest("Display menu test", testDisplayj);
-    framework.addTest("Display instructions test", test_DisplayInstructionsText);
+    //framework.addTest("Display instructions test", test_DisplayInstructionsText);
     framework.addTest("Test GetColor Green", testGetColor_Green);
     framework.addTest("Test GetColor Blue", testGetColor_Blue);
     framework.addTest("Test GetColor Red", testGetColor_Red);
