@@ -43,12 +43,6 @@ public:
     Room *generateFloor(int numRooms);
 
     /*!
-     * @brief Traverses the dungeon starting from a given room and prints the contents of each room.
-     * @param startRoom A pointer to the room from which to start the traversal.
-     */
-    void traverseAndPrint(Room *startRoom);
-
-    /*!
      * @brief Counts the number of rooms in the dungeon starting from a given room.
      * @param startRoom A pointer to the room from which to start counting.
      * @return The total number of rooms in the dungeon.
