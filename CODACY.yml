@@ -12,3 +12,9 @@ engines:
 exclude_paths:
   - 'tests/**/*'
   - '**/*.md'
+  - 'tests/**/*'
+  - 'lib/**/*'
+  - 'tests/minigames_test.cpp'
+  - '**/*.md'
+  - '**/*.h'
+  

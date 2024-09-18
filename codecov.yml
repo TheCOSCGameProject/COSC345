@@ -34,7 +34,6 @@ comment:
   require_changes: no
 
 ignore:
-  ignore:
   - "tests/**/*"
   - "lib/**/*"
   - "tests/minigames_test.cpp"
