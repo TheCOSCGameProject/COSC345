@@ -266,56 +266,6 @@ Room *Dungeon::generateFloor(int numRooms)
 }
 
 /*!
-@brief Public method to traverse the dungeon and print room contents.
-@param startRoom A pointer to the room where traversal begins.
-@details Traverses the dungeon from the starting room and prints the contents of each room encountered.
-*/
-void Dungeon::traverseAndPrint(Room *startRoom)
-{
-    if (startRoom == nullptr)
-        return;
-
-    std::queue<std::pair<Room *, std::pair<int, int>>> q;
-    std::map<std::pair<int, int>, Room *> visited;
-
-    q.push({startRoom, {0, 0}});
-    visited[{0, 0}] = startRoom;
-
-    while (!q.empty())
-    {
-        auto [currentRoom, coords] = q.front();
-        q.pop();
-
-        int x = coords.first;
-        int y = coords.second;
-        std::cout << "\nRoom at (" << x << ", " << y << "): \n\nRoom content:" << std::endl;
-        currentRoom->roomContent.displayContent();
-        std::cout << "--------------------" << std::endl;
-
-        if (currentRoom->north && visited.find({x, y + 1}) == visited.end())
-        {
-            q.push({currentRoom->north, {x, y + 1}});
-            visited[{x, y + 1}] = currentRoom->north;
-        }
-        if (currentRoom->south && visited.find({x, y - 1}) == visited.end())
-        {
-            q.push({currentRoom->south, {x, y - 1}});
-            visited[{x, y - 1}] = currentRoom->south;
-        }
-        if (currentRoom->east && visited.find({x + 1, y}) == visited.end())
-        {
-            q.push({currentRoom->east, {x + 1, y}});
-            visited[{x + 1, y}] = currentRoom->east;
-        }
-        if (currentRoom->west && visited.find({x - 1, y}) == visited.end())
-        {
-            q.push({currentRoom->west, {x - 1, y}});
-            visited[{x - 1, y}] = currentRoom->west;
-        }
-    }
-}
-
-/*!
 @brief Public method to count the number of rooms in the dungeon.
 @param startRoom A pointer to the room where the count begins.
 @return The number of rooms in the dungeon.
