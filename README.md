@@ -82,6 +82,9 @@ Once the game is started, you can navigate through the dungeons, interact with c
 
 We follow an agile development process with tasks managed via Trello and real-time communication through Discord. Continuous integration (CI) is set up to ensure that every component integrates smoothly with the rest of the system. There are two .yml files located in the git Workflows folder that assist with the project build.
 
+Codecov - https://app.codecov.io/gh/TheCOSCGameProject/COSC345/tree/main/helper
+Codacy - https://app.codacy.com/gh/TheCOSCGameProject/COSC345/dashboard
+
 
 ## Documentation
 
