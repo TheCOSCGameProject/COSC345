@@ -1,7 +1,7 @@
 # CodeDocs Configuration
 
 # Only include source directories
-INPUT = src/ lib/ helper/ tests/ README.md
+INPUT = src/ lib/ helper/ tests/ README.md ReadMe/
 
 # Exclude unnecessary directories from the documentation process
 EXCLUDE = \
