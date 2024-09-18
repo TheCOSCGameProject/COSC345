@@ -25,7 +25,6 @@ parsers:
       loop: yes
       method: no
       macro: no
-  partial_coverage_penalty_enabled: false
 
 ignore:
   - "**/tests*"
