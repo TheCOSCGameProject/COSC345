@@ -768,6 +768,32 @@ void testGetColor_Invalid()
     ASSERT_EQUAL(initialColor, result);              // Should keep the original color
 }
 
+void testCombatV1PressP()
+{
+    int playerHealth = 1;
+    int enemyHealth = 100;
+    int difficulty = 1000;
+    std::string name = "Test Enemy";
+
+    // Redirect cout to capture output
+    std::stringstream outputBuffer;
+    std::streambuf *oldCout = std::cout.rdbuf(outputBuffer.rdbuf());
+
+    // Simulate input of 'p' followed by Enter
+    std::istringstream fakeInput("p"); // \np\np\np\np\np\np\np\np\np\n
+    std::streambuf *oldCin = std::cin.rdbuf(fakeInput.rdbuf());
+
+    // Call the function to test
+    bool result = combatV1(playerHealth, enemyHealth, difficulty, name);
+
+    // Restore the original cout and cin buffers
+    std::cout.rdbuf(oldCout);
+    std::cin.rdbuf(oldCin);
+
+    // Check the result
+    ASSERT_EQUAL(false, result);
+}
+
 int main()
 {
     TestFramework framework("minigames_test_results.xml");
@@ -847,6 +873,8 @@ int main()
     framework.addTest("Test GetColor Yellow", testGetColor_Yellow);
     framework.addTest("Test GetColor Cyan", testGetColor_Cyan);
     framework.addTest("Test GetColor Invalid", testGetColor_Invalid);
+
+    framework.addTest("CombatV1PressP", testCombatV1PressP);
 
     // Run framework
     framework.run();
