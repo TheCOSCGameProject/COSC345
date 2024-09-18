@@ -27,14 +27,13 @@ parsers:
       macro: no
 
 ignore:
-  - "**/tests*"
+  - "tests/**/*"
   - "**/lib*"
   - "**/*.md"
   - "**/*.h"
   - (?s:tests/.*/[^\/]*)\Z
   - (?s:.*/[^\/]*\.h)\Z
   - (?s:lib/.*/[^\/]*)\Z
-  - "**/tests/minigames_test.cpp"
 
 comment:
   layout: "reach,diff,flags,files,footer"
