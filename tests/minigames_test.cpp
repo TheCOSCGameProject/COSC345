@@ -809,6 +809,7 @@ int main()
     framework.addTest("Weapon Initialization", testWeaponInitialization);
     framework.addTest("Random Weapon Generation", testRandomWeaponGeneration);
     framework.addTest("Weapon Generation by Rarity", testWeaponGenerationByRarity);
+    framework.addTest("All Weapons", testAllWeapons);
 
     // Toolkit tests
     framework.addTest("Generate Random Number", testGenerateRandomNumber);
