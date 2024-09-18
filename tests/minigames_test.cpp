@@ -81,7 +81,7 @@ void testTicTacToeCheckForWin()
     game.playerMove(2, 2);
     ASSERT(game.checkForWin());
 }
-/*
+
 void testTicTacToeStart()
 {
     TicTacToe game;
@@ -115,7 +115,7 @@ void testTicTacToeStart()
     std::string output = capturedOutput.str();
     ASSERT(output.find("You win!") != std::string::npos);
 }
-*/
+
 // CodeGuesser tests
 void testCodeGuesserInitialization()
 {
@@ -803,7 +803,7 @@ int main()
     framework.addTest("TicTacToe Player Move", testTicTacToePlayerMove);
     framework.addTest("TicTacToe Computer Turn", testTicTacToeComputerTurn);
     framework.addTest("TicTacToe Check For Win", testTicTacToeCheckForWin);
-    // framework.addTest("TicTacToe Start", testTicTacToeStart);
+    framework.addTest("TicTacToe Start", testTicTacToeStart);
 
     // CodeGuesser tests
     framework.addTest("CodeGuesser Initialization", testCodeGuesserInitialization);
