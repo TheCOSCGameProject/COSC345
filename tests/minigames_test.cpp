@@ -254,7 +254,7 @@ void testEvaluate()
     BlackJack game;
 
     // Test 1: Player total is less than dealer total without hitting
-    int dealer1[2] = {10, 15}; // Dealer total = 25
+    int dealer1[2] = {10, 10}; // Dealer total = 25
     game.setDealer(dealer1);
     game.setPlayerCards({10, 5});           // Player total = 15
     ASSERT_EQUAL(game.evaluate(false), -1); // Player should lose
@@ -266,7 +266,7 @@ void testEvaluate()
     ASSERT_EQUAL(game.evaluate(false), -1); // Player should lose
 
     // Test 3: Player hits and does not get 21
-    int dealer3[2] = {10, 15}; // Dealer total = 25
+    int dealer3[2] = {10, 10}; // Dealer total = 25
     game.setDealer(dealer3);
     game.setPlayerCards({10, 5}); // Player total = 15
     // Simulate hitting
@@ -286,9 +286,9 @@ void testEvaluate()
     ASSERT_EQUAL(game.evaluate(true), 1); // Player should win
 
     // Test 5: Player has exactly 21 without hitting
-    int dealer5[2] = {10, 15}; // Dealer total = 25
+    int dealer5[2] = {10, 9}; // Dealer total = 25
     game.setDealer(dealer5);
-    game.setPlayerCards({10, 11});         // Player total = 21
+    game.setPlayerCards({10, 10});         // Player total = 21
     ASSERT_EQUAL(game.evaluate(false), 1); // Player should win
 
     // Test 6: Player hits and goes over 21
@@ -302,12 +302,13 @@ void testEvaluate()
     ASSERT_EQUAL(game.evaluate(true), -1); // Player should lose
 
     // Test 7: Player hits and achieves exactly 21 with fewer cards
-    int dealer7[2] = {10, 15}; // Dealer total = 25
+    int dealer7[2] = {10, 10}; // Dealer total = 25
     game.setDealer(dealer7);
     game.setPlayerCards({10}); // Player total = 10
     // Simulate hitting
     std::vector<int> newPlayerCards7 = game.getPlayerCards();
-    newPlayerCards7.push_back(11); // New total = 21
+    newPlayerCards7.push_back(9); // New total = 21
+    newPlayerCards7.push_back(2); // New total = 21
     game.setPlayerCards(newPlayerCards7);
     ASSERT_EQUAL(game.evaluate(true), 1); // Player should win
 }
@@ -1415,6 +1416,7 @@ int main()
     framework.addTest("BlackJack Initialization", testBlackJackInitialization);
     framework.addTest("BlackJack Display State Hidden Dealer Card", test_displayState_hiddenDealerCard);
     framework.addTest("BlackJack Display State Show Dealer Card", test_displayState_showDealerCard);
+    framework.addTest("BlackJack Evaluate", testEvaluate);
 
     /*
     // Player tests (Need to add default cases to player.h and cpp so that it can build auto and won't need input)
