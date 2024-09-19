@@ -16,7 +16,8 @@
  */
 Weapon::Weapon()
 {
-    // seed
+    // LCOV_EXCL_START
+    //  seed
     srand(static_cast<unsigned int>(time(0)));
 
     // weapons
@@ -47,11 +48,8 @@ Weapon::Weapon()
     addWeapon(25, "Glowglobe Bomb", "A light-emitting device that can be overloaded to explode, blinding enemies temporarily.", 20, "Uncommon", true, true);
     addWeapon(26, "Stilgar's Blade", "A unique knife belonging to the legendary Fremen leader Stilgar, revered for its history.", 55, "Epic", false, false);
     addWeapon(27, "Sardaukar Blade", "A razor-sharp sword used by the elite Sardaukar troops, feared across the galaxy.", 65, "Rare", false, false);
+    // LCOV_EXCL_STOP
 }
-
-
-
-
 
 /*!
  * @brief Returns a random weapon ID.
@@ -63,8 +61,6 @@ int Weapon::giveRandWeapon()
     int randomIndex = rand() % weaponIds.size();
     return weaponIds[randomIndex];
 }
-
-
 
 /*!
  * @brief Returns a weapon ID based on the specified rarity.

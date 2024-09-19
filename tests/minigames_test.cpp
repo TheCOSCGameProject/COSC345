@@ -973,27 +973,29 @@ void test_makeMove()
     ASSERT_EQUAL(' ', game.getSquare(0, 1));
 }
 
-// void test_isGameOver()
-// {
-//     TicTacToe game;
+void test_isGameOver()
+{
+    TicTacToe game;
 
-//     // Test no win, not full board
-//     ASSERT(!game.isGameOver(3));
+    // Test no win, not full board
+    ASSERT(!game.isGameOver(3));
 
-//     // Test draw scenario
-//     game.squares = {
-//         {'X', 'O', 'X'},
-//         {'X', 'X', 'O'},
-//         {'O', 'X', 'O'}};
-//     ASSERT(game.isGameOver(9)); // Draw
+    // Test draw scenario
+    char squares1[3][3] = {
+        {'X', 'O', 'X'},
+        {'X', 'X', 'O'},
+        {'O', 'X', 'O'}};
+    game.setBoard(squares1);
+    ASSERT(game.isGameOver(9)); // Draw
 
-//     // Test win scenario
-//     game.squares = {
-//         {'X', 'X', 'X'},
-//         {'O', ' ', ' '},
-//         {'O', ' ', ' '}};
-//     ASSERT(game.checkForWin()); // X wins
-// }
+    // Test win scenario
+    char squares2[3][3] = {
+        {'X', 'X', 'X'},
+        {'O', ' ', ' '},
+        {'O', ' ', ' '}};
+    game.setBoard(squares2);
+    ASSERT(game.checkForWin()); // X wins
+}
 
 void test_getPlayerMove()
 {
@@ -1283,7 +1285,7 @@ int main()
 
     // framework.addTest("test_isValidMove", test_isValidMove);
     framework.addTest("test_makeMove", test_makeMove);
-    // // framework.addTest("test_isGameOver", test_isGameOver);
+    framework.addTest("test_isGameOver", test_isGameOver);
     framework.addTest("test_getPlayerMove", test_getPlayerMove);
     framework.addTest("test_processComputerTurn", test_processComputerTurn);
 

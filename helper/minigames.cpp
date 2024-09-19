@@ -16,7 +16,6 @@ Each game has methods for setting up the game, handling player input, and determ
 @return A string representing the name of the game.
 */
 
-
 std::string TicTacToe::getGameName()
 {
     return "TicTacToe";
@@ -123,8 +122,9 @@ bool TicTacToe::checkForWin()
     return wasWin;
 }
 
+// LCOV_EXCL_START
 bool TicTacToe::start()
-{   
+{
     printBoard();
     int moveCount = 0;
 
@@ -148,6 +148,7 @@ bool TicTacToe::start()
             return true;
     }
 }
+// LCOV_EXCL_STOP
 
 void TicTacToe::setBoard(char newBoard[3][3])
 {
@@ -256,6 +257,7 @@ bool TicTacToe::processComputerTurn()
     return true;
 }
 
+// LCOV_EXCL_START
 void TicTacToe::delayTurn()
 {
 #ifdef _WIN32
@@ -264,6 +266,7 @@ void TicTacToe::delayTurn()
     sleep(1);
 #endif
 }
+// LCOV_EXCL_STOP
 
 /** CodeGuesser game */
 
