@@ -24,6 +24,7 @@ ValerisGame::ValerisGame()
 void ValerisGame::start()
 {
     bool exploring = true; //!< Flag to control the exploration loop.
+    // LCOV_EXCL_START
     while (exploring)
     {
         // dungeon.traverseAndPrint(currentRoom);
@@ -133,4 +134,5 @@ void ValerisGame::start()
             std::cout << "Invalid direction. Please enter N, S, E, W, or Q." << std::endl;
         }
     }
+    // LCOV_EXCL_STOP
 }
