@@ -11,12 +11,14 @@
 @brief Constructor for the Player class.
 @details Initializes the player by obtaining the player's name and class type from user input, and setting the player's maximum and current health to 100.
 */
+
+
 Player::Player()
+    : maxHealth(100), 
+      currHealth(100)   
 {
     getNameFromUser();
     getClassFromUser();
-    this->maxHealth = 100;
-    this->currHealth = 100;
     clear(2);
 }
 

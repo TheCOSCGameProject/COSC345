@@ -60,7 +60,7 @@ void Accessiblity(int &delayTime, std::string &color);
  * @param color Reference to the old color code for the text.
  * @details This function allows the player to select and change the color of the text
  */
-std::string getColor(int colorChoice, std::string color);
+std::string getColor(int colorChoice, const std::string& color);
 
 void DisplayOption();
 

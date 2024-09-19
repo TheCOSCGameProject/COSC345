@@ -444,8 +444,13 @@ std::string CodeGuesser::getLastGuess() const
 @details Initializes a new game of BlackJack by shuffling the deck and dealing cards to the player and dealer.
 */
 BlackJack::BlackJack()
+
+
+: bid(0)
 {
     newGame();
+
+
 }
 
 /*!
