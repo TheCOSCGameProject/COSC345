@@ -62,4 +62,6 @@ void Accessiblity(int &delayTime, std::string &color);
  */
 std::string getColor(int colorChoice, std::string color);
 
+void DisplayOption();
+
 #endif // MENU_H
