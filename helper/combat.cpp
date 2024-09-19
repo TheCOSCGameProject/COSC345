@@ -98,6 +98,7 @@ bool combatV1(int playerHealth, int enemyHealth, int difficulty, const std::stri
     }
 }
 
+// LCOV_EXCL_START
 /*!
 @brief Placeholder for the second version of the combat system.
 @param playerHealth The initial health of the player.
@@ -119,3 +120,4 @@ void combatV2(int playerHealth, int enemyHealth)
         // Further implementation for player choices and combat resolution needed here
     }
 }
+// LCOV_EXCL_STOP

@@ -15,4 +15,6 @@
 #else
 #include <unistd.h>
 #include <termios.h>
+#include <CoreAudio/CoreAudio.h>
+#include <AudioToolbox/AudioToolbox.h>
 #endif
