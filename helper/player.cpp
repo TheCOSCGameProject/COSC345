@@ -14,6 +14,7 @@
 
 
 Player::Player()
+  : maxHealth(100)
 {
     getNameFromUser();
     getClassFromUser();
