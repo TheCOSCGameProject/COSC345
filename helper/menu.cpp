@@ -47,6 +47,7 @@ void Displayj()
     std::cout << "==========================================================" << std::endl;
 }
 
+// LCOV_EXCL_START
 /*!
 @brief Start a new game of Valeris.
 @details This function creates an instance of the ValerisGame class and begins the game.
@@ -65,6 +66,7 @@ void LoadSavedGame()
 {
     std::cout << "\033[37m" << "Loading game..." << std::endl;
 }
+// LCOV_EXCL_STOP
 
 /*!
  * @brief Display the game instructions.

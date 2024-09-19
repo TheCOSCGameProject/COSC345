@@ -14,6 +14,7 @@
  * @param width The desired width of the console window.
  * @param height The desired height of the console window.
  */
+// LCOV_EXCL_START
 void SetConsoleSize(int width, int height)
 {
     HWND console = GetConsoleWindow();
@@ -32,13 +33,14 @@ void SetTerminalSize(int height, int width)
 {
     std::cout << "\033[8;" << height << ";" << width << "t";
 }
+// LCOV_EXCL_STOP
 #endif
+
 /*!
  * @brief Creates a delay for a specified amount of time.
  * @param milliseconds The number of milliseconds to delay.
  * @details This function uses a busy-wait loop to create a delay, which can be used to control the timing of text display or other actions.
  */
-
 void delay(int milliseconds)
 {
     auto start = std::chrono::high_resolution_clock::now();
@@ -51,7 +53,7 @@ void delay(int milliseconds)
  * @brief Disables user input on the console/terminal.
  * @details Disables input features such as echo and canonical mode on both Windows and non-Windows systems.
  */
-
+// LCOV_EXCL_START
 void disableInput()
 {
 #ifdef _WIN32
@@ -85,7 +87,7 @@ void enableInput()
     tcflush(STDIN_FILENO, TCIFLUSH);
 #endif
 }
-
+// LCOV_EXCL_STOP
 /*!
  * @brief Prints text with a typing effect.
  * @param content The text content to print.
@@ -309,12 +311,12 @@ int readInt()
 void waitForEnter()
 {
     std::cout << "Press Enter to continue...";
-    //system("stty -echo -icanon");
+    // system("stty -echo -icanon");
 
-    //std::cin.ignore(); // Waits for the user to press Ente
+    // std::cin.ignore(); // Waits for the user to press Ente
     std::cin.get();
 
-    //system("stty echo icanon");
+    // system("stty echo icanon");
 }
 /*!
  * @brief Converts a string to uppercase.

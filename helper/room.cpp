@@ -195,6 +195,7 @@ std::vector<EnemyStruct> RoomContent::getEnemies()
 @brief Display the content of the room.
 @details Prints the coordinates, visited status, items, enemies, and NPC details of the room to the console.
 */
+// LCOV_EXCL_START
 void RoomContent::displayContent() const
 {
     std::cout << "cords: " << "(" << cords.first << ", " << cords.second << ")" << std::endl;
@@ -235,6 +236,7 @@ void RoomContent::displayContent() const
         std::cout << "Skill Level: " << npc.skillLevel << std::endl;
     }
 }
+// LCOV_EXCL_STOP
 
 /*!
 @brief Constructor for the Room class.

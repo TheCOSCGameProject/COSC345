@@ -21,10 +21,10 @@ ValerisGame::ValerisGame()
  * @brief Starts the game and manages the main exploration loop.
  * @details The start method enters a loop where the player explores the dungeon, moves between rooms, and interacts with the game world. The player can move in cardinal directions, engage in combat, play games, or view help information.
  */
+// LCOV_EXCL_START
 void ValerisGame::start()
 {
     bool exploring = true; //!< Flag to control the exploration loop.
-    // LCOV_EXCL_START
     while (exploring)
     {
         // dungeon.traverseAndPrint(currentRoom);
