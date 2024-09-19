@@ -14,8 +14,9 @@
 
 
 Player::Player()
-    : maxHealth(100), 
-      currHealth(100)   
+  : maxHealth(100),
+    currHealth(100),
+    resistance(0)
 {
     getNameFromUser();
     getClassFromUser();
