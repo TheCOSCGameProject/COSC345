@@ -572,6 +572,10 @@ void testSetMaxHealth()
     Player player = createPlayerWithInput("Alice", "Warrior");
     player.setMaxHelth(150);
     ASSERT_EQUAL(player.getMaxHealth(), 150);
+
+    player.setMaxHelth(100);
+    ASSERT_EQUAL(player.getMaxHealth(), 100);
+    ASSERT_EQUAL(player.getCurrHealth(), 100);
 }
 
 void testSetCurrHealth()
