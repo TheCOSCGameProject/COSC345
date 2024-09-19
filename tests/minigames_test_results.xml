@@ -1,72 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testcase name="TicTacToe Initialization" time="2.4125e-05"/>
-  <testcase name="TicTacToe Player Move" time="2.5e-07"/>
-  <testcase name="TicTacToe Computer Turn" time="0.000117917"/>
-  <testcase name="TicTacToe Check For Win" time="1.166e-06"/>
-  <testcase name="CodeGuesser Initialization" time="0.000531166"/>
-  <testcase name="CodeGuesser Game Name" time="9.85e-05"/>
-  <testcase name="CodeGuesser Add Guess" time="0.000104625"/>
-  <testcase name="CodeGuesser Start Game" time="0.000117"/>
-  <testcase name="BlackJack Initialization" time="3.5208e-05"/>
-  <testcase name="BlackJack Display State Hidden Dealer Card" time="9.0417e-05"/>
-  <testcase name="BlackJack Display State Show Dealer Card" time="4.3708e-05"/>
-  <testcase name="Player Constructor" time="2.2416e-05"/>
-  <testcase name="Add To Inventory" time="3.4042e-05"/>
-  <testcase name="Remove From Inventory" time="1.7292e-05"/>
-  <testcase name="Remove Nonexistent Item" time="7.166e-06"/>
-  <testcase name="Set Max Health" time="5.459e-06"/>
-  <testcase name="Set Current Health" time="5.5e-06"/>
-  <testcase name="Add Buff" time="8.5e-06"/>
-  <testcase name="Remove Buff" time="7.916e-06"/>
-  <testcase name="Remove Nonexistent Buff" time="6.666e-06"/>
-  <testcase name="Set Resistance" time="5.375e-06"/>
-  <testcase name="Set Max Health Adjusts Current Health" time="5.417e-06"/>
-  <testcase name="Weapon Initialization" time="0.00684675"/>
-  <testcase name="Random Weapon Generation" time="6.1083e-05"/>
-  <testcase name="Weapon Generation by Rarity" time="8.1833e-05"/>
-  <testcase name="All Weapons" time="8.6917e-05"/>
-  <testcase name="Generate Random Number" time="1.6125e-05"/>
-  <testcase name="String to Int Conversion" time="0.000651625"/>
-  <testcase name="Repeat String" time="3.417e-06"/>
-  <testcase name="To Lower Case" time="4.333e-06"/>
-  <testcase name="To Upper Case" time="3.334e-06"/>
-  <testcase name="Split String" time="1.9375e-05"/>
-  <testcase name="Get File Content" time="0.000416125"/>
-  <testcase name="Read Int" time="7.166e-06"/>
-  <testcase name="Get User Input Line" time="4.334e-06"/>
-  <testcase name="Wait For Enter" time="4.083e-06"/>
-  <testcase name="Enemy Initialisation" time="9e-06"/>
-  <testcase name="Enemy Damage Application" time="6.083e-06"/>
-  <testcase name="Enemy Death Condition" time="4.959e-06"/>
-  <testcase name="Enemy Custom Setters" time="4.625e-06"/>
-  <testcase name="Dungeon Room Generation" time="0.00438925"/>
-  <testcase name="Dungeon Link Room" time="0.000675667"/>
-  <testcase name="Print Health" time="2.1459e-05"/>
-  <testcase name="Display intro test" time="11.3355"/>
-  <testcase name="Display menu test" time="4.666e-06"/>
-  <testcase name="Display instructions test" time="0.0004815"/>
-  <testcase name="Test GetColor Green" time="7.92e-07"/>
-  <testcase name="Test GetColor Blue" time="4.16e-07"/>
-  <testcase name="Test GetColor Red" time="1.25e-07"/>
+  <testcase name="TicTacToe Initialization" time="5.5584e-05"/>
+  <testcase name="TicTacToe Player Move" time="5e-07"/>
+  <testcase name="TicTacToe Computer Turn" time="0.000164792"/>
+  <testcase name="TicTacToe Check For Win" time="1.625e-06"/>
+  <testcase name="CodeGuesser Initialization" time="0.00057875"/>
+  <testcase name="CodeGuesser Game Name" time="8.9625e-05"/>
+  <testcase name="CodeGuesser Add Guess" time="0.000103209"/>
+  <testcase name="CodeGuesser Start Game" time="0.000103833"/>
+  <testcase name="BlackJack Initialization" time="3.6459e-05"/>
+  <testcase name="BlackJack Display State Hidden Dealer Card" time="7.5292e-05"/>
+  <testcase name="BlackJack Display State Show Dealer Card" time="4.1584e-05"/>
+  <testcase name="Player Constructor" time="1.6208e-05"/>
+  <testcase name="Add To Inventory" time="1.0334e-05"/>
+  <testcase name="Remove From Inventory" time="1.8542e-05"/>
+  <testcase name="Remove Nonexistent Item" time="7.417e-06"/>
+  <testcase name="Set Max Health" time="5.375e-06"/>
+  <testcase name="Set Current Health" time="5.291e-06"/>
+  <testcase name="Add Buff" time="8.125e-06"/>
+  <testcase name="Remove Buff" time="7.708e-06"/>
+  <testcase name="Remove Nonexistent Buff" time="6.459e-06"/>
+  <testcase name="Set Resistance" time="5.166e-06"/>
+  <testcase name="Set Max Health Adjusts Current Health" time="5.208e-06"/>
+  <testcase name="Weapon Initialization" time="0.00646692"/>
+  <testcase name="Random Weapon Generation" time="6.0583e-05"/>
+  <testcase name="Weapon Generation by Rarity" time="8.175e-05"/>
+  <testcase name="All Weapons" time="8.6042e-05"/>
+  <testcase name="Generate Random Number" time="1.3125e-05"/>
+  <testcase name="String to Int Conversion" time="0.000219375"/>
+  <testcase name="Repeat String" time="2.167e-06"/>
+  <testcase name="To Lower Case" time="4.125e-06"/>
+  <testcase name="To Upper Case" time="3e-06"/>
+  <testcase name="Split String" time="1.3375e-05"/>
+  <testcase name="Get File Content" time="0.000496917"/>
+  <testcase name="Read Int" time="8.708e-06"/>
+  <testcase name="Get User Input Line" time="4.875e-06"/>
+  <testcase name="Wait For Enter" time="3.916e-06"/>
+  <testcase name="Enemy Initialisation" time="9.083e-06"/>
+  <testcase name="Enemy Damage Application" time="6.167e-06"/>
+  <testcase name="Enemy Death Condition" time="5.458e-06"/>
+  <testcase name="Enemy Custom Setters" time="5.25e-06"/>
+  <testcase name="Dungeon Room Generation" time="0.00605404"/>
+  <testcase name="Dungeon Link Room" time="0.000665125"/>
+  <testcase name="Print Health" time="2.3e-05"/>
+  <testcase name="Display intro test" time="11.3421"/>
+  <testcase name="Display menu test" time="3.208e-06"/>
+  <testcase name="Display instructions test" time="0.000468375"/>
+  <testcase name="Test GetColor Green" time="6.67e-07"/>
+  <testcase name="Test GetColor Blue" time="1.66e-07"/>
+  <testcase name="Test GetColor Red" time="1.67e-07"/>
   <testcase name="Test GetColor Yellow" time="1.67e-07"/>
-  <testcase name="Test GetColor Cyan" time="1.25e-07"/>
-  <testcase name="Test GetColor Invalid" time="2.00001"/>
-  <testcase name="CombatV1PressP" time="3.00003"/>
-  <testcase name="CodeGuesserPrintWords" time="0.000236583"/>
-  <testcase name="TicTacToePrintBoard" time="0.000194"/>
-  <testcase name="test_makeMove" time="1.3334e-05"/>
-  <testcase name="test_isGameOver" time="6.00008"/>
-  <testcase name="test_getPlayerMove" time="1.4625e-05"/>
-  <testcase name="test_processComputerTurn" time="3.00003"/>
-  <testcase name="Test testHandlePlayerTurn" time="2.4333e-05"/>
-  <testcase name="RoomContent::getRoomType" time="9.6333e-05"/>
-  <testcase name="RoomContent::getNPC" time="0.000297"/>
-  <testcase name="RoomContent::getEnemies" time="3.2e-05"/>
-  <testcase name="RoomContent::getCoordinates" time="0.000250958"/>
-  <testcase name="RoomContent::getVisited and setVisited" time="0.0002425"/>
-  <testcase name="Room::testNoDirections" time="0.000255959"/>
-  <testcase name="Room::testAllDirections" time="0.000600709"/>
-  <testcase name="Room::testSomeDirections" time="0.00050575"/>
-  <testcase name="Room::testOneDirection" time="0.000478125"/>
+  <testcase name="Test GetColor Cyan" time="4.17e-07"/>
+  <testcase name="Test GetColor Invalid" time="2.00004"/>
+  <testcase name="CombatV1PressP" time="3.00002"/>
+  <testcase name="CodeGuesserPrintWords" time="0.000205458"/>
+  <testcase name="TicTacToePrintBoard" time="0.000198"/>
+  <testcase name="test_makeMove" time="6.25e-07"/>
+  <testcase name="test_isGameOver" time="6.00005"/>
+  <testcase name="test_getPlayerMove" time="1.35e-05"/>
+  <testcase name="test_processComputerTurn" time="3.00004"/>
+  <testcase name="Test testHandlePlayerTurn" time="2.6083e-05"/>
+  <testcase name="RoomContent::getRoomType" time="0.000906583"/>
+  <testcase name="RoomContent::getNPC" time="8.4e-05"/>
+  <testcase name="RoomContent::getEnemies" time="0.000546458">
+    <failure message="Assertion failed: 1 != enemies.size()"/>
+  </testcase>
+  <testcase name="RoomContent::getCoordinates" time="3.325e-05"/>
+  <testcase name="RoomContent::getVisited and setVisited" time="0.000248"/>
+  <testcase name="Room::testNoDirections" time="4.275e-05"/>
+  <testcase name="Room::testAllDirections" time="0.000584042"/>
+  <testcase name="Room::testSomeDirections" time="0.000306417"/>
+  <testcase name="Room::testOneDirection" time="6.8542e-05"/>
 </testsuites>

@@ -205,13 +205,6 @@ private:
     int bid;                       //!< The player's current bid.
 
     /*!
-     * @brief Evaluates the player's hand.
-     * @param hit Indicates if the player has chosen to hit or stand.
-     * @return The result of the evaluation.
-     */
-    int evaluate(bool hit);
-
-    /*!
      * @brief Initializes the deck of cards.
      */
     void initDecks();
@@ -227,6 +220,13 @@ public:
      * @details Initializes the game with default settings.
      */
     BlackJack();
+
+    /*!
+     * @brief Evaluates the player's hand.
+     * @param hit Indicates if the player has chosen to hit or stand.
+     * @return The result of the evaluation.
+     */
+    int evaluate(bool hit);
 
     /*!
      * @brief Displays the current state of the game.
@@ -269,6 +269,31 @@ public:
      * @return A string representing the name of the game.
      */
     std::string getGameName() override;
+
+    /*!
+     * @brief Initializes the game state.
+     * @return The maximum number of rounds for the game.
+     */
+    int initializeGame();
+
+    /*!
+     * @brief Handles a single player turn.
+     * @return Whether the player chose to hit or stand.
+     */
+    bool handlePlayerTurn();
+
+    /*!
+     * @brief Updates the game state based on the result of a round.
+     * @param won Indicates if the round was won or lost.
+     */
+    void updateGameState(bool won, int rounds, int totalWins, int maxRounds, bool wasHit);
+
+    /*!
+     * @brief Handles the end of the game.
+     * @param won Indicates if the player won or lost the game.
+     * @return True if the player won, false otherwise.
+     */
+    bool endGame(bool won);
 };
 
 #endif // MINIGAMES_H

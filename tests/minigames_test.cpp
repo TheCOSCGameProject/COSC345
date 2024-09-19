@@ -249,6 +249,69 @@ void test_displayState_showDealerCard()
     ASSERT_EQUAL(expectedOutput, outputCapture.str());
 }
 
+void testEvaluate()
+{
+    BlackJack game;
+
+    // Test 1: Player total is less than dealer total without hitting
+    int dealer1[2] = {10, 15}; // Dealer total = 25
+    game.setDealer(dealer1);
+    game.setPlayerCards({10, 5});           // Player total = 15
+    ASSERT_EQUAL(game.evaluate(false), -1); // Player should lose
+
+    // Test 2: Player total exceeds 21 without hitting
+    int dealer2[2] = {10, 10}; // Dealer total = 20
+    game.setDealer(dealer2);
+    game.setPlayerCards({10, 10, 5});       // Player total = 25
+    ASSERT_EQUAL(game.evaluate(false), -1); // Player should lose
+
+    // Test 3: Player hits and does not get 21
+    int dealer3[2] = {10, 15}; // Dealer total = 25
+    game.setDealer(dealer3);
+    game.setPlayerCards({10, 5}); // Player total = 15
+    // Simulate hitting
+    std::vector<int> newPlayerCards = game.getPlayerCards();
+    newPlayerCards.push_back(3); // New total = 18
+    game.setPlayerCards(newPlayerCards);
+    ASSERT_EQUAL(game.evaluate(true), 0); // Game should continue
+
+    // Test 4: Player hits and gets exactly 21
+    int dealer4[2] = {10, 10}; // Dealer total = 20
+    game.setDealer(dealer4);
+    game.setPlayerCards({10, 10}); // Player total = 20
+    // Simulate hitting
+    std::vector<int> newPlayerCards4 = game.getPlayerCards();
+    newPlayerCards4.push_back(1); // New total = 21
+    game.setPlayerCards(newPlayerCards4);
+    ASSERT_EQUAL(game.evaluate(true), 1); // Player should win
+
+    // Test 5: Player has exactly 21 without hitting
+    int dealer5[2] = {10, 15}; // Dealer total = 25
+    game.setDealer(dealer5);
+    game.setPlayerCards({10, 11});         // Player total = 21
+    ASSERT_EQUAL(game.evaluate(false), 1); // Player should win
+
+    // Test 6: Player hits and goes over 21
+    int dealer6[2] = {10, 10}; // Dealer total = 20
+    game.setDealer(dealer6);
+    game.setPlayerCards({10, 5}); // Player total = 15
+    // Simulate hitting
+    std::vector<int> newPlayerCards6 = game.getPlayerCards();
+    newPlayerCards6.push_back(7); // New total = 22
+    game.setPlayerCards(newPlayerCards6);
+    ASSERT_EQUAL(game.evaluate(true), -1); // Player should lose
+
+    // Test 7: Player hits and achieves exactly 21 with fewer cards
+    int dealer7[2] = {10, 15}; // Dealer total = 25
+    game.setDealer(dealer7);
+    game.setPlayerCards({10}); // Player total = 10
+    // Simulate hitting
+    std::vector<int> newPlayerCards7 = game.getPlayerCards();
+    newPlayerCards7.push_back(11); // New total = 21
+    game.setPlayerCards(newPlayerCards7);
+    ASSERT_EQUAL(game.evaluate(true), 1); // Player should win
+}
+
 void testSpecificWeapon(Weapon &weaponSystem, int id, const std::string &name, const std::string &description,
                         int damage, const std::string &rarity, bool isRanged, bool canStun)
 {
