@@ -43,7 +43,7 @@ jobs:
           python -m gcovr -r . --html --html-details -o coverage.html
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@eaaf4bedf32dbdc6b720b63067d99c4d77d6047d 
+        uses: codecov/codecov-action@v3 
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage.xml
