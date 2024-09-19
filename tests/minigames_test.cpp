@@ -655,12 +655,19 @@ void testPrintHealth()
     printHealth(100, 50, "Enemy");
     std::string result = buffer.str();
 
+    std::string expected = "***************************************\n* Player Health: 100 Enemy Health: 50 *\n***************************************\n\n";
+
     // Reset cout's buffer
     std::cout.rdbuf(prevcoutbuf);
+
+    std::cout << result;
+    std::cout << expected;
 
     // Check if the output contains the expected health information
     ASSERT(result.find("Player Health: 100") != std::string::npos);
     ASSERT(result.find("Enemy Health: 50") != std::string::npos);
+
+    ASSERT_EQUAL(result, expected);
 }
 
 // Menu tests
@@ -1086,6 +1093,24 @@ void testGetCoordinates()
     std::pair<int, int> coords = roomContent.getCoordinates();
     ASSERT_EQUAL(3, coords.first);  // Check x-coordinate
     ASSERT_EQUAL(4, coords.second); // Check y-coordinate
+
+    roomContent.addCoordinates(-3, 4);
+
+    coords = roomContent.getCoordinates();
+    ASSERT_EQUAL(-3, coords.first); // Check x-coordinate
+    ASSERT_EQUAL(4, coords.second); // Check y-coordinate
+
+    roomContent.addCoordinates(3, -4);
+
+    coords = roomContent.getCoordinates();
+    ASSERT_EQUAL(3, coords.first);   // Check x-coordinate
+    ASSERT_EQUAL(-4, coords.second); // Check y-coordinate
+
+    roomContent.addCoordinates(-3, -4);
+
+    coords = roomContent.getCoordinates();
+    ASSERT_EQUAL(-3, coords.first);  // Check x-coordinate
+    ASSERT_EQUAL(-4, coords.second); // Check y-coordinate
 }
 
 // Test for RoomContent::getVisited and setVisited methods
