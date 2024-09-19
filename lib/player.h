@@ -25,7 +25,7 @@ private:
     std::vector<std::string> inventory; //!< Player's inventory containing item names.
     std::string classType; //!< The class type of the player (e.g., warrior, mage).
     std::string firstName; //!< The first name of the player.
-    int resistance; //!< The player's resistance value, which might affect damage taken.
+    int resistance = 0; //!< The player's resistance value, which might affect damage taken.
     std::vector<std::string> buffs; //!< List of active buffs on the player.
 
 public:
