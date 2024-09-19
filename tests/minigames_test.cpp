@@ -994,7 +994,14 @@ void test_isGameOver()
         {'O', ' ', ' '},
         {'O', ' ', ' '}};
     game.setBoard(squares2);
-    ASSERT(game.checkForWin()); // X wins
+
+    // Test win scenario
+    char squares3[3][3] = {
+        {'O', 'X', 'X'},
+        {'O', ' ', 'X'},
+        {'O', ' ', ' '}};
+    game.setBoard(squares3);
+    ASSERT(game.isGameOver(6)); // X wins
 }
 
 void test_getPlayerMove()
@@ -1010,7 +1017,17 @@ void test_getPlayerMove()
     ASSERT_EQUAL(1, col);
 
     std::istringstream invalidInput("4 5\n");
-    std::cin.rdbuf(invalidInput.rdbuf());  // Invalid input
+    std::cin.rdbuf(invalidInput.rdbuf()); // Invalid input
+
+    ASSERT(!game.getPlayerMove(row, col)); // Should return false
+
+    std::istringstream invalidInput2("1 1\n");
+    std::cin.rdbuf(invalidInput2.rdbuf()); // Invalid input
+    char squares1[3][3] = {
+        {'X', 'O', 'X'},
+        {'X', ' ', ' '},
+        {'O', ' ', 'O'}};
+    game.setBoard(squares1);
     ASSERT(!game.getPlayerMove(row, col)); // Should return false
 }
 
@@ -1025,12 +1042,13 @@ void test_processComputerTurn()
     std::ostringstream outputCapture;
     std::streambuf *oldCoutStreamBuf = std::cout.rdbuf(outputCapture.rdbuf());
 
+    // Test 1: Computer makes a move on an empty board
     game.processComputerTurn();
 
     // Restore original cout stream buffer
     std::cout.rdbuf(oldCoutStreamBuf);
 
-    // After computer move, one square should be filled (assuming computerTurn works)
+    // After computer move, one square should be filled with 'O'
     bool moveMade = false;
     for (int i = 0; i < 3; ++i)
     {
@@ -1039,10 +1057,55 @@ void test_processComputerTurn()
             if (game.getSquare(i, j) == 'O')
             {
                 moveMade = true;
+                break; // Exit the inner loop when move is found
             }
         }
+        if (moveMade)
+            break; // Exit the outer loop when move is found
     }
-    ASSERT(moveMade); // Make sure some 'O' was placed on the board
+    ASSERT(moveMade); // Ensure some 'O' was placed on the board
+
+    // Test 2: Computer cannot make a move (full or near-full board)
+    // Manually set up a nearly full board
+    char squares1[3][3] = {
+        {'X', 'O', 'X'},
+        {'X', 'O', 'X'},
+        {'O', ' ', 'O'}};
+    game.setBoard(squares1);
+
+    // Redirect cout to capture output for this second scenario
+    std::ostringstream outputCapture2;
+    std::streambuf *oldCoutStreamBuf2 = std::cout.rdbuf(outputCapture2.rdbuf());
+
+    // Computer makes a move again, should fill the last spot or return false
+    bool result = game.processComputerTurn();
+
+    // Restore original cout stream buffer again
+    std::cout.rdbuf(oldCoutStreamBuf2);
+
+    // Test 3: Now the board is full, so processComputerTurn should return false
+    ASSERT(!result); // Should return false if no moves are left
+}
+
+void testHandlePlayerTurn()
+{
+    TicTacToe game;
+    int row = 1, col = 1;
+    std::istringstream input("1 1\n");
+    std::cin.rdbuf(input.rdbuf()); // Redirect input
+
+    bool result = game.handlePlayerTurn();
+
+    // Assertions
+    ASSERT(result);
+
+    std::istringstream invalidInput("4 5\n");
+    std::cin.rdbuf(invalidInput.rdbuf()); // Invalid input
+
+    result = game.handlePlayerTurn();
+
+    // Assertions
+    ASSERT(!result);
 }
 
 // Room stuff
@@ -1279,15 +1342,15 @@ int main()
 
     framework.addTest("CombatV1PressP", testCombatV1PressP);
 
-    framework.addTest("TicTacToePrintBoard", testTicTacToePrintBoard);
-
     framework.addTest("CodeGuesserPrintWords", testCodeGuesserPrintWords);
 
+    framework.addTest("TicTacToePrintBoard", testTicTacToePrintBoard);
     // framework.addTest("test_isValidMove", test_isValidMove);
     framework.addTest("test_makeMove", test_makeMove);
     framework.addTest("test_isGameOver", test_isGameOver);
     framework.addTest("test_getPlayerMove", test_getPlayerMove);
     framework.addTest("test_processComputerTurn", test_processComputerTurn);
+    framework.addTest("Test testHandlePlayerTurn", testHandlePlayerTurn);
 
     // Room tests
     framework.addTest("RoomContent::getRoomType", testGetRoomType);
