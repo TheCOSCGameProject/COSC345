@@ -16,9 +16,11 @@ while the Room class manages room connections and navigation.
 @details Initializes a RoomContent object by randomly generating a room type (either empty or gambling room).
 Depending on the room type, it populates the room with appropriate items, enemies, or NPCs.
 */
+
 RoomContent::RoomContent()
+    : roomType(generateRandomNumber(0, 1)),
+      passcode(0)
 {
-    this->roomType = generateRandomNumber(0, 1);
     switch (roomType)
     {
     case 0:
@@ -45,7 +47,7 @@ RoomContent::RoomContent()
         }
         else
         {
-            roomDesc = "Gambling Room containing a NPC with an unknown game";
+            roomDesc = "Gambling Room containing an NPC with an unknown game";
         }
         break;
     default:
@@ -54,6 +56,7 @@ RoomContent::RoomContent()
         break;
     }
 }
+
 
 /*!
 @brief Get the description of the room.
