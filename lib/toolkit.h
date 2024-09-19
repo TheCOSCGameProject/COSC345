@@ -51,7 +51,7 @@ void delay(int milliseconds);
  * @param delayTime The delay time between characters in milliseconds.
  * @param color The color code for the text.
  */
-void typePrint(std::string content, int delayTime, std::string color);
+void typePrint(const std::string &content, int delayTime = 15, const std::string &color = "\033[36m");
 
 /*!
  * @brief Read the content of a file and return it as a string.
