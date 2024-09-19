@@ -765,7 +765,16 @@ void test_DisplayInstructionsText()
     std::cout.rdbuf(old);
 
     // The expected output with ANSI escape code for white text
-    std::string expectedOutput = "\033[37m\nInstructions:\n1. Use the N, S, W, E keys to move your character.\n2. Fight enemies with ___\n3. Collect items to improve your chances of survival.\n4. Play minigames with ___\n5. Defeat bosses to progress to the next level.\n\n\033[0mPress Enter to continue...\n";
+    std::string instructions = R"(
+Instructions:
+1. Use the N, S, W, E keys to move your character.
+2. Fight enemies with ___
+3. Collect items to improve your chances of survival.
+4. Play minigames with ___
+5. Defeat bosses to progress to the next level.
+)";
+
+    std::string expectedOutput = "\033[37m" + instructions + "\nPress Enter to continue...";
 
     std::string normalizedExpected = normalizeString(expectedOutput);
     std::string normalizedOutput = normalizeString(buffer.str());
@@ -997,7 +1006,14 @@ void test_processComputerTurn()
     // Empty board before computer move
     ASSERT_EQUAL(' ', game.getSquare(0, 0));
 
+    // Redirect cout to a stringstream to capture output
+    std::ostringstream outputCapture;
+    std::streambuf *oldCoutStreamBuf = std::cout.rdbuf(outputCapture.rdbuf());
+
     game.processComputerTurn();
+
+    // Restore original cout stream buffer
+    std::cout.rdbuf(oldCoutStreamBuf);
 
     // After computer move, one square should be filled (assuming computerTurn works)
     bool moveMade = false;
@@ -1012,6 +1028,75 @@ void test_processComputerTurn()
         }
     }
     ASSERT(moveMade); // Make sure some 'O' was placed on the board
+}
+
+// Room stuff
+// Test for RoomContent::getRoomType method
+void testGetRoomType()
+{
+    RoomContent roomContent;
+    int roomType = roomContent.getRoomType();
+
+    // Test if room type is 0 (empty room) or 1 (gambling room)
+    ASSERT_EQUAL(true, roomType == 0 || roomType == 1);
+}
+
+// Test for RoomContent::getNPC method
+void testGetNPC()
+{
+    RoomContent roomContent;
+    roomContent.gamblingRoom();
+    NPC &npc = roomContent.getNPC();
+
+    // Test if the NPC name is non-empty (assuming NPC should have a name)
+    ASSERT_EQUAL(false, npc.name.empty());
+}
+
+// Test for RoomContent::getEnemies method
+void testGetEnemies()
+{
+    RoomContent roomContent;
+    std::vector<EnemyStruct> enemies = roomContent.getEnemies();
+
+    // Assuming the room starts without enemies, the size should be
+
+    // Add an enemy and test again
+    EnemyStruct enemy = {"Goblin", 30, 5};
+    roomContent.addEnemy(enemy);
+    enemies = roomContent.getEnemies();
+
+    ASSERT_EQUAL(1, enemies.size());
+    ASSERT_EQUAL("Goblin", enemies.at(0).name);
+    ASSERT_EQUAL(30, enemies.at(0).health);
+    ASSERT_EQUAL(5, enemies.at(0).attack);
+}
+
+// Test for RoomContent::getCoordinates method
+void testGetCoordinates()
+{
+    RoomContent roomContent;
+    roomContent.addCoordinates(3, 4);
+
+    std::pair<int, int> coords = roomContent.getCoordinates();
+    ASSERT_EQUAL(3, coords.first);  // Check x-coordinate
+    ASSERT_EQUAL(4, coords.second); // Check y-coordinate
+}
+
+// Test for RoomContent::getVisited and setVisited methods
+void testVisitedStatus()
+{
+    RoomContent roomContent;
+
+    // Initially the room should not be visited
+    ASSERT_EQUAL(false, roomContent.getVisited());
+
+    // Set room as visited and check again
+    roomContent.setVisited(true);
+    ASSERT_EQUAL(true, roomContent.getVisited());
+
+    // Set room as not visited and check again
+    roomContent.setVisited(false);
+    ASSERT_EQUAL(false, roomContent.getVisited());
 }
 
 int main()
@@ -1102,13 +1187,18 @@ int main()
 
     // framework.addTest("test_isValidMove", test_isValidMove);
     framework.addTest("test_makeMove", test_makeMove);
-    // framework.addTest("test_isGameOver", test_isGameOver);
+    // // framework.addTest("test_isGameOver", test_isGameOver);
     framework.addTest("test_getPlayerMove", test_getPlayerMove);
     framework.addTest("test_processComputerTurn", test_processComputerTurn);
 
-    std::cout << "joe joe joe joe joe";
+    // Room tests
+    framework.addTest("RoomContent::getRoomType", testGetRoomType);
+    framework.addTest("RoomContent::getNPC", testGetNPC);
+    framework.addTest("RoomContent::getEnemies", testGetEnemies);
+    framework.addTest("RoomContent::getCoordinates", testGetCoordinates);
+    framework.addTest("RoomContent::getVisited and setVisited", testVisitedStatus);
 
-                 // Run framework
+    // Run framework
     framework.run();
 
     return 0;

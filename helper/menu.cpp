@@ -173,15 +173,3 @@ void Accessiblity(int &delayTime, std::string &color)
         break;
     }
 }
-
-void DisplayOption()
-{
-    std::cout << "\033[37m" << "==========================================================" << std::endl;
-    std::cout << std::setw(15) << " " << "COMING SOONjjjjj" << std::endl;
-    std::cout << "==========================================================" << std::endl;
-    std::cout << "This feature is not available yet. Stay tunedj" << std::endl;
-    std::cout << "==========================================================" << std::endl;
-
-    waitForEnter();
-    clear(5);
-}
