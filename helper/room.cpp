@@ -1,9 +1,9 @@
 /*!
 @file room.cpp
 @brief Implementation of Room and RoomContent classes for dungeon system.
-@details This file contains the implementation of the Room and RoomContent classes, 
+@details This file contains the implementation of the Room and RoomContent classes,
 which manage the creation and interaction with different types of rooms in a dungeon system.
-The RoomContent class handles the generation of room types, items, enemies, and NPCs, 
+The RoomContent class handles the generation of room types, items, enemies, and NPCs,
 while the Room class manages room connections and navigation.
 */
 
@@ -23,7 +23,7 @@ RoomContent::RoomContent()
     {
     case 0:
         emptyRoom();
-        roomDesc = "Empty Room";
+        roomDesc = "Room";
         if (!enemies.empty())
         {
             roomDesc.append(" containing ");
@@ -66,7 +66,7 @@ std::string RoomContent::getRoomDesc()
 
 /*!
 @brief Generate a gambling room with a random NPC and game.
-@details This method creates an NPC with a random gambling game (either TicTacToe or BlackJack). 
+@details This method creates an NPC with a random gambling game (either TicTacToe or BlackJack).
 It reads NPC names from a file and assigns one to the NPC.
 */
 void RoomContent::gamblingRoom()

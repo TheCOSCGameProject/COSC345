@@ -178,8 +178,8 @@ void testBlackJackInitialization()
     ASSERT_EQUAL("Black Jack", game.getGameName());
 }
 
-void testSpecificWeapon(Weapon& weaponSystem, int id, const std::string& name, const std::string& description, 
-                        int damage, const std::string& rarity, bool isRanged, bool canStun)
+void testSpecificWeapon(Weapon &weaponSystem, int id, const std::string &name, const std::string &description,
+                        int damage, const std::string &rarity, bool isRanged, bool canStun)
 {
     ASSERT_EQUAL(name, weaponSystem.getName(id));
     ASSERT_EQUAL(description, weaponSystem.getDescription(id));
@@ -189,14 +189,14 @@ void testSpecificWeapon(Weapon& weaponSystem, int id, const std::string& name, c
     ASSERT_EQUAL(canStun, weaponSystem.getStun(id));
 }
 
-
 void testWeaponInitialization()
 {
     // Test multiple instances to ensure randomness is covered
     std::set<int> randomWeapons;
     const int NUM_TESTS = 100;
 
-    for (int i = 0; i < NUM_TESTS; ++i) {
+    for (int i = 0; i < NUM_TESTS; ++i)
+    {
         Weapon weaponSystem;
 
         // Test a random weapon to ensure the random number generation is covered
@@ -213,12 +213,12 @@ void testWeaponInitialization()
     ASSERT(randomWeapons.size() == 1);
 }
 
-
 void testAllWeapons()
 {
     Weapon weaponSystem;
 
-    for (int id = 1; id <= 27; ++id) {
+    for (int id = 1; id <= 27; ++id)
+    {
         ASSERT(!weaponSystem.getName(id).empty());
         ASSERT(!weaponSystem.getDescription(id).empty());
         ASSERT(weaponSystem.getDamage(id) > 0);
@@ -464,35 +464,54 @@ Player createPlayerWithInput(const std::string &nameInput, const std::string &cl
 
 void testPlayerConstructor()
 {
-    // Simulate input for name
-    std::stringstream simulatedInput("Alice\nWarrior\nFrank\nToolSmith");
-    std::stringstream simulatedOutput;
-
     // Redirect std::cin and std::cout
     std::streambuf *cinBackup = std::cin.rdbuf();
     std::streambuf *coutBackup = std::cout.rdbuf();
 
-    std::cin.rdbuf(simulatedInput.rdbuf());
-    std::cout.rdbuf(simulatedOutput.rdbuf());
+    // Test case 1: First player with valid input
+    {
+        std::stringstream simulatedInput("Alice\nWarrior\n");
+        std::stringstream simulatedOutput;
+        std::cin.rdbuf(simulatedInput.rdbuf());
+        std::cout.rdbuf(simulatedOutput.rdbuf());
 
-    // Create Player object and call getNameFromUser
-    Player player;
+        Player player;
+        ASSERT_EQUAL(player.getName(), "Alice");
+        ASSERT_EQUAL(player.getClassType(), "Warrior");
+        ASSERT_EQUAL(player.getMaxHealth(), 100);
+        ASSERT_EQUAL(player.getCurrHealth(), 100);
+    }
 
-    ASSERT_EQUAL(player.getName(), "Alice");
-    ASSERT_EQUAL(player.getClassType(), "Warrior");
-    ASSERT_EQUAL(player.getMaxHealth(), 100);
-    ASSERT_EQUAL(player.getCurrHealth(), 100);
+    // Test case 2: Second player with different input
+    {
+        std::stringstream simulatedInput("Frank\nToolSmith\n");
+        std::stringstream simulatedOutput;
+        std::cin.rdbuf(simulatedInput.rdbuf());
+        std::cout.rdbuf(simulatedOutput.rdbuf());
 
-    player.getNameFromUser();
-    player.getClassFromUser();
+        Player player;
+        ASSERT_EQUAL(player.getName(), "Frank");
+        ASSERT_EQUAL(player.getClassType(), "ToolSmith");
+        ASSERT_EQUAL(player.getMaxHealth(), 100);
+        ASSERT_EQUAL(player.getCurrHealth(), 100);
+    }
+
+    {
+        std::stringstream simulatedInput(" _23\n_23\n");
+        std::stringstream simulatedOutput;
+        std::cin.rdbuf(simulatedInput.rdbuf());
+        std::cout.rdbuf(simulatedOutput.rdbuf());
+
+        Player player;
+        ASSERT_EQUAL(player.getName(), "_23");
+        ASSERT_EQUAL(player.getClassType(), "_23");
+        ASSERT_EQUAL(player.getMaxHealth(), 100);
+        ASSERT_EQUAL(player.getCurrHealth(), 100);
+    }
 
     // Restore std::cin and std::cout
     std::cin.rdbuf(cinBackup);
     std::cout.rdbuf(coutBackup);
-
-    // Validate that the player name was correctly set
-    ASSERT_EQUAL(player.getName(), "Frank");
-    ASSERT_EQUAL(player.getClassType(), "ToolSmith");
 }
 
 void testAddToInventory()
@@ -888,7 +907,7 @@ int main()
     framework.addTest("TicTacToe Player Move", testTicTacToePlayerMove);
     framework.addTest("TicTacToe Computer Turn", testTicTacToeComputerTurn);
     framework.addTest("TicTacToe Check For Win", testTicTacToeCheckForWin);
-    //framework.addTest("TicTacToe Start", testTicTacToeStart);
+    // framework.addTest("TicTacToe Start", testTicTacToeStart);
 
     // CodeGuesser tests
     framework.addTest("CodeGuesser Initialization", testCodeGuesserInitialization);
