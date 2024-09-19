@@ -20,8 +20,8 @@
 class Player
 {
 private:
-    int maxHealth; //!< The maximum health of the player.
-    int currHealth; //!< The current health of the player.
+    int maxHealth = 100; //!< The maximum health of the player.
+    int currHealth = 100; //!< The current health of the player.
     std::vector<std::string> inventory; //!< Player's inventory containing item names.
     std::string classType; //!< The class type of the player (e.g., warrior, mage).
     std::string firstName; //!< The first name of the player.
