@@ -747,6 +747,9 @@ void testDisplayj()
 
     // Alternatively, use an assertion
     ASSERT_EQUAL(output, expectedOutput);
+
+    bool inverse = output != "cidjown";
+    ASSERT(inverse);
 }
 
 void test_DisplayInstructionsText()
