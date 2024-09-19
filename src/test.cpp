@@ -13,8 +13,11 @@ int main()
     // clear(5);
     // combatV1(1000, 10, 3000, "JEfecdwwedf");
 
-    BlackJack bj;
-    bj.start();
+    // BlackJack bj;
+    // bj.start();
+
+    Player p;
+    p.removeFromInventory("arrow");
 
     return 0;
 }

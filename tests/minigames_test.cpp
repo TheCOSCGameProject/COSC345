@@ -527,9 +527,30 @@ void testRemoveFromInventory()
 {
     Player player = createPlayerWithInput("Alice", "Warrior");
     player.addToInventory("Sword");
+
     player.removeFromInventory("Sword");
     std::vector<std::string> expected{};
     ASSERT_EQUAL(player.getInventory(), expected);
+    player.removeFromInventory("Sword");
+    ASSERT_EQUAL(player.getInventory(), expected);
+
+    player.addToInventory("Bow");
+    player.addToInventory("Arrow");
+    std::vector<std::string> expected2 = {"Bow"};
+    player.removeFromInventory("Arrow");
+    ASSERT_EQUAL(player.getInventory(), expected2);
+
+    std::stringstream simulatedOutput;
+    std::streambuf *coutBackup = std::cout.rdbuf();
+    std::cout.rdbuf(simulatedOutput.rdbuf());
+
+    player.removeFromInventory("Arrow"); // Item not in the inventory
+
+    // Restore std::cout
+    std::cout.rdbuf(coutBackup);
+
+    std::string output = simulatedOutput.str();
+    ASSERT_EQUAL(output, "Item not found in inventory.\n");
 }
 
 void testRemoveNonexistentItem()
