@@ -1,8 +1,8 @@
 /*!
  * @file minigames.h
  * @brief Defines the base Game class and its derived classes for the Valeris game.
- * @details This file contains the declaration of the Game class, which is a base class for different mini-games 
- * such as TicTacToe, CodeGuesser, and BlackJack. Each game has its own implementation for starting the game and 
+ * @details This file contains the declaration of the Game class, which is a base class for different mini-games
+ * such as TicTacToe, CodeGuesser, and BlackJack. Each game has its own implementation for starting the game and
  * other game-specific functionality.
  */
 
@@ -22,7 +22,7 @@
 /*!
  * @class Game
  * @brief Abstract base class for mini-games.
- * @details The Game class provides a common interface for all mini-games, enforcing the implementation 
+ * @details The Game class provides a common interface for all mini-games, enforcing the implementation
  * of the start method and providing a way to retrieve the game's name.
  */
 class Game
@@ -111,11 +111,10 @@ public:
 
     void delayTurn();
 
-
-        /*!
-         * @brief Gets the name of the game.
-         * @return A string representing the name of the game.
-         */
+    /*!
+     * @brief Gets the name of the game.
+     * @return A string representing the name of the game.
+     */
     std::string getGameName() override;
 };
 
@@ -127,9 +126,9 @@ public:
 class CodeGuesser : public Game
 {
 private:
-    std::vector<std::string> words; //!< List of possible secret words.
+    std::vector<std::string> words;   //!< List of possible secret words.
     std::vector<std::string> guesses; //!< List of player guesses.
-    int index; //!< Index of the current secret word.
+    int index;                        //!< Index of the current secret word.
 
     /*!
      * @brief Generates a random index within a given range.
@@ -200,10 +199,10 @@ public:
 class BlackJack : public Game
 {
 private:
-    std::vector<int> cards; //!< Deck of cards for the game.
-    int dealer[2]; //!< Dealer's hand.
+    std::vector<int> cards;        //!< Deck of cards for the game.
+    int dealer[2];                 //!< Dealer's hand.
     std::vector<int> playersCards; //!< Player's hand.
-    int bid; //!< The player's current bid.
+    int bid;                       //!< The player's current bid.
 
     /*!
      * @brief Evaluates the player's hand.
@@ -222,18 +221,42 @@ private:
      */
     void newGame();
 
-    /*!
-     * @brief Displays the current state of the game.
-     * @param printAll Indicates whether to print all details or just the player's perspective.
-     */
-    void displayState(bool printAll);
-
 public:
     /*!
      * @brief Constructor for the BlackJack game.
      * @details Initializes the game with default settings.
      */
     BlackJack();
+
+    /*!
+     * @brief Displays the current state of the game.
+     * @param printAll Indicates whether to print all details or just the player's perspective.
+     */
+    void displayState(bool printAll);
+
+    /*!
+     * @brief Gets the dealer's hand.
+     * @return An array containing the dealer's cards.
+     */
+    const int *getDealer() const;
+
+    /*!
+     * @brief Sets the dealer's hand.
+     * @param newDealer An array containing the new cards for the dealer.
+     */
+    void setDealer(const int newDealer[2]);
+
+    /*!
+     * @brief Gets the player's hand.
+     * @return A vector containing the player's cards.
+     */
+    const std::vector<int> &getPlayerCards() const;
+
+    /*!
+     * @brief Sets the player's hand.
+     * @param newPlayerCards A vector containing the new cards for the player.
+     */
+    void setPlayerCards(const std::vector<int> &newPlayerCards);
 
     /*!
      * @brief Starts the BlackJack game.

@@ -445,12 +445,9 @@ std::string CodeGuesser::getLastGuess() const
 */
 BlackJack::BlackJack()
 
-
-: bid(0)
+    : bid(0)
 {
     newGame();
-
-
 }
 
 /*!
@@ -609,6 +606,43 @@ void BlackJack::newGame()
     std::shuffle(std::begin(cards), std::end(cards), rng);
 
     initDecks();
+}
+
+/*!
+ * @brief Gets the dealer's hand.
+ * @return An array containing the dealer's cards.
+ */
+const int *BlackJack::getDealer() const
+{
+    return dealer;
+}
+
+/*!
+ * @brief Sets the dealer's hand.
+ * @param newDealer An array containing the new cards for the dealer.
+ */
+void BlackJack::setDealer(const int newDealer[2])
+{
+    dealer[0] = newDealer[0];
+    dealer[1] = newDealer[1];
+}
+
+/*!
+ * @brief Gets the player's hand.
+ * @return A vector containing the player's cards.
+ */
+const std::vector<int> &BlackJack::getPlayerCards() const
+{
+    return playersCards;
+}
+
+/*!
+ * @brief Sets the player's hand.
+ * @param newPlayerCards A vector containing the new cards for the player.
+ */
+void BlackJack::setPlayerCards(const std::vector<int> &newPlayerCards)
+{
+    playersCards = newPlayerCards;
 }
 
 /*!

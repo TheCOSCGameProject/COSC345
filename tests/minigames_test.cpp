@@ -178,6 +178,77 @@ void testBlackJackInitialization()
     ASSERT_EQUAL("Black Jack", game.getGameName());
 }
 
+void test_displayState_hiddenDealerCard()
+{
+    BlackJack game;
+
+    // Set a known game state for dealer and player
+    int d[] = {10, 8};
+    std::vector<int> pc = {5, 6};
+
+    game.setDealer(d);       // Dealer has 10 and 8
+    game.setPlayerCards(pc); // Player has 5 and 6
+
+    // Redirect cout to a stringstream to capture the output
+    std::ostringstream outputCapture;
+    std::streambuf *oldCoutStreamBuf = std::cout.rdbuf(outputCapture.rdbuf());
+
+    // Call the method with printAll == false (dealer's second card hidden)
+    game.displayState(false);
+
+    // Restore the original cout buffer
+    std::cout.rdbuf(oldCoutStreamBuf);
+
+    // Expected output for dealer's second card being hidden
+    std::string expectedOutput =
+        "            Dealer's Cards\n"
+        "========================================\n"
+        "                10 X\n\n"
+        "            Player's Cards\n"
+        "========================================\n"
+        "                 5 6\n";
+
+    // Compare the captured output with the expected output
+    std::cout << expectedOutput;
+    std::cout << outputCapture.str();
+
+    ASSERT_EQUAL(expectedOutput, outputCapture.str());
+}
+
+void test_displayState_showDealerCard()
+{
+    BlackJack game;
+
+    // Set a known game state for dealer and player
+    int d[] = {10, 8};
+    std::vector<int> pc = {5, 6};
+
+    game.setDealer(d);       // Dealer has 10 and 8
+    game.setPlayerCards(pc); // Player has 5 and 6
+
+    // Redirect cout to a stringstream to capture the output
+    std::ostringstream outputCapture;
+    std::streambuf *oldCoutStreamBuf = std::cout.rdbuf(outputCapture.rdbuf());
+
+    // Call the method with printAll == true (dealer's second card visible)
+    game.displayState(true);
+
+    // Restore the original cout buffer
+    std::cout.rdbuf(oldCoutStreamBuf);
+
+    // Expected output for dealer's second card being shown
+    std::string expectedOutput =
+        "            Dealer's Cards\n"
+        "========================================\n"
+        "                10 8\n\n"
+        "            Player's Cards\n"
+        "========================================\n"
+        "                 5 6\n";
+
+    // Compare the captured output with the expected output
+    ASSERT_EQUAL(expectedOutput, outputCapture.str());
+}
+
 void testSpecificWeapon(Weapon &weaponSystem, int id, const std::string &name, const std::string &description,
                         int damage, const std::string &rarity, bool isRanged, bool canStun)
 {
@@ -1279,6 +1350,8 @@ int main()
 
     // BlackJack tests
     framework.addTest("BlackJack Initialization", testBlackJackInitialization);
+    framework.addTest("BlackJack Display State Hidden Dealer Card", test_displayState_hiddenDealerCard);
+    framework.addTest("BlackJack Display State Show Dealer Card", test_displayState_showDealerCard);
 
     /*
     // Player tests (Need to add default cases to player.h and cpp so that it can build auto and won't need input)
