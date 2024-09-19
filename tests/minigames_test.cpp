@@ -573,9 +573,9 @@ void testSetMaxHealth()
     player.setMaxHelth(150);
     ASSERT_EQUAL(player.getMaxHealth(), 150);
 
-    player.setMaxHelth(100);
-    ASSERT_EQUAL(player.getMaxHealth(), 100);
-    ASSERT_EQUAL(player.getCurrHealth(), 100);
+    player.setMaxHelth(50);
+    ASSERT_EQUAL(player.getMaxHealth(), 50);
+    ASSERT_EQUAL(player.getCurrHealth(), 50);
 }
 
 void testSetCurrHealth()
