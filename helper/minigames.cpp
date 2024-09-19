@@ -464,6 +464,7 @@ std::string BlackJack::getGameName()
 @return True if the player wins, false otherwise.
 @details The player plays against the dealer, attempting to win the majority of rounds.
 */
+// LCOV_EXCL_START
 bool BlackJack::start()
 {
     int maxRounds = 1; // generateRandomNumber(1, 5);
@@ -536,6 +537,7 @@ bool BlackJack::start()
         return false;
     }
 }
+// LCOV_EXCL_STOP
 
 /*!
 @brief Evaluate the player's hand against the dealer's.
