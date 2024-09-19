@@ -784,6 +784,9 @@ Instructions:
 
     // Compare the actual output with the expected output
     ASSERT_EQUAL(normalizedOutput, normalizedExpected);
+
+    bool inverse = normalizedOutput != "cidjown";
+    ASSERT(inverse);
 }
 
 // Test cases
