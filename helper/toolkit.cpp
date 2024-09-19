@@ -95,7 +95,7 @@ void enableInput()
  * @param color The color code for the text. Default is cyan ("\033[36m").
  * @details This function prints text one character at a time, simulating a typing effect, with customizable delay and color.
  */
-void typePrint(const std::string& content, int delayTime = 15, const std::string& color = "\033[36m")
+void typePrint(const std::string &content, int delayTime, const std::string &color)
 {
     for (char c : content)
     {
