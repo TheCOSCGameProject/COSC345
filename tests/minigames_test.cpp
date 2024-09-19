@@ -1099,6 +1099,71 @@ void testVisitedStatus()
     ASSERT_EQUAL(false, roomContent.getVisited());
 }
 
+// Capture the output of a function that prints to std::cout
+template <typename Func>
+std::string captureOutput(Func func)
+{
+    std::ostringstream output;
+    std::streambuf *oldCoutStreamBuf = std::cout.rdbuf(output.rdbuf());
+
+    func(); // Call the function that prints to std::cout
+
+    std::cout.rdbuf(oldCoutStreamBuf);
+    return output.str();
+}
+
+void testNoDirections()
+{
+    Room room;
+
+    std::string result = captureOutput([&]()
+                                       { room.displayAvailableDirections(); });
+
+    // Expect "You can move: " with no directions listed
+    ASSERT_EQUAL("You can move: \n", result);
+}
+
+void testAllDirections()
+{
+    Room room;
+    room.north = new Room();
+    room.south = new Room();
+    room.west = new Room();
+    room.east = new Room();
+
+    std::string result = captureOutput([&]()
+                                       { room.displayAvailableDirections(); });
+
+    // Expect "You can move: North, South, West, East"
+    ASSERT_EQUAL("You can move: North, South, West, East\n", result);
+}
+
+void testSomeDirections()
+{
+    Room room;
+    room.north = new Room();
+    room.south = new Room();
+    // west and east are not set
+
+    std::string result = captureOutput([&]()
+                                       { room.displayAvailableDirections(); });
+
+    // Expect "You can move: North, South"
+    ASSERT_EQUAL("You can move: North, South\n", result);
+}
+
+void testOneDirection()
+{
+    Room room;
+    room.north = new Room();
+    // south, west, and east are not set
+
+    std::string result = captureOutput([&]()
+                                       { room.displayAvailableDirections(); });
+
+    // Expect "You can move: North"
+    ASSERT_EQUAL("You can move: North\n", result);
+}
 int main()
 {
     TestFramework framework("minigames_test_results.xml");
@@ -1197,7 +1262,10 @@ int main()
     framework.addTest("RoomContent::getEnemies", testGetEnemies);
     framework.addTest("RoomContent::getCoordinates", testGetCoordinates);
     framework.addTest("RoomContent::getVisited and setVisited", testVisitedStatus);
-
+    framework.addTest("Room::testNoDirections", testNoDirections);
+    framework.addTest("Room::testAllDirections", testAllDirections);
+    framework.addTest("Room::testSomeDirections", testSomeDirections);
+    framework.addTest("Room::testOneDirection", testOneDirection);
     // Run framework
     framework.run();
 
