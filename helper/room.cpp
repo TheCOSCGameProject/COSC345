@@ -17,9 +17,11 @@ while the Room class manages room connections and navigation.
 Depending on the room type, it populates the room with appropriate items, enemies, or NPCs.
 */
 
+
 RoomContent::RoomContent()
     : roomType(generateRandomNumber(0, 1)),
-      passcode(0)
+      passcode(false),
+      visited(false)   
 {
     switch (roomType)
     {
@@ -56,6 +58,7 @@ RoomContent::RoomContent()
         break;
     }
 }
+
 
 
 /*!
