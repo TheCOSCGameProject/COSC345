@@ -95,10 +95,27 @@ public:
      */
     bool start() override;
 
-    /*!
-     * @brief Gets the name of the game.
-     * @return A string representing the name of the game.
-     */
+    bool handlePlayerTurn();
+
+    bool getPlayerMove(int &row, int &col);
+
+    bool isValidMove(int row, int col);
+
+    void makeMove(int row, int col, char symbol);
+
+    bool isGameOver(int moveCount);
+
+    bool processComputerTurn();
+
+    void setBoard(char newBoard[3][3]);
+
+    void delayTurn();
+
+
+        /*!
+         * @brief Gets the name of the game.
+         * @return A string representing the name of the game.
+         */
     std::string getGameName() override;
 };
 

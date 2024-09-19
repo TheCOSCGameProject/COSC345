@@ -15,6 +15,8 @@ Each game has methods for setting up the game, handling player input, and determ
 @brief Get the name of the TicTacToe game.
 @return A string representing the name of the game.
 */
+
+
 std::string TicTacToe::getGameName()
 {
     return "TicTacToe";
@@ -121,77 +123,146 @@ bool TicTacToe::checkForWin()
     return wasWin;
 }
 
-/*!
-@brief Start the TicTacToe game.
-@return True if the player wins, false otherwise.
-@details Alternates turns between the player and the computer until there is a win or a draw.
-*/
 bool TicTacToe::start()
-{
+{   
     printBoard();
-    int row, col;
-    int count = 0;
+    int moveCount = 0;
+
     while (true)
     {
-        std::cout << "\nEnter your move (row and column separated by a space, e.g., '1 1'): ";
-        std::cin >> row >> col;
-
-        if (std::cin.fail() || row < 1 || row > 3 || col < 1 || col > 3)
-        {
-            std::cin.clear();            // clear the error flag on cin
-            std::cin.ignore(1000, '\n'); // discard invalid input
-            std::cout << "Invalid input. Please enter numbers between 1 and 3." << std::endl;
+        // Player's turn
+        if (!handlePlayerTurn())
             continue;
-        }
 
-        if (squares[row - 1][col - 1] != ' ')
-        {
-            std::cout << "That square is already taken. Please choose another one." << std::endl;
-            continue;
-        }
-
-        squares[row - 1][col - 1] = 'X';
-        clear(12);
-        printBoard();
-        if (checkForWin())
-        {
-            std::cout << "You win!" << std::endl;
-            delay(3000);
-            clear(11);
+        moveCount++;
+        if (isGameOver(moveCount))
             return true;
-        }
-        count++;
-        if (count == 9)
-        {
-            std::cout << "Draw!" << std::endl;
-            delay(3000);
-            clear(11);
-            return false;
-        }
 
-#ifdef _WIN32
-        Sleep(1); // Sleep for 1 second
-#else
-        sleep(1);
-#endif
-
-        computerTurn();
-        if (checkForWin())
-        {
-            std::cout << "You lose!" << std::endl;
-            delay(3000);
-            clear(11);
+        // Computer's turn
+        delayTurn(); // Optional: add delay to make gameplay smoother
+        if (!processComputerTurn())
             return false;
-        }
-        count++;
-        if (count == 9)
-        {
-            std::cout << "Draw!" << std::endl;
-            delay(3000);
-            clear(11);
+
+        moveCount++;
+        if (isGameOver(moveCount))
             return true;
+    }
+}
+
+void TicTacToe::setBoard(char newBoard[3][3])
+{
+    for (int i = 0; i < 3; ++i)
+    {
+        for (int j = 0; j < 3; ++j)
+        {
+            squares[i][j] = newBoard[i][j]; // Copy each element from newBoard to squares
         }
     }
+}
+
+// std::array<std::array<char, 3>, 3> TicTacToe::getSquares()
+// {
+//         // for (int i = 0; i < 3; ++i)
+//         // {
+//         //     for (int j = 0; j < 3; ++j)
+//         //     {
+//         //         boardCopy[i][j] = squares[i][j];
+//         //     }
+//         // }
+//     return squares;
+// }
+
+bool TicTacToe::handlePlayerTurn()
+{
+    int row, col;
+    if (!getPlayerMove(row, col))
+        return false; // Invalid move, loop back for a valid one
+
+    makeMove(row, col, 'X'); // Player move
+    clear(12);               // Clear console
+    printBoard();
+
+    return true;
+}
+
+bool TicTacToe::getPlayerMove(int &row, int &col)
+{
+    std::cout << "\nEnter your move (row and column separated by a space, e.g., '1 1'): ";
+    std::cin >> row >> col;
+
+    if (std::cin.fail() || !isValidMove(row, col))
+    {
+        std::cin.clear();            // Clear error flag on cin
+        std::cin.ignore(1000, '\n'); // Discard invalid input
+        std::cout << "Invalid input. Please enter numbers between 1 and 3." << std::endl;
+        return false;
+    }
+
+    if (squares[row - 1][col - 1] != ' ')
+    {
+        std::cout << "That square is already taken. Please choose another one." << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool TicTacToe::isValidMove(int row, int col)
+{
+    return row >= 1 && row <= 3 && col >= 1 && col <= 3;
+}
+
+void TicTacToe::makeMove(int row, int col, char symbol)
+{
+    squares[row - 1][col - 1] = symbol;
+}
+
+bool TicTacToe::isGameOver(int moveCount)
+{
+    if (checkForWin())
+    {
+        std::cout << (moveCount % 2 == 1 ? "You win!" : "You lose!") << std::endl;
+        delay(3000);
+        clear(11);
+        return true;
+    }
+
+    if (moveCount == 9)
+    {
+        std::cout << "Draw!" << std::endl;
+        delay(3000);
+        clear(11);
+        return true;
+    }
+
+    return false;
+}
+
+bool TicTacToe::processComputerTurn()
+{
+    computerTurn(); // Computer makes its move
+
+    clear(12);    // Clear console
+    printBoard(); // Show updated board
+
+    if (checkForWin())
+    {
+        std::cout << "You lose!" << std::endl;
+        delay(3000);
+        clear(11);
+        return false;
+    }
+
+    return true;
+}
+
+void TicTacToe::delayTurn()
+{
+#ifdef _WIN32
+    Sleep(1); // Sleep for 1 second on Windows
+#else
+    sleep(1);
+#endif
 }
 
 /** CodeGuesser game */

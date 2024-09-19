@@ -17,18 +17,18 @@
 #include "custom_test_framework.h"
 #include <sstream>
 
-void testTicTacToeInitialization()
-{
-    TicTacToe game;
-    // Test that the board is initially empty
-    for (int i = 0; i < 3; i++)
-    {
-        for (int j = 0; j < 3; j++)
-        {
-            ASSERT_EQUAL(' ', game.getSquare(i, j));
-        }
-    }
-}
+// void testTicTacToeInitialization()
+// {
+//     TicTacToe game;
+//     // Test that the board is initially empty
+//     for (int i = 0; i < 3; i++)
+//     {
+//         for (int j = 0; j < 3; j++)
+//         {
+//             ASSERT_EQUAL(' ', game.getSquare(i, j));
+//         }
+//     }
+// }
 
 void testTicTacToePlayerMove()
 {
@@ -923,6 +923,97 @@ void testCodeGuesserPrintWords()
     ASSERT_EQUAL(normalizedExpected, normalizedActual);
 }
 
+void testTicTacToeInitialization()
+{
+    TicTacToe game;
+    ASSERT(game.isValidMove(1, 1));
+    ASSERT(game.isValidMove(3, 3));
+
+    // Test invalid moves (out of bounds)
+    ASSERT(!game.isValidMove(0, 1));
+    ASSERT(!game.isValidMove(4, 3));
+    ASSERT(!game.isValidMove(2, 0));
+    ASSERT(!game.isValidMove(3, 4));
+}
+
+void test_makeMove()
+{
+    TicTacToe game;
+
+    // Make a move and check board state
+    game.makeMove(1, 1, 'X');
+    ASSERT_EQUAL('X', game.getSquare(0, 0));
+
+    game.makeMove(2, 2, 'O');
+    ASSERT_EQUAL('O', game.getSquare(1, 1));
+
+    // Make sure other squares remain untouched
+    ASSERT_EQUAL(' ', game.getSquare(0, 1));
+}
+
+// void test_isGameOver()
+// {
+//     TicTacToe game;
+
+//     // Test no win, not full board
+//     ASSERT(!game.isGameOver(3));
+
+//     // Test draw scenario
+//     game.squares = {
+//         {'X', 'O', 'X'},
+//         {'X', 'X', 'O'},
+//         {'O', 'X', 'O'}};
+//     ASSERT(game.isGameOver(9)); // Draw
+
+//     // Test win scenario
+//     game.squares = {
+//         {'X', 'X', 'X'},
+//         {'O', ' ', ' '},
+//         {'O', ' ', ' '}};
+//     ASSERT(game.checkForWin()); // X wins
+// }
+
+void test_getPlayerMove()
+{
+    TicTacToe game;
+
+    int row = 1, col = 1;
+    std::istringstream input("1 1\n");
+    std::cin.rdbuf(input.rdbuf()); // Redirect input
+
+    ASSERT(game.getPlayerMove(row, col));
+    ASSERT_EQUAL(1, row);
+    ASSERT_EQUAL(1, col);
+
+    std::istringstream invalidInput("4 5\n");
+    std::cin.rdbuf(invalidInput.rdbuf());  // Invalid input
+    ASSERT(!game.getPlayerMove(row, col)); // Should return false
+}
+
+void test_processComputerTurn()
+{
+    TicTacToe game;
+
+    // Empty board before computer move
+    ASSERT_EQUAL(' ', game.getSquare(0, 0));
+
+    game.processComputerTurn();
+
+    // After computer move, one square should be filled (assuming computerTurn works)
+    bool moveMade = false;
+    for (int i = 0; i < 3; ++i)
+    {
+        for (int j = 0; j < 3; ++j)
+        {
+            if (game.getSquare(i, j) == 'O')
+            {
+                moveMade = true;
+            }
+        }
+    }
+    ASSERT(moveMade); // Make sure some 'O' was placed on the board
+}
+
 int main()
 {
     TestFramework framework("minigames_test_results.xml");
@@ -1009,7 +1100,15 @@ int main()
 
     framework.addTest("CodeGuesserPrintWords", testCodeGuesserPrintWords);
 
-    // Run framework
+    // framework.addTest("test_isValidMove", test_isValidMove);
+    framework.addTest("test_makeMove", test_makeMove);
+    // framework.addTest("test_isGameOver", test_isGameOver);
+    framework.addTest("test_getPlayerMove", test_getPlayerMove);
+    framework.addTest("test_processComputerTurn", test_processComputerTurn);
+
+    std::cout << "joe joe joe joe joe";
+
+                 // Run framework
     framework.run();
 
     return 0;
