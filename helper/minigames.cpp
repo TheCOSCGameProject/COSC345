@@ -125,6 +125,8 @@ bool TicTacToe::checkForWin()
 // LCOV_EXCL_START
 bool TicTacToe::start()
 {
+    char squaresReset[3][3] = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
+    setBoard(squaresReset);
     printBoard();
     int moveCount = 0;
 
@@ -136,16 +138,22 @@ bool TicTacToe::start()
 
         moveCount++;
         if (isGameOver(moveCount))
+        {
             return true;
+        }
 
         // Computer's turn
         delayTurn(); // Optional: add delay to make gameplay smoother
         if (!processComputerTurn())
+        {
             return false;
+        }
 
         moveCount++;
         if (isGameOver(moveCount))
+        {
             return true;
+        }
     }
 }
 // LCOV_EXCL_STOP
