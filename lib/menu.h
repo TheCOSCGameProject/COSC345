@@ -33,7 +33,7 @@ void Displayj();
  * @param color The color of the text
  * @details This function initializes a new game session, setting up the necessary game state.
  */
-void StartGame(std::string color);
+void StartGame(const std::string &color);
 
 /*!
  * @brief Loads a saved game.

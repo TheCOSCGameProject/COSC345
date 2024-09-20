@@ -52,7 +52,7 @@ void Displayj()
 @brief Start a new game of Valeris.
 @details This function creates an instance of the ValerisGame class and begins the game.
 */
-void StartGame(std::string color)
+void StartGame(const std::string &color)
 {
     ValerisGame valerisGame;
     valerisGame.start(color);

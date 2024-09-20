@@ -35,5 +35,5 @@ public:
      * @param color the color of the text
      * @details This method begins the game loop, allowing the player to explore the dungeon and interact with the environment.
      */
-    void start(std::string color);
+    void start(const std::string &color);
 };
