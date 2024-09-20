@@ -1,3 +1,11 @@
+/**
+ * @file enemies_test.cpp
+ * @brief The tests for Enemies class
+ *
+ * This file contains test cases for verifying the correct behavior of the Enemies class
+ * including the enemies initalisation, enemies health and damage, enemies names, enemies types, etc.
+ */
+
 #include "../lib/enemies.h"
 #include "custom_test_framework.h"
 
