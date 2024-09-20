@@ -1,3 +1,13 @@
+/**
+ * @file minigames_test.cpp
+ * @brief The tests for the Minigames
+ *
+ * This file contains test cases for verifying the correct behavior of the Minigames class,
+ * including the Tictactoe, BlackJack, CoderGuesser, Menu, etc.
+ */
+
+
+
 #include "../lib/minigames.h"
 #include "../lib/combat.h"
 #include "../lib/dungeon.h"
