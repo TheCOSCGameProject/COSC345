@@ -1,3 +1,11 @@
+/**
+ * @file player_test.cpp
+ * @brief Unit tests for the Player class.
+ *
+ * This file contains test cases for verifying the correct behavior of the Player class,
+ * including Player Input, Player Health, Player Current Health, Player Resistance, etc.
+ */
+
 // #include "../helper/minigames.cpp"
 #include "../lib/player.h"
 #include "custom_test_framework.h"
