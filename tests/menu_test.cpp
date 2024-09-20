@@ -1,3 +1,11 @@
+/**
+ * @file menu_test.cpp
+ * @brief The tests for the Menu
+ *
+ * This file contains test cases for verifying the correct behavior of the Menu class
+ * including the display Text, input menu, text color, etc.
+ */
+
 #include "../lib/menu.h"
 #include "custom_test_framework.h"
 #include <sstream>
