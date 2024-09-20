@@ -64,7 +64,14 @@ void StartGame(std::string color)
  */
 void LoadSavedGame()
 {
-    std::cout << "\033[37m" << "Loading game..." << std::endl;
+    std::cout << "\033[37m" << "==========================================================" << std::endl;
+    std::cout << std::setw(15) << " " << "COMING SOON" << std::endl;
+    std::cout << "==========================================================" << std::endl;
+    std::cout << "This feature is not available yet. Stay tuned" << std::endl;
+    std::cout << "==========================================================" << std::endl;
+
+    waitForEnter();
+    clear(6);
 }
 // LCOV_EXCL_STOP
 
@@ -87,7 +94,7 @@ Instructions:
     std::cout << "\033[37m" << instructions << std::endl;
 
     waitForEnter();
-    clear(8);
+    clear(10);
 }
 
 /*!
