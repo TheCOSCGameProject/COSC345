@@ -1,3 +1,8 @@
-Combat
-
-Combat can be in two forms dueling (1v1) or against multiple enemies.
+Instructions:
+1. Use the N, S, W, E keys to move your character around the map.
+2. Fight enemies with /fight and then use W A S D to match your opponent.
+3. Collect items to improve your chances of survival. (Feature Coming Soon)
+4. Play minigames with with /play
+5. Defeat bosses to progress to the next level. (Feature Coming Soon)
+6. At any point during the traversal of the map use /help to get help
+7. At any point during the traversal of the map use Q to quit the game

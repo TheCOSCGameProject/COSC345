@@ -18,10 +18,10 @@
 class ValerisGame
 {
 private:
-    Player player; //!< The player object representing the player in the game.
-    Dungeon dungeon; //!< The dungeon object representing the dungeon environment.
+    Player player;     //!< The player object representing the player in the game.
+    Dungeon dungeon;   //!< The dungeon object representing the dungeon environment.
     Room *currentRoom; //!< Pointer to the current room in the dungeon.
-    int numRooms; //!< The number of rooms in the dungeon.
+    int numRooms;      //!< The number of rooms in the dungeon.
 
 public:
     /*!
@@ -32,7 +32,8 @@ public:
 
     /*!
      * @brief Starts the game.
+     * @param color the color of the text
      * @details This method begins the game loop, allowing the player to explore the dungeon and interact with the environment.
      */
-    void start();
+    void start(std::string color);
 };

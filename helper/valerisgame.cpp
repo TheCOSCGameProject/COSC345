@@ -22,17 +22,28 @@ ValerisGame::ValerisGame()
  * @details The start method enters a loop where the player explores the dungeon, moves between rooms, and interacts with the game world. The player can move in cardinal directions, engage in combat, play games, or view help information.
  */
 // LCOV_EXCL_START
-void ValerisGame::start()
+void ValerisGame::start(std::string color)
 {
     bool exploring = true; //!< Flag to control the exploration loop.
     while (exploring)
     {
         // dungeon.traverseAndPrint(currentRoom);
         std::cout << dungeon.getMap(currentRoom) << std::endl;
-        std::cout << "You have entered a " << currentRoom->roomContent.getRoomDesc() << ".\n\n";
+        std::cout << color + "You have entered a " << currentRoom->roomContent.getRoomDesc() << ".\n\n";
         currentRoom->displayAvailableDirections();
 
-        std::cout << "Enter Action: ";
+        std::string fightString = "";
+        std::string playString = "";
+        if (currentRoom->roomContent.getRoomType() == 0)
+        {
+            fightString = ", /fight";
+        }
+        if (currentRoom->roomContent.getRoomType() == 1)
+        {
+            fightString = ", /play";
+        }
+
+        std::cout << "Other Avalible Actions: Q, /help" + fightString + playString + "\nEnter Action : ";
         std::string direction = getUserInputToken(); //!< Gets the player's input for movement or action.
         std::cout << "\n";
 
@@ -51,7 +62,7 @@ void ValerisGame::start()
                 delay(3000);
                 clear(1);
             }
-            clear(13);
+            clear(14);
         }
         else if (upperDirection == "S")
         {
@@ -65,7 +76,7 @@ void ValerisGame::start()
                 delay(3000);
                 clear(1);
             }
-            clear(13);
+            clear(14);
         }
         else if (upperDirection == "E")
         {
@@ -79,7 +90,7 @@ void ValerisGame::start()
                 delay(3000);
                 clear(1);
             }
-            clear(13);
+            clear(14);
         }
         else if (upperDirection == "W")
         {
@@ -93,32 +104,32 @@ void ValerisGame::start()
                 delay(3000);
                 clear(1);
             }
-            clear(13);
+            clear(14);
         }
         else if (upperDirection == "/PLAY" && currentRoom->roomContent.getRoomType() == 1)
         {
+            std::cout << "\033[37m";
             while (!currentRoom->roomContent.getNPC().gamblingGame.get()->start())
             {
                 //!< Starts the NPC's gambling game if the current room is a gambling room.
             }
-            clear(13);
-        }
-        else if (upperDirection == "/SCAN")
-        {
-            std::cout << dungeon.getMap(currentRoom) << std::endl;
+            clear(14);
+            std::cout << color;
         }
         else if (upperDirection == "/FIGHT" && currentRoom->roomContent.getRoomType() == 0)
         {
+            std::cout << "\033[37m";
             std::vector<EnemyStruct> enemies = currentRoom->roomContent.getEnemies();
             for (int i = 0; i < (int)enemies.size(); i++)
             {
                 EnemyStruct enemy = enemies[i];
                 int enemyHealth = enemy.health;
                 combatV1(player.getCurrHealth(), enemyHealth, 3000, enemy.name); //!< Initiates combat with the enemy.
-                delay(5000);
+                delay(500);
                 clear(5);
             }
-            clear(13);
+            clear(14);
+            std::cout << color;
         }
         else if (upperDirection == "Q")
         {
@@ -127,7 +138,7 @@ void ValerisGame::start()
         }
         else if (upperDirection == "/HELP")
         {
-            std::cout << getFileContent("../resources/help.txt") << std::endl; //!< Displays help information from a file.
+            std::cout << getFileContent("../reasources/help.txt") << std::endl; //!< Displays help information from a file.
         }
         else
         {

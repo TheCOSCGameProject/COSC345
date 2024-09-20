@@ -223,7 +223,7 @@ bool TicTacToe::isGameOver(int moveCount)
     if (checkForWin())
     {
         std::cout << (moveCount % 2 == 1 ? "You win!" : "You lose!") << std::endl;
-        delay(3000);
+        delay(1000);
         clear(11);
         return true;
     }
@@ -231,7 +231,7 @@ bool TicTacToe::isGameOver(int moveCount)
     if (moveCount == 9)
     {
         std::cout << "Draw!" << std::endl;
-        delay(3000);
+        delay(1000);
         clear(11);
         return true;
     }
@@ -249,7 +249,7 @@ bool TicTacToe::processComputerTurn()
     if (checkForWin())
     {
         std::cout << "You lose!" << std::endl;
-        delay(3000);
+        delay(1000);
         clear(11);
         return false;
     }
@@ -525,14 +525,14 @@ bool BlackJack::start()
     if (totalWins >= maxRounds / 2)
     {
         std::cout << "Game Over You Win!" << std::endl;
-        delay(2000);
+        delay(1000);
         clear(1);
         return true;
     }
     else
     {
         std::cout << "Game Over You Lose!" << std::endl;
-        delay(2000);
+        delay(1000);
         clear(1);
         return false;
     }

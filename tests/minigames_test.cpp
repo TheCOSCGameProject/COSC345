@@ -912,11 +912,13 @@ void test_DisplayInstructionsText()
     // The expected output with ANSI escape code for white text
     std::string instructions = R"(
 Instructions:
-1. Use the N, S, W, E keys to move your character.
-2. Fight enemies with ___
-3. Collect items to improve your chances of survival.
-4. Play minigames with ___
-5. Defeat bosses to progress to the next level.
+1. Use the N, S, W, E keys to move your character around the map.
+2. Fight enemies with /fight and then use W A S D to match your opponent.
+3. Collect items to improve your chances of survival. (Feature Coming Soon)
+4. Play minigames with with /play
+5. Defeat bosses to progress to the next level. (Feature Coming Soon)
+6. At any point during the traversal of the map use /help to get help
+7. At any point during the traversal of the map use Q to quit the game
 )";
 
     std::string expectedOutput = "\033[37m" + instructions + "\nPress Enter to continue...";

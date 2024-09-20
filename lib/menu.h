@@ -30,9 +30,10 @@ void Displayj();
 
 /*!
  * @brief Starts a new game.
+ * @param color The color of the text
  * @details This function initializes a new game session, setting up the necessary game state.
  */
-void StartGame();
+void StartGame(std::string color);
 
 /*!
  * @brief Loads a saved game.
@@ -60,7 +61,7 @@ void Accessiblity(int &delayTime, std::string &color);
  * @param color Reference to the old color code for the text.
  * @details This function allows the player to select and change the color of the text
  */
-std::string getColor(int colorChoice, const std::string& color);
+std::string getColor(int colorChoice, const std::string &color);
 
 void DisplayOption();
 

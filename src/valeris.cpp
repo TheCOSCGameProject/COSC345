@@ -50,7 +50,7 @@ int main()
     case 1:
       clear(10);
       displayIntro(delayTime, color); //!< Display the game introduction.
-      StartGame();                    //!< Start a new game.
+      StartGame(color);               //!< Start a new game.
       break;
     case 2:
       clear(10);

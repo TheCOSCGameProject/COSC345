@@ -87,13 +87,13 @@ bool combatV1(int playerHealth, int enemyHealth, int difficulty, const std::stri
     if (playerHealth > 0)
     {
         std::cout << "You Win!" << std::endl;
-        delay(3000);
+        delay(1000);
         return true;
     }
     else
     {
         std::cout << "You Lose!" << std::endl;
-        delay(3000);
+        delay(1000);
         return false;
     }
 }

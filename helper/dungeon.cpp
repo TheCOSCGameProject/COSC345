@@ -165,7 +165,7 @@ std::string Dungeon::getMap(Room *room)
         }
     }
 
-    std::string map = "+ - - - - - +\n";
+    std::string map = "\033[37m+ - - - - - +\n";
     for (int y = originY + 2; y >= originY - 2; y--)
     {
         map.append("| ");
