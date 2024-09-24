@@ -12,11 +12,10 @@
 @details Initializes the player by obtaining the player's name and class type from user input, and setting the player's maximum and current health to 100.
 */
 
-
 Player::Player()
-  : maxHealth(100),
-    currHealth(100),
-    resistance(0)
+    : maxHealth(100),
+      currHealth(100),
+      resistance(0)
 {
     getNameFromUser();
     getClassFromUser();
@@ -211,4 +210,24 @@ int Player::getResistance()
 std::vector<std::string> Player::getBuffs()
 {
     return buffs;
+}
+
+bool Player::printInventory()
+{
+    std::cout << firstName << "'s Inventory" << std::endl;
+    bool wasEmpty = inventory.size() > 0;
+    for (size_t i = 0; i < inventory.size(); i++)
+    {
+        std::cout << i + 1 << ". " << inventory[i] << std::endl;
+    }
+
+    if ((int)inventory.size() < 10)
+    {
+        for (size_t i = (int)inventory.size(); i < 10; i++)
+        {
+            std::cout << i + 1 << ". <empty>" << std::endl;
+        }
+    }
+    std::cout << std::endl;
+    return wasEmpty;
 }

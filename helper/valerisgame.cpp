@@ -140,6 +140,10 @@ void ValerisGame::start(const std::string &color)
         {
             std::cout << getFileContent("../reasources/help.txt") << std::endl; //!< Displays help information from a file.
         }
+        else if (upperDirection == "/INVENTORY")
+        {
+            player.printInventory();
+        }
         else
         {
             std::cout << "Invalid direction. Please enter N, S, E, W, or Q." << std::endl;
