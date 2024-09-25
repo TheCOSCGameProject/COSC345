@@ -17,17 +17,16 @@ while the Room class manages room connections and navigation.
 Depending on the room type, it populates the room with appropriate items, enemies, or NPCs.
 */
 
-
 RoomContent::RoomContent()
-    : roomType(generateRandomNumber(0, 1)),
+    : roomType(generateRandomNumber(0, 2)),
       passcode(false),
-      visited(false)   
+      visited(false)
 {
     switch (roomType)
     {
     case 0:
-        emptyRoom();
-        roomDesc = "Room";
+        enemyRoom();
+        roomDesc = "You have entered a Room";
         if (!enemies.empty())
         {
             roomDesc.append(" containing ");
@@ -43,23 +42,25 @@ RoomContent::RoomContent()
         break;
     case 1:
         gamblingRoom();
+
         if (this->npc.gamblingGame)
         {
-            roomDesc = "Gambling Room containing a " + this->npc.name + " who wants to play " + npc.gamblingGame->getGameName();
+            roomDesc = "You have entered a Gambling Room containing a " + this->npc.name + " who wants to play " + npc.gamblingGame->getGameName();
         }
         else
         {
-            roomDesc = "Gambling Room containing an NPC with an unknown game";
+            roomDesc = "You have entered a Gambling Room containing an NPC with an unknown game";
         }
         break;
+    case 2:
+        lockedRoom();
+        roomDesc = "You have entered a room with a locked safe type /PLAY to try crack the passcode!";
+        roomType = 2;
+        break;
     default:
-        emptyRoom(); // Fallback
-        roomDesc = "Empty Room";
         break;
     }
 }
-
-
 
 /*!
 @brief Get the description of the room.
@@ -68,6 +69,56 @@ RoomContent::RoomContent()
 std::string RoomContent::getRoomDesc()
 {
     return roomDesc;
+}
+
+int selectIndex(const std::vector<int> &probabilities)
+{
+    // Random device to seed the random number generator
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    // Create a discrete distribution based on the probabilities vector
+    std::discrete_distribution<> dist(probabilities.begin(), probabilities.end());
+
+    // Generate and return the index
+    return dist(gen);
+}
+
+void RoomContent::lockedRoom()
+{
+    nonGambilingGame = std::make_unique<CodeGuesser>();
+    std::vector<std::string> health_items = split(getFileContent("../reasources/health_items.txt"), '\n');
+    std::vector<std::string> weapon_items = split(getFileContent("../reasources/weapon_items.txt"), '\n');
+    std::vector<std::string> armour_items = split(getFileContent("../reasources/armour_items.txt"), '\n');
+
+    // for (int i = 0; i < armour_items.size(); i++)
+    // {
+    //     std::cout << armour_items[i] << std::endl;
+    // }
+
+    std::vector<int> health_items_dist = getDist(health_items);
+
+    std::vector<int> weapon_items_dist = getDist(weapon_items);
+
+    std::vector<int> armour_items_dist = getDist(armour_items);
+
+    int random = generateRandomNumber(0, 4);
+    for (int i = 0; i < random; i++)
+    {
+        addItem(health_items[selectIndex(health_items_dist)]);
+    }
+
+    random = generateRandomNumber(0, 2);
+    for (int i = 0; i < random; i++)
+    {
+        addItem(weapon_items[selectIndex(weapon_items_dist)]);
+    }
+
+    random = generateRandomNumber(0, 1);
+    for (int i = 0; i < random; i++)
+    {
+        addItem(armour_items[selectIndex(armour_items_dist)]);
+    }
 }
 
 /*!
@@ -106,10 +157,10 @@ void RoomContent::gamblingRoom()
 @brief Generate an empty room with random enemies and items.
 @details This method reads enemy and item details from files, then randomly adds them to the room based on predefined probabilities.
 */
-void RoomContent::emptyRoom()
+void RoomContent::enemyRoom()
 {
     std::vector<std::string> listOfEnemies = split(getFileContent("../reasources/enemies.txt"), '\n');
-    std::vector<std::string> listOfItems = split(getFileContent("../reasources/room_items.txt"), '\n');
+    std::vector<std::string> listOfItems = split(getFileContent("../reasources/weapon_items.txt"), '\n');
     std::vector<std::string> listRoomItems;
     std::vector<EnemyStruct> listOfRoomEnemies;
 
@@ -197,6 +248,11 @@ std::vector<EnemyStruct> RoomContent::getEnemies()
     return enemies;
 }
 
+std::vector<std::string> RoomContent::getItems()
+{
+    return items;
+}
+
 /*!
 @brief Display the content of the room.
 @details Prints the coordinates, visited status, items, enemies, and NPC details of the room to the console.
@@ -279,6 +335,23 @@ void Room::displayAvailableDirections()
     std::cout << std::endl;
 }
 
+void RoomContent::displayRoomItems()
+{
+    if (items.size() == 0)
+    {
+        std::cout << "There are currently no items available in this room" << std::endl;
+        return;
+    }
+
+    std::cout << "Available Items\n"
+              << std::endl;
+    for (size_t i = 0; i < items.size(); i++)
+    {
+        std::cout << i + 1 << ". " << items[i] << std::endl;
+    }
+    std::cout << std::endl;
+}
+
 /*!
 @brief Add coordinates to the room.
 @param x The x-coordinate of the room.
@@ -314,4 +387,9 @@ bool RoomContent::getVisited()
 void RoomContent::setVisited(bool hasVisited)
 {
     visited = hasVisited;
+}
+
+Game *RoomContent::getNonGamblingGame()
+{
+    return nonGambilingGame.get();
 }

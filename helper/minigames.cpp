@@ -322,6 +322,8 @@ bool CodeGuesser::start()
 {
     bool success = false;
     int count = 0;
+    guesses.clear();
+    index = generateRandomIndex(words.size());
     while (count < 5)
     {
         std::cout << "Please enter the five lettered passcode: " + std::to_string(5 - count) + " guesses remaining\n\n";
@@ -338,12 +340,16 @@ bool CodeGuesser::start()
 
     if (success)
     {
-        std::cout << "Passcode Accepted!";
+        std::cout << "Passcode Accepted!" << std::endl;
+        delay(2000);
+        clear(5 + count);
         return true;
     }
     else
     {
-        std::cout << "Too many failed attempts! Please restart";
+        std::cout << "Too many failed attempts! Please restart" << std::endl;
+        delay(2000);
+        clear(5 + count);
         return false;
     }
 }

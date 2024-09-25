@@ -56,7 +56,7 @@ public:
      * @brief Add an item to the player's inventory.
      * @param item The name of the item to add.
      */
-    void addToInventory(std::string item);
+    bool addToInventory(std::string item);
 
     /*!
      * @brief Remove an item from the player's inventory.

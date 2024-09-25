@@ -1,0 +1,5 @@
+Still Suit:30
+Harkonnen Armour:15
+Sadukar Armour:10
+Advanced Desert Survival Gear:60
+Basic Desert Survival Gear:90

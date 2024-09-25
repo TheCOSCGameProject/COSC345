@@ -25,25 +25,37 @@ ValerisGame::ValerisGame()
 void ValerisGame::start(const std::string &color)
 {
     bool exploring = true; //!< Flag to control the exploration loop.
+    Room *prev;
+    bool codeGuessed = false;
     while (exploring)
     {
         // dungeon.traverseAndPrint(currentRoom);
         std::cout << dungeon.getMap(currentRoom) << std::endl;
-        std::cout << color + "You have entered a " << currentRoom->roomContent.getRoomDesc() << ".\n\n";
+        std::cout << color + currentRoom->roomContent.getRoomDesc() << ".\n\n";
         currentRoom->displayAvailableDirections();
 
         std::string fightString = "";
         std::string playString = "";
+        std::string searchString = "";
+
         if (currentRoom->roomContent.getRoomType() == 0)
         {
             fightString = ", /fight";
         }
         if (currentRoom->roomContent.getRoomType() == 1)
         {
-            fightString = ", /play";
+            playString = ", /play";
+        }
+        if (currentRoom->roomContent.getRoomType() == 2 && !codeGuessed)
+        {
+            playString = ", /play";
+        }
+        else if (currentRoom->roomContent.getRoomType() == 2 && codeGuessed)
+        {
+            searchString = ", /search";
         }
 
-        std::cout << "Other Avalible Actions: Q, /help" + fightString + playString + "\nEnter Action : ";
+        std::cout << "Other Avalible Actions: Q, /help" + fightString + playString + searchString + "\nEnter Action : ";
         std::string direction = getUserInputToken(); //!< Gets the player's input for movement or action.
         std::cout << "\n";
 
@@ -115,6 +127,28 @@ void ValerisGame::start(const std::string &color)
             }
             clear(14);
             std::cout << color;
+        }
+        else if (upperDirection == "/PLAY" && currentRoom->roomContent.getRoomType() == 2)
+        {
+            std::cout << "\033[37m";
+            if (!codeGuessed)
+            {
+                codeGuessed = currentRoom->roomContent.getNonGamblingGame()->start();
+            }
+            std::cout << color;
+            clear(14);
+        }
+        else if (upperDirection == "/SEARCH")
+        {
+            currentRoom->roomContent.displayRoomItems();
+        }
+        else if (upperDirection == "/COLLECTALL")
+        {
+            std::vector<std::string> itemsToAdd = currentRoom->roomContent.getItems();
+            for (size_t i = 0; i < itemsToAdd.size(); i++)
+            {
+                player.addToInventory(itemsToAdd[i]);
+            }
         }
         else if (upperDirection == "/FIGHT" && currentRoom->roomContent.getRoomType() == 0)
         {

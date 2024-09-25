@@ -55,9 +55,14 @@ void Player::getClassFromUser()
 @brief Add an item to the player's inventory.
 @param item The name of the item to add to the inventory.
 */
-void Player::addToInventory(std::string item)
+bool Player::addToInventory(std::string item)
 {
-    inventory.push_back(item);
+    if (inventory.size() < 10)
+    {
+        inventory.push_back(item);
+        return true;
+    }
+    return false;
 }
 
 /*!

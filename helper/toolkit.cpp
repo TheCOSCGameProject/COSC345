@@ -154,9 +154,9 @@ void clear(int limit)
 {
     for (int i = 0; i < limit; i++)
     {
-        std::cout << "\033[A\033[K";
+        std::cout << "\033[A\033[2K\033[G";
         std::cout.flush();
-        // delay(300);
+        // delay(500);
     }
 }
 /*!
@@ -326,5 +326,17 @@ std::string toUpperCase(const std::string &input)
 {
     std::string result = input;
     std::transform(result.begin(), result.end(), result.begin(), ::toupper);
+    return result;
+}
+
+std::vector<int> getDist(std::vector<std::string> vector)
+{
+    std::vector<int> result;
+    for (size_t i = 0; i < vector.size(); i++)
+    {
+        result.push_back(stringToInt(split(vector[i], ':')[1]));
+    }
+    // std::cout << std::endl;
+
     return result;
 }

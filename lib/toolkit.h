@@ -144,4 +144,6 @@ void waitForEnter();
  */
 std::string toUpperCase(const std::string &input);
 
+std::vector<int> getDist(std::vector<std::string> vector);
+
 #endif // TOOLKIT_H

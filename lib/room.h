@@ -61,12 +61,14 @@ public:
     /*!
      * @brief Clears the room content, making it empty.
      */
-    void emptyRoom();
+    void enemyRoom();
 
     /*!
      * @brief Sets up a gambling room with an NPC.
      */
     void gamblingRoom();
+
+    void lockedRoom();
 
     /*!
      * @brief Adds an item to the room.
@@ -134,6 +136,12 @@ public:
      */
     void setVisited(bool hasVisited);
 
+    Game *getNonGamblingGame();
+
+    std::vector<std::string> getItems();
+
+    void displayRoomItems();
+
 private:
     std::vector<std::string> items;   //!< Items available in the room.
     std::vector<EnemyStruct> enemies; //!< Enemies present in the room.
@@ -143,6 +151,7 @@ private:
     std::string roomDesc;             //!< Description of the room.
     std::pair<int, int> cords;        //!< (x,y) Coordinates of room
     bool visited;                     //!< Whether or not the room has been visited
+    std::unique_ptr<Game> nonGambilingGame;
 };
 
 /*!

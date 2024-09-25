@@ -1,0 +1,5 @@
+Crysknife:1
+Knife:90
+Poisioned Knife:55
+Sword:60
+Poisioned Sword:40
