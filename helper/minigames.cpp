@@ -366,6 +366,12 @@ bool CodeGuesser::addGuess()
     std::string guess, coloredGuess;
     std::cin >> guess;
 
+    if (guess.length() != 5)
+    {
+        std::cout << "Please enter a 5-letter word." << std::endl;
+        return false;
+    }
+
     bool correct = true;
 
     for (int i = 0; i < 5; i++)
@@ -400,6 +406,7 @@ bool CodeGuesser::addGuess()
     guesses.push_back(coloredGuess);
     return correct;
 }
+
 
 /*!
 @brief Print all the guesses made by the player so far.
