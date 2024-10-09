@@ -158,7 +158,11 @@ void ValerisGame::start(const std::string &color)
             {
                 EnemyStruct enemy = enemies[i];
                 int enemyHealth = enemy.health;
-                combatV1(player.getCurrHealth(), enemyHealth, 3000, enemy.name); //!< Initiates combat with the enemy.
+                bool state = combatV1(player.getCurrHealth(), enemyHealth, 3000, enemy.name); //!< Initiates combat with the enemy.
+                if(!state){
+                    exploring = false;
+                    break;
+                }
                 delay(500);
                 clear(5);
             }
