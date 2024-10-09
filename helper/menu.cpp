@@ -36,6 +36,7 @@ void displayIntro(int delayTime, const std::string &color)
 */
 void Displayj()
 {
+    
     std::cout << "\033[37m" << "==========================================================" << std::endl;
     std::cout << std::setw(15) << " " << "VALERIS GAME MENU" << std::endl;
     std::cout << "==========================================================" << std::endl;
