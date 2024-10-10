@@ -440,3 +440,9 @@ Game *RoomContent::getNonGamblingGame()
 {
     return nonGambilingGame.get();
 }
+
+bool RoomContent::emptyItems()
+{
+    items.clear();
+    return items.empty();
+}

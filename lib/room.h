@@ -149,6 +149,8 @@ public:
 
     int getCoins();
 
+    bool emptyItems();
+
 private:
     std::vector<std::string> items;   //!< Items available in the room.
     std::vector<EnemyStruct> enemies; //!< Enemies present in the room.

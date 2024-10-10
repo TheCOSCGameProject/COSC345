@@ -129,16 +129,19 @@ void ValerisGame::start(const std::string &color)
         else if (upperDirection == "E")
         {
             bool empty = true;
-            if (currentRoom->roomContent.getRoomType() == 0){
+            if (currentRoom->roomContent.getRoomType() == 0)
+            {
                 std::vector<EnemyStruct> enemies = currentRoom->roomContent.getEnemies();
-                if(!enemies.empty()){
+                if (!enemies.empty())
+                {
                     std::cout << "There are enemies in the room!" << std::endl;
                     delay(2000);
                     clear(1);
                     empty = false;
                 }
             }
-            if(empty){
+            if (empty)
+            {
                 if (currentRoom->east)
                 {
                     currentRoom = currentRoom->east; //!< Move the player to the room to the east.
@@ -151,7 +154,7 @@ void ValerisGame::start(const std::string &color)
                     clear(1);
                 }
             }
-                
+
             clear(14);
         }
         else if (upperDirection == "W")
@@ -228,6 +231,7 @@ void ValerisGame::start(const std::string &color)
             {
                 player.addToInventory(itemsToAdd[i]);
             }
+            currentRoom->roomContent.emptyItems();
             player.setCoinsPlus(currentRoom->roomContent.getCoins());
         }
         else if (upperDirection == "/HEAL")
