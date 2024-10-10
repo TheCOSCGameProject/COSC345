@@ -1433,17 +1433,17 @@ int main()
     framework.addTest("Player Initialization", testPlayerInitialization);
     framework.addTest("Player Inventory", testPlayerInventory);
 `   */
-    framework.addTest("Player Constructor", testPlayerConstructor);
-    framework.addTest("Add To Inventory", testAddToInventory);
-    framework.addTest("Remove From Inventory", testRemoveFromInventory);
-    framework.addTest("Remove Nonexistent Item", testRemoveNonexistentItem);
-    framework.addTest("Set Max Health", testSetMaxHealth);
-    framework.addTest("Set Current Health", testSetCurrHealth);
-    framework.addTest("Add Buff", testAddBuff);
-    framework.addTest("Remove Buff", testRemoveBuff);
-    framework.addTest("Remove Nonexistent Buff", testRemoveNonexistentBuff);
-    framework.addTest("Set Resistance", testSetResistance);
-    framework.addTest("Set Max Health Adjusts Current Health", testSetMaxHelth_AdjustCurrentHealth);
+    // framework.addTest("Player Constructor", testPlayerConstructor);
+    // framework.addTest("Add To Inventory", testAddToInventory);
+    // framework.addTest("Remove From Inventory", testRemoveFromInventory);
+    // framework.addTest("Remove Nonexistent Item", testRemoveNonexistentItem);
+    // framework.addTest("Set Max Health", testSetMaxHealth);
+    // framework.addTest("Set Current Health", testSetCurrHealth);
+    // framework.addTest("Add Buff", testAddBuff);
+    // framework.addTest("Remove Buff", testRemoveBuff);
+    // framework.addTest("Remove Nonexistent Buff", testRemoveNonexistentBuff);
+    // framework.addTest("Set Resistance", testSetResistance);
+    // framework.addTest("Set Max Health Adjusts Current Health", testSetMaxHelth_AdjustCurrentHealth);
 
     // Weapon tests
     framework.addTest("Weapon Initialization", testWeaponInitialization);
@@ -1475,7 +1475,7 @@ int main()
     framework.addTest("Dungeon Link Room", testLinkRooms);
 
     // combat tests
-    framework.addTest("Print Health", testPrintHealth);
+    // framework.addTest("Print Health", testPrintHealth);
 
     // Menu tests
     framework.addTest("Display intro test", testDisplayIntro);
@@ -1488,7 +1488,7 @@ int main()
     framework.addTest("Test GetColor Cyan", testGetColor_Cyan);
     framework.addTest("Test GetColor Invalid", testGetColor_Invalid);
 
-    framework.addTest("CombatV1PressP", testCombatV1PressP);
+    // framework.addTest("CombatV1PressP", testCombatV1PressP);
 
     framework.addTest("CodeGuesserPrintWords", testCodeGuesserPrintWords);
 

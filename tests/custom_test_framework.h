@@ -20,6 +20,7 @@ private:
     int passed = 0;
     int failed = 0;
     std::ofstream xml_output;
+    std::vector<std::string> results;
 
 public:
     TestFramework(const std::string &xml_filename) : xml_output(xml_filename)

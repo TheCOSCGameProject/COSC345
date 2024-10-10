@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testcase name="TicTacToe Initialization" time="1.1375e-05"/>
+  <testcase name="TicTacToe Player Move" time="1.1334e-05"/>
+  <testcase name="TicTacToe Computer Turn" time="6.4875e-05"/>
+  <testcase name="TicTacToe Check For Win" time="6.25e-07"/>
+  <testcase name="CodeGuesser Initialization" time="0.000246041"/>
+  <testcase name="CodeGuesser Game Name" time="2.9667e-05"/>
+  <testcase name="CodeGuesser Add Guess" time="4.175e-05"/>
+  <testcase name="CodeGuesser Start Game" time="2.00007"/>
+  <testcase name="BlackJack Initialization" time="3.6583e-05"/>
+  <testcase name="BlackJack Display State Hidden Dealer Card" time="2.9292e-05"/>
+  <testcase name="BlackJack Display State Show Dealer Card" time="1.5167e-05"/>
+  <testcase name="BlackJack Evaluate" time="1.825e-05"/>
+  <testcase name="Player Constructor" time="5.583e-06"/>
+  <testcase name="Add To Inventory" time="0.000132"/>
+  <testcase name="Remove From Inventory" time="7.5083e-05">
+    <failure message="Assertion failed: output != "Item not found in inventory.\n""/>
+  </testcase>
+  <testcase name="Remove Nonexistent Item" time="1.025e-05">
+    <failure message="Assertion failed: simulatedOutput.str() != "Item not found in inventory.\n""/>
+  </testcase>
+  <testcase name="Set Max Health" time="1.417e-06"/>
+  <testcase name="Set Current Health" time="1.459e-06"/>
+  <testcase name="Add Buff" time="2.625e-06"/>
+  <testcase name="Remove Buff" time="2.333e-06"/>
+  <testcase name="Remove Nonexistent Buff" time="1.792e-06"/>
+  <testcase name="Set Resistance" time="1.209e-06"/>
+  <testcase name="Set Max Health Adjusts Current Health" time="1.333e-06"/>
+  <testcase name="Weapon Initialization" time="0.00211075"/>
+  <testcase name="Random Weapon Generation" time="2.0875e-05"/>
+  <testcase name="Weapon Generation by Rarity" time="2.8333e-05"/>
+  <testcase name="All Weapons" time="3.1459e-05"/>
+  <testcase name="Generate Random Number" time="8.542e-06"/>
+  <testcase name="String to Int Conversion" time="1.0959e-05"/>
+  <testcase name="Repeat String" time="8.34e-07"/>
+  <testcase name="To Lower Case" time="2.333e-06"/>
+  <testcase name="To Upper Case" time="1.458e-06"/>
+  <testcase name="Split String" time="3.916e-06"/>
+  <testcase name="Get File Content" time="0.000912167"/>
+  <testcase name="Read Int" time="4.709e-06"/>
+  <testcase name="Get User Input Line" time="2.209e-06"/>
+  <testcase name="Wait For Enter" time="1.833e-06"/>
+  <testcase name="Enemy Initialisation" time="5.209e-06"/>
+  <testcase name="Enemy Damage Application" time="1.916e-06"/>
+  <testcase name="Enemy Death Condition" time="2.375e-06"/>
+  <testcase name="Enemy Custom Setters" time="1.583e-06"/>
+  <testcase name="Dungeon Room Generation" time="0.00277621"/>
+  <testcase name="Dungeon Link Room" time="0.000368833"/>
+  <testcase name="Print Health" time="1.0125e-05"/>
+  <testcase name="Display intro test" time="11.3412"/>
+  <testcase name="Display menu test" time="3.125e-06"/>
+  <testcase name="Display instructions test" time="0.00131533">
+    <failure message="Assertion failed: normalizedOutput != normalizedExpected"/>
+  </testcase>
+  <testcase name="Test GetColor Green" time="7.08e-07"/>
+  <testcase name="Test GetColor Blue" time="2.08e-07"/>
+  <testcase name="Test GetColor Red" time="1.25e-07"/>
+  <testcase name="Test GetColor Yellow" time="1.66e-07"/>
+  <testcase name="Test GetColor Cyan" time="1e-06"/>
+  <testcase name="Test GetColor Invalid" time="2.00005"/>
+  <testcase name="CombatV1PressP" time="1.00002"/>
+  <testcase name="CodeGuesserPrintWords" time="0.00112213"/>
+  <testcase name="TicTacToePrintBoard" time="0.000198084"/>
+  <testcase name="test_makeMove" time="2.08e-07"/>
+  <testcase name="test_isGameOver" time="2.00007"/>
+  <testcase name="test_getPlayerMove" time="1.525e-05"/>
+  <testcase name="test_processComputerTurn" time="1.00004"/>
+  <testcase name="Test testHandlePlayerTurn" time="2.7459e-05"/>
+  <testcase name="RoomContent::getRoomType" time="0.00143921"/>
+  <testcase name="RoomContent::getNPC" time="0.000238542"/>
+  <testcase name="RoomContent::getEnemies" time="0.000208083">
+    <failure message="Assertion failed: 1 != enemies.size()"/>
+  </testcase>
+  <testcase name="RoomContent::getCoordinates" time="0.000189917"/>
+  <testcase name="RoomContent::getVisited and setVisited" time="0.000494917"/>
+  <testcase name="Room::testNoDirections" time="0.000192667"/>
+  <testcase name="Room::testAllDirections" time="0.000699083"/>
+  <testcase name="Room::testSomeDirections" time="0.000342167"/>
+  <testcase name="Room::testOneDirection" time="0.00017125"/>
+</testsuites>
