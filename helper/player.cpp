@@ -353,3 +353,8 @@ void Player::heal()
         }
     }
 }
+
+int Player::getCoins()
+{
+    return coins;
+}

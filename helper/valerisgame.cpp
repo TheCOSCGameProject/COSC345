@@ -36,6 +36,7 @@ void ValerisGame::start(const std::string &color)
         std::string fightString = "";
         std::string playString = "";
         std::string searchString = "";
+        std::string bidString = "";
 
         if (currentRoom->roomContent.getRoomType() == 0)
         {
@@ -53,8 +54,12 @@ void ValerisGame::start(const std::string &color)
         {
             searchString = ", /search";
         }
+        if (currentRoom->roomContent.getRoomType() == 1 && player.getCoins() >= 10)
+        {
+            bidString = ", /gamble";
+        }
 
-        std::cout << "Other Avalible Actions: Q, /help, /heal, /stats, /inventory" + fightString + playString + searchString + "\nEnter Action : ";
+        std::cout << "Other Avalible Actions: Q, /help, /heal, /stats, /inventory" + fightString + playString + searchString + bidString + "\nEnter Action : ";
         std::string direction = getUserInputToken(); //!< Gets the player's input for movement or action.
         std::cout << "\n";
 
@@ -140,6 +145,22 @@ void ValerisGame::start(const std::string &color)
             }
             std::cout << color;
             clear(14);
+        }
+        else if (upperDirection == "/GAMBLE" && currentRoom->roomContent.getRoomType() == 1 && player.getCoins() >= 10)
+        {
+            std::cout << "\033[37m";
+            bool result = currentRoom->roomContent.getNPC().gamblingGame.get()->start();
+
+            if (result)
+            {
+                player.setCoinsPlus(10);
+            }
+            else
+            {
+                player.setCoinsMinus(10);
+            }
+            clear(14);
+            std::cout << color;
         }
         else if (upperDirection == "/SEARCH")
         {

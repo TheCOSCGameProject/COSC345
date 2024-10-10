@@ -149,6 +149,8 @@ public:
 
     bool displayStats();
 
+    int getCoins();
+
     bool setCoinsPlus(int c);
 
     bool setCoinsMinus(int c);
