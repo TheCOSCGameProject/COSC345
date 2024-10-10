@@ -18,7 +18,6 @@ Player::Player()
       resistance(0)
 {
     getNameFromUser();
-    getClassFromUser();
     setDamage(5);
     clear(2);
 }

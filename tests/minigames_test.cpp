@@ -584,7 +584,7 @@ void testLinkRooms()
 // Player Testing
 Player createPlayerWithInput(const std::string &nameInput, const std::string &classInput)
 {
-    std::stringstream simulatedInput(nameInput + "\n" + classInput + "\n");
+    std::stringstream simulatedInput(nameInput + "\n");
     std::stringstream simulatedOutput;
 
     // Backup the original std::cin and std::cout
@@ -613,43 +613,40 @@ void testPlayerConstructor()
 
     // Test case 1: First player with valid input
     {
-        std::stringstream simulatedInput("Alice\nWarrior\n");
+        std::stringstream simulatedInput("Alice\n");
         std::stringstream simulatedOutput;
         std::cin.rdbuf(simulatedInput.rdbuf());
         std::cout.rdbuf(simulatedOutput.rdbuf());
 
         Player player;
         ASSERT_EQUAL(player.getName(), "Alice");
-        ASSERT_EQUAL(player.getClassType(), "Warrior");
         ASSERT_EQUAL(player.getMaxHealth(), 100);
-        ASSERT_EQUAL(player.getCurrHealth(), 100);
+        ASSERT_EQUAL(*player.getCurrHealth(), 100);
     }
 
     // Test case 2: Second player with different input
     {
-        std::stringstream simulatedInput("Frank\nToolSmith\n");
+        std::stringstream simulatedInput("Frank\n");
         std::stringstream simulatedOutput;
         std::cin.rdbuf(simulatedInput.rdbuf());
         std::cout.rdbuf(simulatedOutput.rdbuf());
 
         Player player;
         ASSERT_EQUAL(player.getName(), "Frank");
-        ASSERT_EQUAL(player.getClassType(), "ToolSmith");
         ASSERT_EQUAL(player.getMaxHealth(), 100);
-        ASSERT_EQUAL(player.getCurrHealth(), 100);
+        ASSERT_EQUAL(*player.getCurrHealth(), 100);
     }
 
     {
-        std::stringstream simulatedInput(" _23\n_23\n");
+        std::stringstream simulatedInput(" _23\n");
         std::stringstream simulatedOutput;
         std::cin.rdbuf(simulatedInput.rdbuf());
         std::cout.rdbuf(simulatedOutput.rdbuf());
 
         Player player;
         ASSERT_EQUAL(player.getName(), "_23");
-        ASSERT_EQUAL(player.getClassType(), "_23");
         ASSERT_EQUAL(player.getMaxHealth(), 100);
-        ASSERT_EQUAL(player.getCurrHealth(), 100);
+        ASSERT_EQUAL(*player.getCurrHealth(), 100);
     }
 
     // Restore std::cin and std::cout
@@ -718,20 +715,20 @@ void testSetMaxHealth()
 
     player.setMaxHelth(50);
     ASSERT_EQUAL(player.getMaxHealth(), 50);
-    ASSERT_EQUAL(player.getCurrHealth(), 50);
+    ASSERT_EQUAL(*player.getCurrHealth(), 50);
 }
 
 void testSetCurrHealth()
 {
     Player player = createPlayerWithInput("Alice", "Warrior");
     player.setCurrHealth(50);
-    ASSERT_EQUAL(player.getCurrHealth(), 50);
+    ASSERT_EQUAL(*player.getCurrHealth(), 50);
 
     player.setCurrHealth(200);
-    ASSERT_EQUAL(player.getCurrHealth(), 100);
+    ASSERT_EQUAL(*player.getCurrHealth(), 100);
 
     player.setCurrHealth(-10);
-    ASSERT_EQUAL(player.getCurrHealth(), 0);
+    ASSERT_EQUAL(*player.getCurrHealth(), 0);
 }
 
 void testAddBuff()
@@ -783,7 +780,7 @@ void testSetMaxHelth_AdjustCurrentHealth()
     player.setMaxHelth(100);
 
     // Verify that current health has been adjusted to the new max health value
-    ASSERT_EQUAL(player.getCurrHealth(), 100); // Current health should be adjusted to match max health
+    ASSERT_EQUAL(*player.getCurrHealth(), 100); // Current health should be adjusted to match max health
 
     // Verify that max health is set correctly
     ASSERT_EQUAL(player.getMaxHealth(), 100); // Max health should be set to 100
@@ -983,7 +980,8 @@ void testGetColor_Invalid()
 
 void testCombatV1PressP()
 {
-    int playerHealth = 1;
+    int x = 1;
+    int *playerHealth = &x;
     int enemyHealth = 100;
     int difficulty = 1000;
     std::string name = "Test Enemy";
@@ -997,7 +995,7 @@ void testCombatV1PressP()
     std::streambuf *oldCin = std::cin.rdbuf(fakeInput.rdbuf());
 
     // Call the function to test
-    bool result = combatV1(playerHealth, enemyHealth, difficulty, name);
+    bool result = combatV1(playerHealth, enemyHealth, difficulty, name, 20, 10, 0);
 
     // Restore the original cout and cin buffers
     std::cout.rdbuf(oldCout);
