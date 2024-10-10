@@ -6,8 +6,6 @@
  * including the Tictactoe, BlackJack, CoderGuesser, Menu, etc.
  */
 
-
-
 #include "../lib/minigames.h"
 #include "../lib/combat.h"
 #include "../lib/dungeon.h"
@@ -929,6 +927,8 @@ Instructions:
 5. Defeat bosses to progress to the next level. (Feature Coming Soon)
 6. At any point during the traversal of the map use /help to get help
 7. At any point during the traversal of the map use Q to quit the game
+8. If /serach appears as a possible action then using it will search the room for items and add them to the players invetory.
+9. At any point during the traversal of the map a player can use /inventory to see what is currently in their inventory 
 )";
 
     std::string expectedOutput = "\033[37m" + instructions + "\nPress Enter to continue...";

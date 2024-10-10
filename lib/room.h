@@ -12,6 +12,7 @@
 #include <string>
 #include <iostream>
 #include "../lib/minigames.h"
+#include "player.h"
 
 // Assuming these functions are declared in the toolkit.h
 // std::vector<std::string> split(const std::string &str, char delimiter);
@@ -141,6 +142,8 @@ public:
     std::vector<std::string> getItems();
 
     void displayRoomItems();
+
+    bool collect(Player *player);
 
 private:
     std::vector<std::string> items;   //!< Items available in the room.

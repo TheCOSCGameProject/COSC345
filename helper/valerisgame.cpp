@@ -13,7 +13,7 @@
  */
 ValerisGame::ValerisGame()
 {
-    numRooms = 10;                                 //!< Sets the number of rooms in the dungeon.
+    numRooms = 20;                                 //!< Sets the number of rooms in the dungeon.
     currentRoom = dungeon.generateFloor(numRooms); //!< Generates the dungeon floor and sets the starting room.
 }
 
@@ -25,7 +25,6 @@ ValerisGame::ValerisGame()
 void ValerisGame::start(const std::string &color)
 {
     bool exploring = true; //!< Flag to control the exploration loop.
-    Room *prev;
     bool codeGuessed = false;
     while (exploring)
     {
@@ -55,7 +54,7 @@ void ValerisGame::start(const std::string &color)
             searchString = ", /search";
         }
 
-        std::cout << "Other Avalible Actions: Q, /help" + fightString + playString + searchString + "\nEnter Action : ";
+        std::cout << "Other Avalible Actions: Q, /help, /inventory" + fightString + playString + searchString + "\nEnter Action : ";
         std::string direction = getUserInputToken(); //!< Gets the player's input for movement or action.
         std::cout << "\n";
 
@@ -67,6 +66,7 @@ void ValerisGame::start(const std::string &color)
             if (currentRoom->north)
             {
                 currentRoom = currentRoom->north; //!< Move the player to the room to the north.
+                codeGuessed = false;
             }
             else
             {
@@ -81,6 +81,7 @@ void ValerisGame::start(const std::string &color)
             if (currentRoom->south)
             {
                 currentRoom = currentRoom->south; //!< Move the player to the room to the south.
+                codeGuessed = false;
             }
             else
             {
@@ -95,6 +96,7 @@ void ValerisGame::start(const std::string &color)
             if (currentRoom->east)
             {
                 currentRoom = currentRoom->east; //!< Move the player to the room to the east.
+                codeGuessed = false;
             }
             else
             {
@@ -109,6 +111,7 @@ void ValerisGame::start(const std::string &color)
             if (currentRoom->west)
             {
                 currentRoom = currentRoom->west; //!< Move the player to the room to the west.
+                codeGuessed = false;
             }
             else
             {
@@ -141,9 +144,6 @@ void ValerisGame::start(const std::string &color)
         else if (upperDirection == "/SEARCH")
         {
             currentRoom->roomContent.displayRoomItems();
-        }
-        else if (upperDirection == "/COLLECTALL")
-        {
             std::vector<std::string> itemsToAdd = currentRoom->roomContent.getItems();
             for (size_t i = 0; i < itemsToAdd.size(); i++)
             {
@@ -158,8 +158,9 @@ void ValerisGame::start(const std::string &color)
             {
                 EnemyStruct enemy = enemies[i];
                 int enemyHealth = enemy.health;
-                bool state = combatV1(player.getCurrHealth(), enemyHealth, 3000, enemy.name); //!< Initiates combat with the enemy.
-                if(!state){
+                bool state = combatV1(player.getCurrHealth(), enemyHealth, 3000, enemy.name, player.getDamage(), enemy.attack, player.getResistance()); //!< Initiates combat with the enemy.
+                if (!state)
+                {
                     exploring = false;
                     break;
                 }

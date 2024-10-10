@@ -34,7 +34,7 @@ void printHealth(int playerHealth, int enemyHealth, const std::string &name);
  * @details This function simulates a combat scenario between the player and an enemy, taking into account the difficulty level.
  * The outcome of the combat is determined based on the player's and enemy's health.
  */
-bool combatV1(int playerHealth, int enemyHealth, int difficulty, const std::string &name);
+bool combatV1(int *playerHealth, int enemyHealth, int difficulty, const std::string &name, int playerDamage, int enemyDamage, int resistance);
 
 /*!
  * @brief Handles combat mechanics for version 2.

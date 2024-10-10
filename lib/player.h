@@ -23,10 +23,13 @@ private:
     int maxHealth;                      //!< The maximum health of the player.
     int currHealth;                     //!< The current health of the player.
     std::vector<std::string> inventory; //!< Player's inventory containing item names.
-    std::string classType;              //!< The class type of the player (e.g., warrior, mage).
-    std::string firstName;              //!< The first name of the player.
-    int resistance;                     //!< The player's resistance value, which might affect damage taken.
-    std::vector<std::string> buffs;     //!< List of active buffs on the player.
+    std::vector<int> numberItems;
+    std::string classType;          //!< The class type of the player (e.g., warrior, mage).
+    std::string firstName;          //!< The first name of the player.
+    int resistance;                 //!< The player's resistance value, which might affect damage taken.
+    std::vector<std::string> buffs; //!< List of active buffs on the player.
+    int damage;
+    int coins;
 
 public:
     /*!
@@ -122,7 +125,7 @@ public:
      * @brief Get the player's current health.
      * @return The player's current health value.
      */
-    int getCurrHealth();
+    int *getCurrHealth();
 
     /*!
      * @brief Get the player's resistance value.
@@ -137,6 +140,12 @@ public:
     std::vector<std::string> getBuffs();
 
     bool printInventory();
+
+    std::vector<int> getNum();
+
+    void setDamage(int d);
+
+    int getDamage();
 };
 
 #endif // PLAYER_H

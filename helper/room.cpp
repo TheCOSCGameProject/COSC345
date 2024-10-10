@@ -108,8 +108,7 @@ void RoomContent::lockedRoom()
         addItem(health_items[selectIndex(health_items_dist)]);
     }
 
-    random = generateRandomNumber(0, 2);
-    for (int i = 0; i < random; i++)
+    for (int i = 0; i < 1; i++)
     {
         addItem(weapon_items[selectIndex(weapon_items_dist)]);
     }
@@ -347,9 +346,22 @@ void RoomContent::displayRoomItems()
               << std::endl;
     for (size_t i = 0; i < items.size(); i++)
     {
-        std::cout << i + 1 << ". " << items[i] << std::endl;
+        std::cout << i + 1 << ". " << split(items[i], ':')[0] << std::endl;
     }
     std::cout << std::endl;
+}
+
+bool RoomContent::collect(Player *player)
+{
+    bool done = !items.empty();
+
+    while (!items.empty())
+    {
+        std::string newS = items.back();
+        player->addToInventory(newS);
+        items.pop_back();
+    }
+    return done;
 }
 
 /*!

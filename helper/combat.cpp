@@ -42,15 +42,15 @@ void printHealth(int playerHealth, int enemyHealth, const std::string &name)
 @return True if the player wins, false if the player loses.
 @details This combat system involves the player quickly matching directional inputs to attack the enemy. The enemy's attacks decrease the player's health if the player fails to respond correctly or quickly enough.
 */
-bool combatV1(int playerHealth, int enemyHealth, int difficulty, const std::string &name)
+bool combatV1(int *playerHealth, int enemyHealth, int difficulty, const std::string &name, int playerDamage, int enemyDamage, int resistance)
 {
     // Define directional moves and their keyboard equivalents
     const std::string moves[] = {"A", "W", "D", "S"};
     const std::string keyBoardEquivalent[] = {"a", "w", "d", "s"};
     std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed for randomness
-    printHealth(playerHealth, enemyHealth, name);
+    printHealth(*playerHealth, enemyHealth, name);
     // Combat loop: continue while both player and enemy have health
-    while (playerHealth > 0 && enemyHealth > 0)
+    while (*playerHealth > 0 && enemyHealth > 0)
     {
         int random_number = std::rand() % 4;                      // Select a random direction
         std::cout << moves[random_number] + "    " << std::flush; // Display the move symbol
@@ -65,26 +65,26 @@ bool combatV1(int playerHealth, int enemyHealth, int difficulty, const std::stri
         // Check if user input matches and is within the allowed time
         if (inputStr == keyBoardEquivalent[random_number] && elapsed.count() < difficulty / 1000.0)
         {
-            enemyHealth -= 5; // Successful hit on the enemy
+            enemyHealth -= playerDamage; // Successful hit on the enemy
             clear(5);
-            printHealth(playerHealth, enemyHealth, name);
+            printHealth(*playerHealth, enemyHealth, name);
         }
         else if (elapsed.count() >= difficulty / 1000.0)
         {
-            playerHealth -= 10; // Player takes damage due to slow response
+            *playerHealth -= enemyDamage + resistance; // Player takes damage due to slow response
             clear(5);
-            printHealth(playerHealth, enemyHealth, name);
+            printHealth(*playerHealth, enemyHealth, name);
         }
         else
         {
-            playerHealth -= 5; // Incorrect input results in minor damage
+            *playerHealth -= (int)(enemyDamage / 2) + resistance; // Incorrect input results in minor damage
             clear(5);
-            printHealth(playerHealth, enemyHealth, name);
+            printHealth(*playerHealth, enemyHealth, name);
         }
     }
 
     // Print win or lose message based on remaining health
-    if (playerHealth > 0)
+    if (*playerHealth > 0)
     {
         std::cout << "You Win!" << std::endl;
         delay(1000);

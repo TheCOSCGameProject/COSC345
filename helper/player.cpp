@@ -19,6 +19,7 @@ Player::Player()
 {
     getNameFromUser();
     getClassFromUser();
+    setDamage(5);
     clear(2);
 }
 
@@ -57,12 +58,46 @@ void Player::getClassFromUser()
 */
 bool Player::addToInventory(std::string item)
 {
-    if (inventory.size() < 10)
+    if (split(item, ':')[0] == "coins")
     {
-        inventory.push_back(item);
-        return true;
+        coins += stringToInt(split(item, ':')[1]);
     }
+
+    bool doubleUp = false;
+    for (size_t i = 0; i < inventory.size(); i++)
+    {
+        if (item == inventory[i])
+        {
+            numberItems.at(i) += 1;
+            doubleUp = true;
+            return doubleUp;
+        }
+    }
+    int itemType = stringToInt(split(item, ':')[3]);
+    int itemScore = stringToInt(split(item, ':')[2]);
+    if (itemType == 1 && itemScore > getDamage())
+    {
+        setDamage(itemScore);
+    }
+
+    if (itemType == 2 && itemScore > getDamage())
+    {
+        setResistance(itemScore);
+    }
+
+    inventory.push_back(item);
+    numberItems.push_back(1);
     return false;
+}
+
+void Player::setDamage(int d)
+{
+    damage = d;
+}
+
+int Player::getDamage()
+{
+    return damage;
 }
 
 /*!
@@ -72,14 +107,19 @@ bool Player::addToInventory(std::string item)
 */
 void Player::removeFromInventory(std::string item)
 {
-    auto it = std::find(inventory.begin(), inventory.end(), item);
-    if (it != inventory.end())
+    for (size_t i = 0; i < inventory.size(); i++)
     {
-        inventory.erase(it);
-    }
-    else
-    {
-        std::cout << "Item not found in inventory." << std::endl;
+        if (item == inventory[i] && numberItems[i] > 1)
+        {
+            numberItems[i] -= 1;
+            return;
+        }
+        else if (item == inventory[i] && numberItems[i] == 1)
+        {
+            numberItems.erase(numberItems.begin() + i);
+            inventory.erase(inventory.begin() + i);
+            return;
+        }
     }
 }
 
@@ -145,6 +185,11 @@ void Player::removeBuff(std::string buff)
     }
 }
 
+std::vector<int> Player::getNum()
+{
+    return numberItems;
+}
+
 /*!
 @brief Set the player's resistance value.
 @param resistance The new resistance value.
@@ -194,9 +239,9 @@ int Player::getMaxHealth()
 @brief Get the player's current health.
 @return The player's current health as an integer.
 */
-int Player::getCurrHealth()
+int *Player::getCurrHealth()
 {
-    return currHealth;
+    return &currHealth;
 }
 
 /*!
@@ -219,19 +264,16 @@ std::vector<std::string> Player::getBuffs()
 
 bool Player::printInventory()
 {
-    std::cout << firstName << "'s Inventory" << std::endl;
+    std::cout << "\033[4m" << firstName << "'s Inventory" << "\033[0m" << std::endl;
+    if (inventory.size() == 0)
+    {
+        std::cout << "No Items, Inventory is Empty" << std::endl;
+    }
+
     bool wasEmpty = inventory.size() > 0;
     for (size_t i = 0; i < inventory.size(); i++)
     {
-        std::cout << i + 1 << ". " << inventory[i] << std::endl;
-    }
-
-    if ((int)inventory.size() < 10)
-    {
-        for (size_t i = (int)inventory.size(); i < 10; i++)
-        {
-            std::cout << i + 1 << ". <empty>" << std::endl;
-        }
+        std::cout << i + 1 << ". " << split(inventory[i], ':')[0] << " x " << getNum()[i] << std::endl;
     }
     std::cout << std::endl;
     return wasEmpty;
