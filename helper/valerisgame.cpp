@@ -68,63 +68,121 @@ void ValerisGame::start(const std::string &color)
 
         if (upperDirection == "N")
         {
-            if (currentRoom->north)
+            bool empty = true;
+            if (currentRoom->roomContent.getRoomType() == 0)
             {
-                currentRoom = currentRoom->north; //!< Move the player to the room to the north.
-                codeGuessed = false;
+                std::vector<EnemyStruct> enemies = currentRoom->roomContent.getEnemies();
+                if (!enemies.empty())
+                {
+                    std::cout << "There are enemies in the room!" << std::endl;
+                    delay(2000);
+                    clear(1);
+                    empty = false;
+                }
             }
-            else
+            if (empty)
             {
-                std::cout << "You can't move North." << std::endl;
-                delay(3000);
-                clear(1);
+                if (currentRoom->north)
+                {
+                    currentRoom = currentRoom->north; //!< Move the player to the room to the north.
+                    codeGuessed = false;
+                }
+                else
+                {
+                    std::cout << "You can't move North." << std::endl;
+                    delay(3000);
+                    clear(1);
+                }
+                clear(14);
             }
-            clear(14);
         }
         else if (upperDirection == "S")
         {
-            if (currentRoom->south)
+            bool empty = true;
+            if (currentRoom->roomContent.getRoomType() == 0)
             {
-                currentRoom = currentRoom->south; //!< Move the player to the room to the south.
-                codeGuessed = false;
+                std::vector<EnemyStruct> enemies = currentRoom->roomContent.getEnemies();
+                if (!enemies.empty())
+                {
+                    std::cout << "There are enemies in the room!" << std::endl;
+                    delay(2000);
+                    clear(1);
+                    empty = false;
+                }
             }
-            else
+            if (empty)
             {
-                std::cout << "You can't move South." << std::endl;
-                delay(3000);
-                clear(1);
+                if (currentRoom->south)
+                {
+                    currentRoom = currentRoom->south; //!< Move the player to the room to the south.
+                    codeGuessed = false;
+                }
+                else
+                {
+                    std::cout << "You can't move South." << std::endl;
+                    delay(3000);
+                    clear(1);
+                }
+                clear(14);
             }
-            clear(14);
         }
         else if (upperDirection == "E")
         {
-            if (currentRoom->east)
-            {
-                currentRoom = currentRoom->east; //!< Move the player to the room to the east.
-                codeGuessed = false;
+            bool empty = true;
+            if (currentRoom->roomContent.getRoomType() == 0){
+                std::vector<EnemyStruct> enemies = currentRoom->roomContent.getEnemies();
+                if(!enemies.empty()){
+                    std::cout << "There are enemies in the room!" << std::endl;
+                    delay(2000);
+                    clear(1);
+                    empty = false;
+                }
             }
-            else
-            {
-                std::cout << "You can't move East." << std::endl;
-                delay(3000);
-                clear(1);
+            if(empty){
+                if (currentRoom->east)
+                {
+                    currentRoom = currentRoom->east; //!< Move the player to the room to the east.
+                    codeGuessed = false;
+                }
+                else
+                {
+                    std::cout << "You can't move East." << std::endl;
+                    delay(3000);
+                    clear(1);
+                }
             }
+                
             clear(14);
         }
         else if (upperDirection == "W")
         {
-            if (currentRoom->west)
+            bool empty = true;
+            if (currentRoom->roomContent.getRoomType() == 0)
             {
-                currentRoom = currentRoom->west; //!< Move the player to the room to the west.
-                codeGuessed = false;
+                std::vector<EnemyStruct> enemies = currentRoom->roomContent.getEnemies();
+                if (!enemies.empty())
+                {
+                    std::cout << "There are enemies in the room!" << std::endl;
+                    delay(2000);
+                    clear(1);
+                    empty = false;
+                }
             }
-            else
+            if (empty)
             {
-                std::cout << "You can't move West." << std::endl;
-                delay(3000);
-                clear(1);
+                if (currentRoom->west)
+                {
+                    currentRoom = currentRoom->west; //!< Move the player to the room to the west.
+                    codeGuessed = false;
+                }
+                else
+                {
+                    std::cout << "You can't move West." << std::endl;
+                    delay(3000);
+                    clear(1);
+                }
+                clear(14);
             }
-            clear(14);
         }
         else if (upperDirection == "/PLAY" && currentRoom->roomContent.getRoomType() == 1)
         {
@@ -202,6 +260,7 @@ void ValerisGame::start(const std::string &color)
                 clear(6);
                 difficulty -= 100;
             }
+            currentRoom->roomContent.clearEnemies();
             clear(14);
             std::cout << color;
         }

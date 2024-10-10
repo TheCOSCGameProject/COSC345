@@ -112,6 +112,8 @@ public:
      */
     std::vector<EnemyStruct> getEnemies();
 
+    void clearEnemies();
+
     /*!
      * @brief Sets the coordinates for this room.
      * @param x The x coordinate.

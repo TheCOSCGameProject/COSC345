@@ -266,6 +266,11 @@ std::vector<EnemyStruct> RoomContent::getEnemies()
     return enemies;
 }
 
+void RoomContent::clearEnemies()
+{
+    enemies.clear();
+}
+
 std::vector<std::string> RoomContent::getItems()
 {
     return items;
