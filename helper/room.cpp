@@ -271,6 +271,10 @@ void RoomContent::clearEnemies()
     enemies.clear();
 }
 
+void RoomContent::clearText(){
+    roomDesc = "Here lies the remains of enemies.";
+}
+
 std::vector<std::string> RoomContent::getItems()
 {
     return items;
