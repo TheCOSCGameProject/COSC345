@@ -85,7 +85,7 @@ void DisplayInstructionsText()
     std::string instructions = R"(
 Instructions:
 1. Use the N, S, W, E keys to move your character around the map.
-2. Fight enemies with /fight and then use W A S D to match your opponent.
+2. Fight enemies with /fight and then match the optimal move to damage your opponent.
 3. Collect items to improve your chances of survival. (Feature Coming Soon)
 4. Play minigames with with /play
 5. Defeat bosses to progress to the next level. (Feature Coming Soon)

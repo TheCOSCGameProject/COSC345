@@ -45,14 +45,14 @@ void printHealth(int playerHealth, int enemyHealth, const std::string &name)
 bool combatV1(int *playerHealth, int enemyHealth, int difficulty, const std::string &name, int playerDamage, int enemyDamage, int resistance)
 {
     // Define directional moves and their keyboard equivalents
-    const std::string moves[] = {"q", "a", "z", "4", "5", "6", "7", "o", "k", "m", "parry", "dodge", "counter", "roll", "pause"};
-    const std::string keyBoardEquivalent[] = {"q", "a", "z", "4", "5", "6", "7", "o", "k", "m", "parry", "dodge", "counter", "roll", "pause"};
+    const std::string moves[] = {"q", "a", "z", "4", "5", "6", "7", "o", "k", "m", "parry", "dodge", "counter", "roll", "pause", "punch", "kick"};
+    const std::string keyBoardEquivalent[] = {"q", "a", "z", "4", "5", "6", "7", "o", "k", "m", "parry", "dodge", "counter", "roll", "pause", "punch", "kick"};
     std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed for randomness
     printHealth(*playerHealth, enemyHealth, name);
     // Combat loop: continue while both player and enemy have health
     while (*playerHealth > 0 && enemyHealth > 0)
     {
-        int random_number = std::rand() % 15;                      // Select a random direction
+        int random_number = std::rand() % 17;                      // Select a random direction
         std::cout << "Optimal move: " + moves[random_number] + "    Your move: " << std::flush; // Display the move symbol
 
         auto start = std::chrono::high_resolution_clock::now(); // Start timer for user input
