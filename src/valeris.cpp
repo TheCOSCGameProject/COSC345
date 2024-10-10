@@ -52,19 +52,19 @@ int main()
       displayIntro(delayTime, color); //!< Display the game introduction.
       StartGame(color);               //!< Start a new game.
       break;
+    // case 2:
+    //   clear(10);
+    //   LoadSavedGame(); //!< Load a previously saved game.
+    //   break;
     case 2:
-      clear(10);
-      LoadSavedGame(); //!< Load a previously saved game.
-      break;
-    case 3:
       clear(11);
       DisplayInstructionsText(); //!< Display the instructions for the game.
       break;
-    case 4:
+    case 3:
       clear(10);
       Accessiblity(delayTime, color); //!< Access and modify accessibility options.
       break;
-    case 5:
+    case 4:
       std::cout << "Exiting Game. We hope you enjoyed the Game Play." << std::endl;
       running = false; //!< Exit the game loop.
       break;
