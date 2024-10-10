@@ -23,6 +23,7 @@ Welcome to **Valeris**, a modern remake of classic text-based dungeon crawler ga
   - [Development Workflow](#development-workflow)
   - [Documentation](#documentation)
   - [Tutorial Videos](#tutorial-videos)
+  - [Report Bugs](#report-bugs)
   - [Contributing](#contributing)
   - [The User Testing and the Feedback Collection](#the-user-testing-and-the-feedback-collection)
 
@@ -103,7 +104,17 @@ A tutorial on how to interact with the gambling rooms and play the games.
 A Tutorial on how to fight enemies in rooms and how to view inventory.
 [![Valeris Game Tutorial #3](https://img.youtube.com/vi/U_HqfbN5TFg/0.jpg)](https://www.youtube.com/watch?v=U_HqfbN5TFg)
 
+## Report Bugs
+If you encounter any bugs or issues while using the project, please feel free to report them:
 
+1. **Submit an Issue**: You can report bugs by opening an issue on our [Issue Tracker](https://github.com/TheCOSCGameProject/COSC345/issues). Please provide detailed information about the bug, including:
+   - Steps to reproduce the bug.
+   - Expected and actual behavior.
+   - Any relevant screenshots or logs.
+
+2. **Send an Email**: Alternatively, you can send an email to [bug-report@gmail.com](mailto:cjmt97@gmail.com) with the same information.
+
+We appreciate your feedback and will do our best to address the issues as soon as possible!
 
 
 ## Contributing
