@@ -658,33 +658,33 @@ void testAddToInventory()
 {
     Player player = createPlayerWithInput("Alice", "Warrior");
 
-    player.addToInventory("Sword");
-    std::vector<std::string> expected{"Sword"};
+    player.addToInventory("Sword:60:15:1");
+    std::vector<std::string> expected{"Sword:60:15:1"};
     ASSERT_EQUAL(player.getInventory(), expected);
 }
 
 void testRemoveFromInventory()
 {
     Player player = createPlayerWithInput("Alice", "Warrior");
-    player.addToInventory("Sword");
+    player.addToInventory("Sword:60:15:1");
 
-    player.removeFromInventory("Sword");
+    player.removeFromInventory("Sword:60:15:1");
     std::vector<std::string> expected{};
     ASSERT_EQUAL(player.getInventory(), expected);
-    player.removeFromInventory("Sword");
+    player.removeFromInventory("Sword:60:15:1");
     ASSERT_EQUAL(player.getInventory(), expected);
 
-    player.addToInventory("Bow");
-    player.addToInventory("Arrow");
-    std::vector<std::string> expected2 = {"Bow"};
-    player.removeFromInventory("Arrow");
+    player.addToInventory("Knife:90:10:1");
+    player.addToInventory("Crysknife:1:40:1");
+    std::vector<std::string> expected2 = {"Knife:90:10:1"};
+    player.removeFromInventory("Crysknife:1:40:1");
     ASSERT_EQUAL(player.getInventory(), expected2);
 
     std::stringstream simulatedOutput;
     std::streambuf *coutBackup = std::cout.rdbuf();
     std::cout.rdbuf(simulatedOutput.rdbuf());
 
-    player.removeFromInventory("Arrow"); // Item not in the inventory
+    player.removeFromInventory("Poisioned Sword:40:30:1"); // Item not in the inventory
 
     // Restore std::cout
     std::cout.rdbuf(coutBackup);
@@ -700,7 +700,7 @@ void testRemoveNonexistentItem()
     std::stringstream simulatedOutput;
     std::streambuf *coutBackup = std::cout.rdbuf();
     std::cout.rdbuf(simulatedOutput.rdbuf());
-    player.removeFromInventory("Sword");
+    player.removeFromInventory("Poisioned Sword:40:30:1");
 
     std::cout.rdbuf(coutBackup);
 
@@ -1475,7 +1475,7 @@ int main()
     framework.addTest("Dungeon Link Room", testLinkRooms);
 
     // combat tests
-    // framework.addTest("Print Health", testPrintHealth);
+    framework.addTest("Print Health", testPrintHealth);
 
     // Menu tests
     framework.addTest("Display intro test", testDisplayIntro);
@@ -1488,7 +1488,7 @@ int main()
     framework.addTest("Test GetColor Cyan", testGetColor_Cyan);
     framework.addTest("Test GetColor Invalid", testGetColor_Invalid);
 
-    // framework.addTest("CombatV1PressP", testCombatV1PressP);
+    framework.addTest("CombatV1PressP", testCombatV1PressP);
 
     framework.addTest("CodeGuesserPrintWords", testCodeGuesserPrintWords);
 

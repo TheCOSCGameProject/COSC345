@@ -120,6 +120,7 @@ void Player::removeFromInventory(std::string item)
             return;
         }
     }
+    std::cout << "Item not found in inventory.\n";
 }
 
 /*!
