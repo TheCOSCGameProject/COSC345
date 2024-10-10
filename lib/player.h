@@ -146,6 +146,8 @@ public:
     void setDamage(int d);
 
     int getDamage();
+
+    bool displayStats();
 };
 
 #endif // PLAYER_H

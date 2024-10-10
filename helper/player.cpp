@@ -277,3 +277,14 @@ bool Player::printInventory()
     std::cout << std::endl;
     return wasEmpty;
 }
+
+bool Player::displayStats()
+{
+    std::cout << "Players Name: " << firstName << std::endl;
+    std::cout << "Damage: " << damage << std::endl;
+    std::cout << "Health: " << currHealth << std::endl;
+    std::cout << "Max Health: " << maxHealth << std::endl;
+    std::cout << "Resistance: " << resistance << std::endl;
+    std::cout << "Coins: " << coins << std::endl;
+    return true;
+}

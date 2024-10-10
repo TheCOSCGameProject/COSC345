@@ -54,7 +54,7 @@ void ValerisGame::start(const std::string &color)
             searchString = ", /search";
         }
 
-        std::cout << "Other Avalible Actions: Q, /help, /inventory" + fightString + playString + searchString + "\nEnter Action : ";
+        std::cout << "Other Avalible Actions: Q, /help, /stats, /inventory" + fightString + playString + searchString + "\nEnter Action : ";
         std::string direction = getUserInputToken(); //!< Gets the player's input for movement or action.
         std::cout << "\n";
 
@@ -169,6 +169,10 @@ void ValerisGame::start(const std::string &color)
             }
             clear(14);
             std::cout << color;
+        }
+        else if (upperDirection == "/STATS")
+        {
+            player.displayStats();
         }
         else if (upperDirection == "Q")
         {
