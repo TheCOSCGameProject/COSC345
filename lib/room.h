@@ -114,6 +114,8 @@ public:
 
     void clearEnemies();
 
+    void clearText();
+
     /*!
      * @brief Sets the coordinates for this room.
      * @param x The x coordinate.

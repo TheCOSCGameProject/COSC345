@@ -265,6 +265,7 @@ void ValerisGame::start(const std::string &color)
                 difficulty -= 100;
             }
             currentRoom->roomContent.clearEnemies();
+            currentRoom->roomContent.clearText();
             clear(14);
             std::cout << color;
         }
