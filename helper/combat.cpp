@@ -52,7 +52,7 @@ bool combatV1(int *playerHealth, int enemyHealth, int difficulty, const std::str
     // Combat loop: continue while both player and enemy have health
     while (*playerHealth > 0 && enemyHealth > 0)
     {
-        int random_number = std::rand() % 17;                      // Select a random direction
+        int random_number = std::rand() % 17;                                                   // Select a random direction
         std::cout << "Optimal move: " + moves[random_number] + "    Your move: " << std::flush; // Display the move symbol
 
         auto start = std::chrono::high_resolution_clock::now(); // Start timer for user input
@@ -68,7 +68,6 @@ bool combatV1(int *playerHealth, int enemyHealth, int difficulty, const std::str
             enemyHealth -= playerDamage; // Successful hit on the enemy
             clear(5);
             printHealth(*playerHealth, enemyHealth, name);
-            difficulty -= 100;
         }
         else if (elapsed.count() >= difficulty / 1000.0)
         {

@@ -10,13 +10,21 @@ Welcome to **Valeris**, a modern remake of classic text-based dungeon crawler ga
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Development Workflow](#development-workflow)
-- [Documentation](#documentation)
-- [Contributing](#contributing)
+- [Valeris - A Text-Based Dungeon Crawler](#valeris---a-text-based-dungeon-crawler)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Features](#features)
+  - [Installation](#installation)
+    - [Prerequisites](#prerequisites)
+    - [Clone the Repository and Run the Project](#clone-the-repository-and-run-the-project)
+        - [Run Project](#run-project)
+        - [Run Tests](#run-tests)
+  - [Usage](#usage)
+  - [Development Workflow](#development-workflow)
+  - [Documentation](#documentation)
+  - [Tutorial Videos](#tutorial-videos)
+  - [Contributing](#contributing)
+  - [The User Testing and the Feedback Collection](#the-user-testing-and-the-feedback-collection)
 
 ## Introduction
 
@@ -80,6 +88,19 @@ We follow an agile development process with tasks managed via Trello and real-ti
 
 The codedocs.xyz has been used to generate Doxygen documentation. The documentation for this project can be found in the below webpage/website:
 https://codedocs.xyz/TheCOSCGameProject/COSC345/
+
+## Tutorial Videos
+
+Tutorial on interacting with rooms with locked safes inside on them.
+[![Valeris Game Tutorial #1](https://img.youtube.com/vi/NFQdjaoEKqc/0.jpg)](https://www.youtube.com/watch?v=NFQdjaoEKqc)
+
+A tutorial on how to interact with the gambling rooms and play the games.
+[![Valeris Game Tutorial #2](https://img.youtube.com/vi/cv9LjFNY92s/0.jpg)](https://www.youtube.com/watch?v=cv9LjFNY92s)
+
+A Tutorial on how to fight enemies in rooms.
+[![Valeris Game Tutorial #3](https://img.youtube.com/vi/U_HqfbN5TFg/0.jpg)](https://www.youtube.com/watch?v=U_HqfbN5TFg)
+
+
 
 ## Contributing
 
