@@ -407,7 +407,6 @@ bool CodeGuesser::addGuess()
     return correct;
 }
 
-
 /*!
 @brief Print all the guesses made by the player so far.
 */
@@ -543,7 +542,7 @@ bool BlackJack::start()
         }
     }
 
-    if (totalWins >= maxRounds / 2)
+    if (totalWins == 1)
     {
         std::cout << "Game Over You Win!" << std::endl;
         delay(1000);
