@@ -54,7 +54,7 @@ void ValerisGame::start(const std::string &color)
             searchString = ", /search";
         }
 
-        std::cout << "Other Avalible Actions: Q, /help, /stats, /inventory" + fightString + playString + searchString + "\nEnter Action : ";
+        std::cout << "Other Avalible Actions: Q, /help, /heal, /stats, /inventory" + fightString + playString + searchString + "\nEnter Action : ";
         std::string direction = getUserInputToken(); //!< Gets the player's input for movement or action.
         std::cout << "\n";
 
@@ -151,13 +151,17 @@ void ValerisGame::start(const std::string &color)
             }
             player.setCoinsPlus(currentRoom->roomContent.getCoins());
         }
+        else if (upperDirection == "/HEAL")
+        {
+            player.heal();
+        }
         else if (upperDirection == "/FIGHT" && currentRoom->roomContent.getRoomType() == 0)
         {
             std::cout << "\033[37m";
             std::vector<EnemyStruct> enemies = currentRoom->roomContent.getEnemies();
-            for (int i = 0; i < (int)enemies.size(); i++)
+            while (!enemies.empty())
             {
-                EnemyStruct enemy = enemies[i];
+                EnemyStruct enemy = enemies.front();
                 int enemyHealth = enemy.health;
                 int difficulty = 2000;
                 bool state = combatV1(player.getCurrHealth(), enemyHealth, 3000, enemy.name, player.getDamage(), enemy.attack, player.getResistance()); //!< Initiates combat with the enemy.
@@ -165,6 +169,10 @@ void ValerisGame::start(const std::string &color)
                 {
                     exploring = false;
                     break;
+                }
+                else
+                {
+                    enemies.erase(enemies.begin());
                 }
                 std::cout << "Healing..." << std::endl;
                 player.heal();

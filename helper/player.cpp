@@ -79,7 +79,7 @@ bool Player::addToInventory(std::string item)
         setDamage(itemScore);
     }
 
-    if (itemType == 2 && itemScore > getDamage())
+    if (itemType == 2 && itemScore > getResistance())
     {
         setResistance(itemScore);
     }
@@ -304,26 +304,48 @@ bool Player::setCoinsMinus(int c)
 
 void Player::heal()
 {
-    for (size_t i = 0; i < inventory.size(); i++)
+    for (size_t i = 0; i < inventory.size(); /* no increment here */)
     {
         int itemType = stringToInt(split(inventory[i], ':')[3]);
         int itemScore = stringToInt(split(inventory[i], ':')[2]);
+
         if (itemType == 3)
         {
-            for (size_t j = 0; j < numberItems[i]; j++)
+            for (size_t j = 0; j < numberItems[i]; /* no increment here */)
             {
                 int health = *getCurrHealth() + itemScore;
                 setCurrHealth(health);
+
+                // Decrease the item count
                 numberItems[i] -= 1;
+
+                // Remove the item from the inventory if none are left
                 if (numberItems[i] <= 0)
                 {
                     numberItems.erase(numberItems.begin() + i);
+                    inventory.erase(inventory.begin() + i);
+                    // Since we just removed an item at index `i`, do not increment `i`
+                    // but continue the loop to process the next valid index.
+                    // If max health is reached, return immediately
+                    if (*getCurrHealth() == getMaxHealth())
+                    {
+                        return;
+                    }
+                    break;
                 }
+
+                // If max health is reached, return immediately
                 if (*getCurrHealth() == getMaxHealth())
                 {
                     return;
                 }
+
+                j++; // Manually increment the inner loop for numberItems
             }
+        }
+        else
+        {
+            i++; // Increment `i` if no erasure happened
         }
     }
 }
