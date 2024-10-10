@@ -149,6 +149,7 @@ void ValerisGame::start(const std::string &color)
             {
                 player.addToInventory(itemsToAdd[i]);
             }
+            player.setCoinsPlus(currentRoom->roomContent.getCoins());
         }
         else if (upperDirection == "/FIGHT" && currentRoom->roomContent.getRoomType() == 0)
         {

@@ -145,6 +145,8 @@ public:
 
     bool collect(Player *player);
 
+    int getCoins();
+
 private:
     std::vector<std::string> items;   //!< Items available in the room.
     std::vector<EnemyStruct> enemies; //!< Enemies present in the room.
@@ -155,6 +157,7 @@ private:
     std::pair<int, int> cords;        //!< (x,y) Coordinates of room
     bool visited;                     //!< Whether or not the room has been visited
     std::unique_ptr<Game> nonGambilingGame;
+    int coins;
 };
 
 /*!

@@ -95,8 +95,10 @@ void RoomContent::lockedRoom()
     // {
     //     std::cout << armour_items[i] << std::endl;
     // }
+    coins = generateRandomNumber(10, 20);
 
-    std::vector<int> health_items_dist = getDist(health_items);
+    std::vector<int>
+        health_items_dist = getDist(health_items);
 
     std::vector<int> weapon_items_dist = getDist(weapon_items);
 
@@ -348,7 +350,18 @@ void RoomContent::displayRoomItems()
     {
         std::cout << i + 1 << ". " << split(items[i], ':')[0] << std::endl;
     }
+    if (coins > 0)
+    {
+        std::cout << "Coins" << ": " << coins << std::endl;
+    }
     std::cout << std::endl;
+}
+
+int RoomContent::getCoins()
+{
+    int c = coins;
+    coins = 0;
+    return c;
 }
 
 bool RoomContent::collect(Player *player)

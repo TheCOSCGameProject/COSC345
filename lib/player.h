@@ -148,6 +148,10 @@ public:
     int getDamage();
 
     bool displayStats();
+
+    bool setCoinsPlus(int c);
+
+    bool setCoinsMinus(int c);
 };
 
 #endif // PLAYER_H

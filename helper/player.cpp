@@ -289,3 +289,15 @@ bool Player::displayStats()
     std::cout << "Coins: " << coins << std::endl;
     return true;
 }
+
+bool Player::setCoinsPlus(int c)
+{
+    coins += c;
+    return true;
+}
+
+bool Player::setCoinsMinus(int c)
+{
+    coins -= c;
+    return true;
+}
