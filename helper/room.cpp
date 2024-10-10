@@ -18,7 +18,7 @@ Depending on the room type, it populates the room with appropriate items, enemie
 */
 
 RoomContent::RoomContent()
-    : roomType(generateRandomNumber(0, 2)),
+    : roomType(generateRandomNumber(0, 3)),
       passcode(false),
       visited(false)
 {
@@ -56,6 +56,22 @@ RoomContent::RoomContent()
         lockedRoom();
         roomDesc = "You have entered a room with a locked safe type /PLAY to try crack the passcode!";
         roomType = 2;
+        break;
+    case 3:
+        enemyRoom();
+        roomDesc = "You have entered a Room";
+        if (!enemies.empty())
+        {
+            roomDesc.append(" containing ");
+            for (size_t i = 0; i < enemies.size(); ++i)
+            {
+                if (i > 0)
+                {
+                    roomDesc.append(", ");
+                }
+                roomDesc.append(enemies[i].name);
+            }
+        }
         break;
     default:
         break;
