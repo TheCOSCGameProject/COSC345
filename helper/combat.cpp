@@ -45,15 +45,15 @@ void printHealth(int playerHealth, int enemyHealth, const std::string &name)
 bool combatV1(int *playerHealth, int enemyHealth, int difficulty, const std::string &name, int playerDamage, int enemyDamage, int resistance)
 {
     // Define directional moves and their keyboard equivalents
-    const std::string moves[] = {"A", "W", "D", "S"};
-    const std::string keyBoardEquivalent[] = {"a", "w", "d", "s"};
+    const std::string moves[] = {"q", "a", "z", "4", "5", "6", "7", "o", "k", "m", "parry", "dodge", "counter", "roll", "pause"};
+    const std::string keyBoardEquivalent[] = {"q", "a", "z", "4", "5", "6", "7", "o", "k", "m", "parry", "dodge", "counter", "roll", "pause"};
     std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed for randomness
     printHealth(*playerHealth, enemyHealth, name);
     // Combat loop: continue while both player and enemy have health
     while (*playerHealth > 0 && enemyHealth > 0)
     {
-        int random_number = std::rand() % 4;                      // Select a random direction
-        std::cout << moves[random_number] + "    " << std::flush; // Display the move symbol
+        int random_number = std::rand() % 15;                      // Select a random direction
+        std::cout << "Optimal move: " + moves[random_number] + "    Your move: " << std::flush; // Display the move symbol
 
         auto start = std::chrono::high_resolution_clock::now(); // Start timer for user input
         std::string inputStr;
@@ -63,23 +63,26 @@ bool combatV1(int *playerHealth, int enemyHealth, int difficulty, const std::str
         std::chrono::duration<double> elapsed = now - start;  // Calculate elapsed time
 
         // Check if user input matches and is within the allowed time
-        if (inputStr == keyBoardEquivalent[random_number] && elapsed.count() < difficulty / 1000.0)
+        if (inputStr == keyBoardEquivalent[random_number] && ((elapsed.count() < difficulty / 1000.0) || (elapsed.count() < 1.1)))
         {
             enemyHealth -= playerDamage; // Successful hit on the enemy
             clear(5);
             printHealth(*playerHealth, enemyHealth, name);
+            difficulty -= 100;
         }
         else if (elapsed.count() >= difficulty / 1000.0)
         {
             *playerHealth -= enemyDamage + resistance; // Player takes damage due to slow response
             clear(5);
             printHealth(*playerHealth, enemyHealth, name);
+            difficulty += 50;
         }
         else
         {
             *playerHealth -= (int)(enemyDamage / 2) + resistance; // Incorrect input results in minor damage
             clear(5);
             printHealth(*playerHealth, enemyHealth, name);
+            difficulty += 50;
         }
     }
 
@@ -87,13 +90,13 @@ bool combatV1(int *playerHealth, int enemyHealth, int difficulty, const std::str
     if (*playerHealth > 0)
     {
         std::cout << "You Win!" << std::endl;
-        delay(1000);
+        delay(500);
         return true;
     }
     else
     {
-        std::cout << "You Died!" << std::endl;
-        delay(1000);
+        std::cout << "You Died!\nThanks for playing!" << std::endl;
+        delay(1500);
         return false;
     }
 }

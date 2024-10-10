@@ -158,6 +158,7 @@ void ValerisGame::start(const std::string &color)
             {
                 EnemyStruct enemy = enemies[i];
                 int enemyHealth = enemy.health;
+                int difficulty = 2000;
                 bool state = combatV1(player.getCurrHealth(), enemyHealth, 3000, enemy.name, player.getDamage(), enemy.attack, player.getResistance()); //!< Initiates combat with the enemy.
                 if (!state)
                 {
@@ -166,6 +167,7 @@ void ValerisGame::start(const std::string &color)
                 }
                 delay(500);
                 clear(5);
+                difficulty -= 100;
             }
             clear(14);
             std::cout << color;
