@@ -72,6 +72,7 @@ RoomContent::RoomContent()
                 roomDesc.append(enemies[i].name);
             }
         }
+        roomType = 0;
         break;
     default:
         break;

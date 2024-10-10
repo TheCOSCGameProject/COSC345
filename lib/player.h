@@ -152,6 +152,8 @@ public:
     bool setCoinsPlus(int c);
 
     bool setCoinsMinus(int c);
+
+    void heal();
 };
 
 #endif // PLAYER_H

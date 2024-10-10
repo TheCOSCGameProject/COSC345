@@ -166,8 +166,10 @@ void ValerisGame::start(const std::string &color)
                     exploring = false;
                     break;
                 }
+                std::cout << "Healing..." << std::endl;
+                player.heal();
                 delay(500);
-                clear(5);
+                clear(6);
                 difficulty -= 100;
             }
             clear(14);

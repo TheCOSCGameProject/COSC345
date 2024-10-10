@@ -301,3 +301,29 @@ bool Player::setCoinsMinus(int c)
     coins -= c;
     return true;
 }
+
+void Player::heal()
+{
+    for (size_t i = 0; i < inventory.size(); i++)
+    {
+        int itemType = stringToInt(split(inventory[i], ':')[3]);
+        int itemScore = stringToInt(split(inventory[i], ':')[2]);
+        if (itemType == 3)
+        {
+            for (size_t j = 0; j < numberItems[i]; j++)
+            {
+                int health = *getCurrHealth() + itemScore;
+                setCurrHealth(health);
+                numberItems[i] -= 1;
+                if (numberItems[i] <= 0)
+                {
+                    numberItems.erase(numberItems.begin() + i);
+                }
+                if (*getCurrHealth() == getMaxHealth())
+                {
+                    return;
+                }
+            }
+        }
+    }
+}
