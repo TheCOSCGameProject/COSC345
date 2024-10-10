@@ -97,7 +97,7 @@ Tutorial on interacting with rooms with locked safes inside on them.
 A tutorial on how to interact with the gambling rooms and play the games.
 [![Valeris Game Tutorial #2](https://img.youtube.com/vi/cv9LjFNY92s/0.jpg)](https://www.youtube.com/watch?v=cv9LjFNY92s)
 
-A Tutorial on how to fight enemies in rooms.
+A Tutorial on how to fight enemies in rooms and how to view inventory.
 [![Valeris Game Tutorial #3](https://img.youtube.com/vi/U_HqfbN5TFg/0.jpg)](https://www.youtube.com/watch?v=U_HqfbN5TFg)
 
 
