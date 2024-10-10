@@ -304,6 +304,10 @@ bool Player::setCoinsMinus(int c)
 
 void Player::heal()
 {
+    if (*getCurrHealth() == getMaxHealth())
+    {
+        return;
+    }
     for (size_t i = 0; i < inventory.size(); /* no increment here */)
     {
         int itemType = stringToInt(split(inventory[i], ':')[3]);

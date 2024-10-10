@@ -154,6 +154,7 @@ void ValerisGame::start(const std::string &color)
         else if (upperDirection == "/HEAL")
         {
             player.heal();
+            clear(14);
         }
         else if (upperDirection == "/FIGHT" && currentRoom->roomContent.getRoomType() == 0)
         {
