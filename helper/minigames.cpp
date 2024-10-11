@@ -301,7 +301,7 @@ int CodeGuesser::generateRandomIndex(size_t size)
     }
     std::random_device rd;                            // Seed
     std::mt19937 gen(rd());                           // Mersenne Twister engine
-    std::uniform_int_distribution<> dis(0, size - 1); // Distribution range
+    std::uniform_int_distribution<> dis(0, (int)size - 1); // Distribution range
     return dis(gen);
 }
 
@@ -445,7 +445,7 @@ int CodeGuesser::getWordLength() const
 */
 int CodeGuesser::getGuessCount() const
 {
-    return guesses.size();
+    return (int)guesses.size();
 }
 
 /*!
@@ -623,7 +623,7 @@ void BlackJack::newGame()
             cards.push_back(10);
         }
     }
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    unsigned seed = static_cast<unsigned>(std::chrono::system_clock::now().time_since_epoch().count());
     auto rng = std::default_random_engine(seed);
     std::shuffle(std::begin(cards), std::end(cards), rng);
 

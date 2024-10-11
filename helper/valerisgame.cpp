@@ -13,7 +13,7 @@
  */
 ValerisGame::ValerisGame()
 {
-    numRooms = 20;                                 //!< Sets the number of rooms in the dungeon.
+    numRooms = 2;                                 //!< Sets the number of rooms in the dungeon.
     currentRoom = dungeon.generateFloor(numRooms); //!< Generates the dungeon floor and sets the starting room.
 }
 
@@ -26,6 +26,7 @@ void ValerisGame::start(const std::string &color)
 {
     bool exploring = true; //!< Flag to control the exploration loop.
     bool codeGuessed = false;
+    int numVistedRooms = 0;
     while (exploring)
     {
         // dungeon.traverseAndPrint(currentRoom);
@@ -33,10 +34,19 @@ void ValerisGame::start(const std::string &color)
         std::cout << color + currentRoom->roomContent.getRoomDesc() << ".\n\n";
         currentRoom->displayAvailableDirections();
 
+        if (!currentRoom->roomContent.getVisited()) {
+            currentRoom->roomContent.setVisited(true);
+            numVistedRooms += 1;
+        }
+
+
+
         std::string fightString = "";
         std::string playString = "";
         std::string searchString = "";
         std::string bidString = "";
+        std::string finishedString = "";
+
 
         if (currentRoom->roomContent.getRoomType() == 0)
         {
@@ -58,8 +68,11 @@ void ValerisGame::start(const std::string &color)
         {
             bidString = ", /gamble";
         }
+        if (numVistedRooms == numRooms) {
+            finishedString = ", /finish";
+        }
 
-        std::cout << "Other Avalible Actions: Q, /help, /heal, /stats, /inventory" + fightString + playString + searchString + bidString + "\nEnter Action : ";
+        std::cout << "Other Avalible Actions: Q, /help, /heal, /stats, /inventory" + fightString + playString + searchString + bidString + finishedString + "\nEnter Action : ";
         std::string direction = getUserInputToken(); //!< Gets the player's input for movement or action.
         std::cout << "\n";
 
@@ -272,6 +285,33 @@ void ValerisGame::start(const std::string &color)
         else if (upperDirection == "/STATS")
         {
             player.displayStats();
+        }
+        else if (upperDirection == "/FINISH" && numVistedRooms == numRooms) {
+            std::cout << R"(
+        _________                                     __        .__          __  .__                      
+        \_   ___ \  ____   ____    ________________ _/  |_ __ __|  | _____ _/  |_|__| ____   ____   ______
+        /    \  \/ /  _ \ /    \  / ___\_  __ \__  \\   __\  |  \  | \__  \\   __\  |/  _ \ /    \ /  ___/
+        \     \___(  <_> )   |  \/ /_/  >  | \// __ \|  | |  |  /  |__/ __ \|  | |  (  <_> )   |  \\___ \ 
+         \______  /\____/|___|  /\___  /|__|  (____  /__| |____/|____(____  /__| |__|\____/|___|  /____  >
+                \/            \//_____/            \/                     \/                    \/     \/ 
+        _____.___.                     .__                                  .___   __  .__                
+        \__  |   | ____  __ __    ____ |  |   ____ _____ _______   ____   __| _/ _/  |_|  |__   ____      
+         /   |   |/  _ \|  |  \ _/ ___\|  | _/ __ \\__  \\_  __ \_/ __ \ / __ |  \   __\  |  \_/ __ \     
+         \____   (  <_> )  |  / \  \___|  |_\  ___/ / __ \|  | \/\  ___// /_/ |   |  | |   Y  \  ___/     
+         / ______|\____/|____/   \___  >____/\___  >____  /__|    \___  >____ |   |__| |___|  /\___  >    
+         \/                          \/          \/     \/            \/     \/             \/     \/     
+                                 .___                                      ._.                            
+                               __| _/_ __  ____    ____   ____  ____   ____| |                            
+                              / __ |  |  \/    \  / ___\_/ __ \/  _ \ /    \ |                            
+                             / /_/ |  |  /   |  \/ /_/  >  ___(  <_> )   |  \|                            
+                             \____ |____/|___|  /\___  / \___  >____/|___|  /_                            
+                                  \/          \//_____/      \/           \/\/ 
+        )" << std::endl;
+
+            delay(5000);
+            clear(100);
+            exploring = false; //!< Exits the exploration loop and ends the game.
+            std::cout << "Exiting dungeon exploration." << std::endl;
         }
         else if (upperDirection == "Q")
         {

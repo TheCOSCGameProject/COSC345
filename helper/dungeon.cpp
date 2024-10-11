@@ -109,7 +109,7 @@ void Dungeon::checkAndLink(Room *newRoom, int x, int y, std::map<std::pair<int, 
 */
 std::string Dungeon::getMap(Room *room)
 {
-    room->roomContent.setVisited(true);
+    //room->roomContent.setVisited(true);
     std::queue<Room *> roomQueue;
     std::set<std::pair<int, int>> visitedRooms;
     roomQueue.push(room);

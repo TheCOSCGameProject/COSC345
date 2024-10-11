@@ -20,7 +20,8 @@ Depending on the room type, it populates the room with appropriate items, enemie
 RoomContent::RoomContent()
     : roomType(generateRandomNumber(0, 3)),
       passcode(false),
-      visited(false)
+      visited(false),
+      coins(0)
 {
     switch (roomType)
     {
@@ -206,7 +207,7 @@ void RoomContent::enemyRoom()
         }
     }
 
-    int numEnemiesToAdd = generateRandomNumber(1, 4);
+    int numEnemiesToAdd = 1;//generateRandomNumber(1, 3);
     for (int i = 0; i < numEnemiesToAdd && !listOfRoomEnemies.empty(); i++)
     {
         int index = generateRandomNumber(0, (int)listOfRoomEnemies.size() - 1);
