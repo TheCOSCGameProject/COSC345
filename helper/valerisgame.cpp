@@ -13,7 +13,7 @@
  */
 ValerisGame::ValerisGame()
 {
-    numRooms = 2;                                 //!< Sets the number of rooms in the dungeon.
+    numRooms = 20;                                 //!< Sets the number of rooms in the dungeon.
     currentRoom = dungeon.generateFloor(numRooms); //!< Generates the dungeon floor and sets the starting room.
 }
 
@@ -34,19 +34,17 @@ void ValerisGame::start(const std::string &color)
         std::cout << color + currentRoom->roomContent.getRoomDesc() << ".\n\n";
         currentRoom->displayAvailableDirections();
 
-        if (!currentRoom->roomContent.getVisited()) {
+        if (!currentRoom->roomContent.getVisited())
+        {
             currentRoom->roomContent.setVisited(true);
             numVistedRooms += 1;
         }
-
-
 
         std::string fightString = "";
         std::string playString = "";
         std::string searchString = "";
         std::string bidString = "";
         std::string finishedString = "";
-
 
         if (currentRoom->roomContent.getRoomType() == 0)
         {
@@ -68,7 +66,8 @@ void ValerisGame::start(const std::string &color)
         {
             bidString = ", /gamble";
         }
-        if (numVistedRooms == numRooms) {
+        if (numVistedRooms == numRooms)
+        {
             finishedString = ", /finish";
         }
 
@@ -286,7 +285,8 @@ void ValerisGame::start(const std::string &color)
         {
             player.displayStats();
         }
-        else if (upperDirection == "/FINISH" && numVistedRooms == numRooms) {
+        else if (upperDirection == "/FINISH" && numVistedRooms == numRooms)
+        {
             std::cout << R"(
         _________                                     __        .__          __  .__                      
         \_   ___ \  ____   ____    ________________ _/  |_ __ __|  | _____ _/  |_|__| ____   ____   ______
